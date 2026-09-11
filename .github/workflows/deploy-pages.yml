@@ -39,6 +39,9 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends fonts-noto-cjk
 
+      - name: Material visual source audit
+        run: python qa/material_visual_sources.py
+
       - name: Release tests
         shell: bash
         run: |
@@ -57,9 +60,6 @@ jobs:
             echo "::error title=FloraLab release tests failed::See the job summary for the exact test output."
             exit "$code"
           fi
-
-      - name: Material visual source audit
-        run: python qa/material_visual_sources.py
 
       - name: Page-by-page visual gate
         run: python qa/ui_1_2.py
