@@ -1,8 +1,11 @@
 {
   "version": "1.2.1",
-  "provider": "Wikimedia Commons",
-  "provider_api": "https://commons.wikimedia.org/w/api.php",
-  "strategy": "Real reusable image search first; AI fallback only for unresolved or unsuitable items.",
+  "provider": "Openverse + Wikimedia Commons",
+  "provider_api": [
+    "https://api.openverse.org/v1/images/",
+    "https://commons.wikimedia.org/w/api.php"
+  ],
+  "strategy": "Openverse first, Wikimedia Commons fallback; AI generation only for entries unresolved or visually unsuitable after search.",
   "note": "Queries are deliberately specific so Commons search results are identification-oriented. Runtime stores source/artist/license metadata and never labels an unverified search result as a verified botanical fact.",
   "items": {
     "flower:rose": {
