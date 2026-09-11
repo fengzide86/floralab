@@ -35,7 +35,23 @@ jobs:
         run: python -m pip install --disable-pip-version-check pillow cairosvg
 
       - name: Release tests
-        run: npm run test:release
+        shell: bash
+        run: |
+          set +e
+          npm run test:release > release-test.log 2>&1
+          code=$?
+          cat release-test.log
+          {
+            echo "## FloraLab release tests"
+            echo
+            echo '~~~text'
+            tail -n 160 release-test.log
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$code" -ne 0 ]; then
+            echo "::error title=FloraLab release tests failed::See the job summary for the exact test output."
+            exit "$code"
+          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
