@@ -1,5 +1,16 @@
 # FloraLab Changelog
 
+## 1.1.2 — Workspace UI
+
+- 工作区从“展示型大版式”收回到真实工具尺度：正文、表格、控件和编辑字段统一提高可读性，但不把页面做成后台卡片墙。
+- 作品页区分 Overview 与工具页头部；Recipe / Structure / Build 使用更紧凑的工作区头部，减少首屏被标题占据。
+- Desktop 与 Mobile 不再追求完全同构：手机 Recipe 改为分块编辑，Structure 强化点选与数值调整，Build 强化步骤导航和材料消耗按钮。
+- Blueprint 标签默认降噪，仅在选中 / hover 时强调，五视图仍共享同一份 Blueprint 数据。
+- 修复材料库搜索输入在窄屏下的挤压与溢出问题。
+- 接入已确认的紫色花叶 F 品牌图标源；构建阶段统一生成 favicon、PWA、maskable 与 Windows ICO。
+- Service Worker 缓存升级到 `floralab-1.1.2`，确保工作区视觉更新覆盖旧缓存。
+- GitHub Pages 发布继续使用 release gate；1.1.2 版本号、Runtime、静态测试与发布文档统一对齐。
+
 ## 1.1.1 — Visual acceptance
 
 - 对照 Linear 2026、Figma UI3、Raycast 2.0、Apple WWDC26/HIG 与 Material 3 Expressive 做线上视觉验收。
