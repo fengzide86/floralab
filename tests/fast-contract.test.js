@@ -49,6 +49,7 @@ ok(runtime.includes('/api/design/fork'),'creative branch route bundled');
 const sw=fs.readFileSync(path.join(pub,'service-worker.js'),'utf8');
 ok(sw.includes('NETWORK_FIRST'),'PWA shell refresh policy preserved');
 ok(sw.includes(`floralab-${pkg.version}-shell-refresh`),'service worker cache follows package');
+ok(pkg.scripts['check:fast'].includes('check:generated'),'generated browser bundle syntax is gated');
 ok(pkg.scripts['check:fast'].includes('test:fast-contract'),'fast contract wired');
 ok(pkg.scripts['test:release'],'release gate remains separate');
 console.log(`fast-contract: ${n} checks passed`);

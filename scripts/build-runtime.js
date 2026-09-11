@@ -4,7 +4,7 @@ const ROOT=path.resolve(__dirname,'..');
 const pkg=JSON.parse(fs.readFileSync(path.join(ROOT,'package.json'),'utf8'));
 const APP_VERSION=String(pkg.version||'dev');
 function transform(src, kind){
-  src=src.replace(/^const crypto = require\('crypto'\);\s*/m,'');
+  src=src.replace(/^const\s+crypto\s*=\s*require\('crypto'\);\s*/m,'');
   if(kind==='studio'){
     src=src.replace(/^const \{ localPlan, validatePlan: legacyValidatePlan \} = require\('\.\/engine'\);\s*/m,'');
     src=src.replace(/^const V = require\('\.\/versions'\);\s*/m,'');
