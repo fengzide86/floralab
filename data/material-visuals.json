@@ -1,0 +1,9 @@
+{
+  "version": "1.2.0",
+  "policy": {
+    "purpose": "FloraLab material visual provenance registry",
+    "rule": "Only verified material-identification images with a recorded source and license may be rendered as factual material photos. Missing visuals must use the built-in non-factual placeholder.",
+    "fallback_label": "暂无可靠图片"
+  },
+  "items": {}
+}
