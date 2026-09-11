@@ -83,7 +83,7 @@ def resolve_commons(query):
     info=best['imageinfo'][0];md=info.get('extmetadata') or {}
     return {
       'ok':True,'provider':'Wikimedia Commons','query':query,'title':best.get('title',''),
-      'asset':info.get('thumburl') or info.get('url'),'source':info.get('descriptionurl',''),'mime':info.get('mime',''),
+      'asset':info.get('url') or info.get('thumburl'),'source':info.get('descriptionurl',''),'mime':info.get('mime',''),
       'license':clean((md.get('LicenseShortName') or md.get('UsageTerms') or {}).get('value','Wikimedia Commons')),
       'license_url':clean((md.get('LicenseUrl') or {}).get('value','')),
       'creator':clean((md.get('Artist') or md.get('Credit') or {}).get('value','Wikimedia Commons'))[:160]
