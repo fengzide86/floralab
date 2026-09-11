@@ -1,8 +1,19 @@
 from pathlib import Path
 from PIL import Image
+from io import BytesIO
+import base64
 ROOT=Path(__file__).resolve().parents[1]
 icons=ROOT/'public'/'icons'; icons.mkdir(parents=True,exist_ok=True)
-source=Image.open(icons/'floralab-source.webp').convert('RGBA')
+source_file=icons/'floralab-source.webp'
+if source_file.exists():
+    source=Image.open(source_file).convert('RGBA')
+else:
+    part_dir=icons/'source-parts'
+    parts=sorted(part_dir.glob('floralab-source.b64.*'))
+    if not parts:
+        raise FileNotFoundError('approved FloraLab icon source is missing')
+    payload=''.join(p.read_text(encoding='ascii').strip() for p in parts)
+    source=Image.open(BytesIO(base64.b64decode(payload))).convert('RGBA')
 for size in [16,32,64,180,192,512]:
     source.resize((size,size),Image.Resampling.LANCZOS).save(icons/f'icon-{size}.png')
 # Maskable: fill transparent corners with a purple sampled from the approved icon.
