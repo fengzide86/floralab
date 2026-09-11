@@ -117,7 +117,7 @@ with sync_playwright() as p:
     # D07 Library home
     page.click('[data-go="materials"]');page.wait_for_selector('.library-shell');page.wait_for_timeout(180)
     ck(page.locator('.material-card').count()>0,'D07 library cards')
-    ck(page.locator('.material-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")>=3,'D07 three-column desktop')
+    ck(page.locator('#libraryResults').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")>=3,'D07 three-column desktop')
     ck(px(page,'.material-card-meta')>=14,'D07 card metadata readable')
     ck(overflow_ok(page),'D07 no overflow')
     shot(page,'1.2-D07-library-home.png')
@@ -196,7 +196,7 @@ with sync_playwright() as p:
     shot(mob,'1.2-M07-menu.png');mob.click('#navMore')
     # M08
     mob.click('[data-go="materials"]');mob.wait_for_selector('.library-shell')
-    cols=mob.locator('.material-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")
+    cols=mob.locator('#libraryResults').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")
     ck(cols==1,'M08 one-column mobile library')
     ck(px(mob,'#materialSearch')>=16,'M08 search input >=16')
     ck(overflow_ok(mob),'M08 no overflow');shot(mob,'1.2-M08-library-home.png')
