@@ -1,10 +1,10 @@
-# FloraLab Studio 1.1 Anywhere — QA Report
+# FloraLab Studio 1.1.2 Workspace UI — QA Report
 
 验收日期：2026-09-11
 
 ## 结论
 
-1.1 的核心目标是把 1.0 的 Studio 能力迁移为 GitHub Pages/PWA，而不牺牲 Recipe、Reality、Composition、Blueprint 2.0、Build、文件兼容和 Project 工作流。
+1.1.2 的目标是在保留 1.1 Anywhere 的纯前端 PWA、Recipe、Reality、Composition、Blueprint 2.0、Build、文件兼容和 Project 工作流的前提下，把 Studio 调整到真实可用的工作尺度。
 
 当前本地 release gate 通过：**392 项检查全部通过**。
 
@@ -94,3 +94,16 @@ GitHub Pages 已由仓库所有者切换为 **GitHub Actions** 发布源，随�
 FloraLab 保留 Atelier 编辑感，不跟随“大量玻璃、漂浮卡片、霓虹渐变”的泛化趋势。采用的改动集中在信息层级、可读性、触控、轻量材质感和品牌图标简化。
 
 视觉自动验收新增：手机菜单完整性、菜单触控目标、Recipe 数量控件触控目标、Tab 触控目标、项目副标题对比度、非激活 Tab 对比度、Kicker 对比度。
+
+## 9. 1.1.2 工作尺度与发布收口
+
+1.1.2 重点不是增加新能力，而是把已有能力整理成真正可工作的界面：
+
+- Desktop：保留编辑式排版，但 Recipe、Blueprint Editor、Build、反馈和材料库使用更大的正文、字段和操作目标。
+- Mobile：不再把桌面版机械压缩；工具页使用紧凑作品头部、横向 Tab、分块 Recipe、大触控 Blueprint 控件和现场制作按钮。
+- Blueprint：未选中标签默认降噪；选中/hover 后显示，避免结构图被编号覆盖。
+- Library：修复搜索输入窄屏溢出。
+- Branding：使用用户确认的紫色花叶 F 图标作为唯一图标源，由构建脚本生成各平台资源。
+- Cache：Service Worker 升级为 `floralab-1.1.2`。
+
+GitHub Actions 对 1.1.2 UI 与图标提交的最新发布运行已完成：build 成功、release gate 成功、Pages deploy 成功。随后补齐 1.1.2 的 package / Runtime / static gate / README / Changelog / QA Report 版本一致性，并以新的 Actions 运行作为最终发布门禁。
