@@ -65,7 +65,7 @@ def resolve_openverse(query):
     lic=' '.join(v for v in [str(x.get('license','')).upper(),str(x.get('license_version') or '')] if v)
     return {
       'ok':True,'provider':'Openverse','query':query,'title':x.get('title',''),
-      'asset':x.get('url') or x.get('thumbnail'),'preview':x.get('thumbnail') or '','source':x.get('foreign_landing_url'),'mime':x.get('filetype',''),
+      'asset':x.get('thumbnail') or x.get('url'),'preview':x.get('url') or '','source':x.get('foreign_landing_url'),'mime':x.get('filetype',''),
       'license':lic or 'Open license','license_url':x.get('license_url') or '',
       'creator':clean(x.get('creator') or x.get('source') or 'Openverse')
     }
