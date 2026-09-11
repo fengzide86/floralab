@@ -227,12 +227,14 @@ with sync_playwright() as p:
     mob.fill('#materialSearch','百合');mob.wait_for_timeout(120)
     mob.click('[data-material-detail="flower:lily"]');mob.wait_for_selector('.material-detail-layout')
     ck(mob.locator('.material-trust.safety').count()==1,'M12 pet safety warning')
+    mob.locator('.material-trust.safety').scroll_into_view_if_needed();mob.wait_for_timeout(100)
     shot(mob,'1.2-M12-safety-detail.png')
     # M13 creative
     mob.click('[data-library-back]');mob.wait_for_selector('.library-shell')
     mob.click('[data-library-kind="creative"]');mob.wait_for_timeout(100)
     mob.click('[data-material-detail="creative:chocolate"]');mob.wait_for_selector('.creative-detail')
     ck(mob.locator('.material-trust.safety').count()==1,'M13 food separation warning')
+    mob.locator('.material-trust.safety').scroll_into_view_if_needed();mob.wait_for_timeout(100)
     shot(mob,'1.2-M13-creative-detail.png')
     # M14 empty/long state
     mob.click('[data-library-back]');mob.wait_for_selector('.library-shell')
