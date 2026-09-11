@@ -1,5 +1,14 @@
 # FloraLab Changelog
 
+## 1.3.1 — Cover & Render Workspace Discovery
+
+- Replaced the landing-page placeholder illustration with the user-approved floral study artwork, cropped from the supplied reference rather than regenerated.
+- Added an always-visible top navigation entry for the 效果图 workspace on Desktop and Mobile; with an open project it jumps directly into Render Handoff, while the empty state explains that Render is derived from a project.
+- Corrected overview copy so Studio's own Render Handoff workspace is no longer hidden behind wording that only points to Creative Space.
+- Changed the PWA app shell to network-first with cache fallback so newly deployed UI is less likely to appear stale on the first reopen while preserving offline support.
+- Bumped runtime/package/cache to 1.3.1 and added visual/static regression coverage for the new cover and Render entry.
+
+
 ## 1.3.0 — Render Handoff
 
 - Added deterministic Render Spec derived from Recipe / Mechanics / Blueprint without duplicating editable source facts.
