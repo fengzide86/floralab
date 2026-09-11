@@ -1,6 +1,37 @@
 {
-  "schema":"floralab/1.0",
-  "purpose":"creative-space-studio-handoff",
-  "preferred_sections":["project","intent","recipe","dimensions","mechanics","blueprint","build","resultFeedback","history"],
-  "blueprint":{"version":"2.0","views":["front","left","back","right","top"]}
+  "schema": "floralab/1.0",
+  "purpose": "creative-space-studio-handoff",
+  "preferred_sections": [
+    "project",
+    "intent",
+    "recipe",
+    "dimensions",
+    "mechanics",
+    "blueprint",
+    "render",
+    "build",
+    "resultFeedback",
+    "history"
+  ],
+  "blueprint": {
+    "version": "2.0",
+    "views": [
+      "front",
+      "left",
+      "back",
+      "right",
+      "top"
+    ]
+  },
+  "render": {
+    "version": "1.0",
+    "purpose": "effect-render-handoff",
+    "derived_from": [
+      "recipe",
+      "mechanics",
+      "blueprint"
+    ],
+    "authoritative": false,
+    "conflict_rule": "recipe/mechanics/blueprint win and render is regenerated"
+  }
 }
