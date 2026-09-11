@@ -998,3 +998,5057 @@
       "availability": "全年常见",
       "season": "全年",
       "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        0.3,
+        1.5
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "填充",
+        "氛围"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "适合增加碎花纹理，干后也能保持形态。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "满天星",
+        "千日红"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "dahlia",
+      "name": "大丽花",
+      "aliases": [
+        "大丽菊"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "紫",
+        "黄",
+        "橙"
+      ],
+      "price": [
+        8,
+        25
+      ],
+      "availability": "夏秋更常见",
+      "season": "夏秋优势",
+      "peak_months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        7,
+        18
+      ],
+      "weight": "heavy",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "主花",
+        "焦点"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "good",
+      "market_tier": "季节型",
+      "substitutes": [
+        "非洲菊",
+        "玫瑰"
+      ],
+      "pet_risk": "避免宠物啃食",
+      "notes": "花头较大且易碰伤，适合靠近视觉重心，运输需留空间。"
+    },
+    {
+      "id": "peony",
+      "name": "芍药",
+      "aliases": [
+        "切花芍药"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "酒红"
+      ],
+      "price": [
+        12,
+        35
+      ],
+      "availability": "春末初夏集中",
+      "season": "春末初夏",
+      "peak_months": [
+        4,
+        5,
+        6
+      ],
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        7,
+        15
+      ],
+      "weight": "heavy",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "主花",
+        "焦点"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "excellent",
+      "market_tier": "偏高",
+      "substitutes": [
+        "玫瑰",
+        "大丽花"
+      ],
+      "pet_risk": "避免宠物啃食",
+      "notes": "季节窗口明显，开放程度与品种会显著影响视觉体积。"
+    },
+    {
+      "id": "freesia",
+      "name": "小苍兰",
+      "aliases": [
+        "香雪兰"
+      ],
+      "colors": [
+        "白",
+        "黄",
+        "粉",
+        "紫",
+        "橙"
+      ],
+      "price": [
+        4,
+        12
+      ],
+      "availability": "冬春更常见",
+      "season": "冬春优势",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "stem_cm": [
+        30,
+        55
+      ],
+      "head_cm": [
+        2,
+        5
+      ],
+      "weight": "light",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "线条",
+        "过渡",
+        "香气"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "market_tier": "中等",
+      "substitutes": [
+        "洋桔梗",
+        "松虫草"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则",
+      "notes": "花序有方向性，适合制造轻盈弧线。"
+    },
+    {
+      "id": "alstroemeria",
+      "name": "六出花",
+      "aliases": [
+        "秘鲁百合"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "黄",
+        "橙",
+        "紫"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "全年较常见",
+      "season": "全年",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "stem_cm": [
+        45,
+        75
+      ],
+      "head_cm": [
+        3,
+        7
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "过渡",
+        "填充"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "market_tier": "常见",
+      "substitutes": [
+        "洋桔梗",
+        "康乃馨"
+      ],
+      "pet_risk": "与真百合不是同一高危规则；仍避免宠物啃食",
+      "notes": "视觉上有百合感但体量更轻，常用于过渡与填充。"
+    },
+    {
+      "id": "snapdragon",
+      "name": "金鱼草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "黄",
+        "橙",
+        "紫"
+      ],
+      "price": [
+        4,
+        12
+      ],
+      "availability": "春秋较常见",
+      "season": "春秋优势",
+      "peak_months": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "stem_cm": [
+        45,
+        90
+      ],
+      "head_cm": [
+        2,
+        4
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "线条",
+        "高度"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "market_tier": "中等",
+      "substitutes": [
+        "飞燕草",
+        "雪柳"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则",
+      "notes": "竖向花序适合建立高度与节奏。"
+    },
+    {
+      "id": "gomphrena",
+      "name": "千日红",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "红"
+      ],
+      "price": [
+        3,
+        9
+      ],
+      "availability": "夏秋较常见",
+      "season": "夏秋优势",
+      "peak_months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "stem_cm": [
+        30,
+        60
+      ],
+      "head_cm": [
+        1.5,
+        3
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "点缀",
+        "填充"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "market_tier": "常见",
+      "substitutes": [
+        "补血草",
+        "满天星"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则",
+      "notes": "耐放，适合点状节奏，也适合干花感设计。"
+    },
+    {
+      "id": "ranunculus",
+      "name": "洋牡丹",
+      "aliases": [
+        "花毛茛",
+        "洋牡丹切花"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "黄",
+        "橙",
+        "红",
+        "紫"
+      ],
+      "price": [
+        6,
+        18
+      ],
+      "availability": "冬春较常见",
+      "season": "冬春优势",
+      "stem_cm": [
+        30,
+        55
+      ],
+      "head_cm": [
+        4,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "soft",
+      "water_need": "medium",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "主花",
+        "焦点"
+      ],
+      "foam_fit": "fair",
+      "vase_fit": "good",
+      "notes": "花瓣层次多、茎较软，运输和插制时避免挤压。",
+      "peak_months": [
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "季节常见",
+      "substitutes": [
+        "芍药",
+        "玫瑰",
+        "洋桔梗"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "stock",
+      "name": "紫罗兰",
+      "aliases": [
+        "香紫罗兰",
+        "Stock"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄"
+      ],
+      "price": [
+        4,
+        12
+      ],
+      "availability": "冬春较常见",
+      "season": "冬春优势",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        3,
+        5
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "线条",
+        "填充",
+        "香气"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "花序长，适合建立垂直线条和香气层次。",
+      "peak_months": [
+        11,
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "金鱼草",
+        "飞燕草"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "waxflower",
+      "name": "澳梅",
+      "aliases": [
+        "蜡花",
+        "Waxflower"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "紫"
+      ],
+      "price": [
+        5,
+        16
+      ],
+      "availability": "秋冬春常见",
+      "season": "秋冬春优势",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        1,
+        2
+      ],
+      "weight": "light",
+      "stem_strength": "woody",
+      "water_need": "low",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "填充",
+        "空气感"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "木质分枝，耐放，适合作为轻质填充。",
+      "peak_months": [
+        10,
+        11,
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "补血草",
+        "满天星"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "astilbe",
+      "name": "落新妇",
+      "aliases": [
+        "Astilbe"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "紫"
+      ],
+      "price": [
+        8,
+        22
+      ],
+      "availability": "春夏较常见",
+      "season": "春夏优势",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        8,
+        18
+      ],
+      "weight": "light",
+      "stem_strength": "soft",
+      "water_need": "high",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "线条",
+        "空气感"
+      ],
+      "foam_fit": "fair",
+      "vase_fit": "good",
+      "notes": "羽状花序柔软，需保持供水，适合营造雾感和轻盈层次。",
+      "peak_months": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "market_tier": "季节型",
+      "substitutes": [
+        "补血草",
+        "蕾丝花"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "sweetpea",
+      "name": "香豌豆",
+      "aliases": [
+        "甜豌豆花",
+        "Sweet Pea"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "红"
+      ],
+      "price": [
+        6,
+        18
+      ],
+      "availability": "冬春季节型",
+      "season": "冬春优势",
+      "stem_cm": [
+        25,
+        45
+      ],
+      "head_cm": [
+        2,
+        4
+      ],
+      "weight": "light",
+      "stem_strength": "soft",
+      "water_need": "high",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "线条",
+        "点缀",
+        "香气"
+      ],
+      "foam_fit": "poor",
+      "vase_fit": "good",
+      "notes": "茎细且娇嫩，优先清水瓶插或水管供水。",
+      "peak_months": [
+        12,
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "季节型",
+      "substitutes": [
+        "小苍兰",
+        "洋桔梗"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "ammi",
+      "name": "蕾丝花",
+      "aliases": [
+        "阿米芹",
+        "白蕾丝"
+      ],
+      "colors": [
+        "白",
+        "绿"
+      ],
+      "price": [
+        4,
+        12
+      ],
+      "availability": "春夏较常见",
+      "season": "春夏优势",
+      "stem_cm": [
+        45,
+        80
+      ],
+      "head_cm": [
+        6,
+        14
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "填充",
+        "空气感",
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "伞形花序形成轻盈留白，适合自然风。",
+      "peak_months": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "满天星",
+        "澳梅"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "ruscus",
+      "name": "意大利叶",
+      "aliases": [
+        "鲁斯卡斯",
+        "Ruscus"
+      ],
+      "colors": [
+        "绿"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        80
+      ],
+      "head_cm": [
+        1,
+        2
+      ],
+      "weight": "light",
+      "stem_strength": "woody",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "耐放、线条清晰，适合建立边界和遮挡机械结构。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "尤加利",
+        "柠檬叶"
+      ],
+      "pet_risk": "宠物场景避免啃食"
+    },
+    {
+      "id": "lemonleaf",
+      "name": "柠檬叶",
+      "aliases": [
+        "Salal"
+      ],
+      "colors": [
+        "绿"
+      ],
+      "price": [
+        2,
+        8
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        35,
+        60
+      ],
+      "head_cm": [
+        4,
+        8
+      ],
+      "weight": "medium",
+      "stem_strength": "woody",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "叶材",
+        "体块"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "叶片厚实，适合打底和遮挡结构。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "意大利叶",
+        "尤加利"
+      ],
+      "pet_risk": "宠物场景避免啃食"
+    },
+    {
+      "id": "fern",
+      "name": "蕨叶",
+      "aliases": [
+        "皮革蕨",
+        "Leatherleaf Fern"
+      ],
+      "colors": [
+        "绿"
+      ],
+      "price": [
+        2,
+        8
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        10,
+        25
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "叶材",
+        "填充"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "传统叶材，适合补足底部和轮廓。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "意大利叶",
+        "尤加利"
+      ],
+      "pet_risk": "宠物场景避免啃食"
+    },
+    {
+      "id": "monstera",
+      "name": "龟背竹叶",
+      "aliases": [
+        "龟背竹",
+        "Monstera叶"
+      ],
+      "colors": [
+        "绿"
+      ],
+      "price": [
+        4,
+        15
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        80
+      ],
+      "head_cm": [
+        18,
+        40
+      ],
+      "weight": "heavy",
+      "stem_strength": "strong",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "叶材",
+        "焦点"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "叶片大且重量高，尽量靠近结构中心或使用更强机械固定。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "春羽叶",
+        "大叶材"
+      ],
+      "pet_risk": "宠物场景避免啃食"
+    },
+    {
+      "id": "anthurium",
+      "name": "红掌",
+      "aliases": [
+        "安祖花",
+        "Anthurium"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "绿"
+      ],
+      "price": [
+        8,
+        25
+      ],
+      "availability": "全年较常见",
+      "season": "全年",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        8,
+        16
+      ],
+      "weight": "medium",
+      "stem_strength": "strong",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "焦点",
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "造型感强，适合现代风和创意结构。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "马蹄莲",
+        "蝴蝶兰"
+      ],
+      "pet_risk": "宠物场景谨慎，避免啃食"
+    },
+    {
+      "id": "protea",
+      "name": "帝王花",
+      "aliases": [
+        "普罗蒂亚",
+        "Protea"
+      ],
+      "colors": [
+        "粉",
+        "红",
+        "白"
+      ],
+      "price": [
+        20,
+        60
+      ],
+      "availability": "进口/季节型",
+      "season": "全年但供应波动",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        8,
+        18
+      ],
+      "weight": "heavy",
+      "stem_strength": "strong",
+      "water_need": "medium",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "花头重、枝条硬，需考虑花器底重与结构承重。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "高价",
+      "substitutes": [
+        "向日葵",
+        "大丽花"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "leucadendron",
+      "name": "针垫叶材",
+      "aliases": [
+        "银叶树",
+        "Leucadendron"
+      ],
+      "colors": [
+        "绿",
+        "红",
+        "黄"
+      ],
+      "price": [
+        8,
+        22
+      ],
+      "availability": "进口/全年波动",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        75
+      ],
+      "head_cm": [
+        3,
+        8
+      ],
+      "weight": "medium",
+      "stem_strength": "woody",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "线条",
+        "叶材",
+        "焦点"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "枝条硬挺，适合现代线条与秋冬色彩。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "中高价",
+      "substitutes": [
+        "尤加利",
+        "澳梅"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "chamomile",
+      "name": "洋甘菊",
+      "aliases": [
+        "小雏菊",
+        "Chamomile"
+      ],
+      "colors": [
+        "白",
+        "黄"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "春夏较常见",
+      "season": "春夏优势",
+      "stem_cm": [
+        30,
+        55
+      ],
+      "head_cm": [
+        1,
+        3
+      ],
+      "weight": "light",
+      "stem_strength": "soft",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "填充",
+        "点缀"
+      ],
+      "foam_fit": "fair",
+      "vase_fit": "good",
+      "notes": "轻盈自然，适合田园与日常风。",
+      "peak_months": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "小菊",
+        "满天星"
+      ],
+      "pet_risk": "宠物场景避免啃食"
+    },
+    {
+      "id": "cosmos",
+      "name": "波斯菊",
+      "aliases": [
+        "秋英",
+        "Cosmos"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "夏秋季节型",
+      "season": "夏秋优势",
+      "stem_cm": [
+        35,
+        65
+      ],
+      "head_cm": [
+        4,
+        7
+      ],
+      "weight": "light",
+      "stem_strength": "soft",
+      "water_need": "medium",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "点缀",
+        "线条"
+      ],
+      "foam_fit": "poor",
+      "vase_fit": "good",
+      "notes": "茎细花轻，适合轻盈线条，但运输易损。",
+      "peak_months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "market_tier": "季节型",
+      "substitutes": [
+        "松虫草",
+        "洋甘菊"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "zinnia",
+      "name": "百日菊",
+      "aliases": [
+        "百日草",
+        "Zinnia"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "黄",
+        "橙",
+        "绿"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "夏秋较常见",
+      "season": "夏秋优势",
+      "stem_cm": [
+        35,
+        60
+      ],
+      "head_cm": [
+        4,
+        8
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "填充"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "色彩丰富，适合热烈和田园风。",
+      "peak_months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "非洲菊",
+        "康乃馨"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "celosia",
+      "name": "鸡冠花",
+      "aliases": [
+        "Celosia"
+      ],
+      "colors": [
+        "红",
+        "粉",
+        "黄",
+        "橙",
+        "绿"
+      ],
+      "price": [
+        4,
+        12
+      ],
+      "availability": "夏秋较常见",
+      "season": "夏秋优势",
+      "stem_cm": [
+        35,
+        65
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "体块",
+        "焦点"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "纹理强烈，适合复古、热烈和创意主题。",
+      "peak_months": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "康乃馨",
+        "大丽花"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "craspedia",
+      "name": "黄金球",
+      "aliases": [
+        "金槌花",
+        "Craspedia"
+      ],
+      "colors": [
+        "黄"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "全年较常见",
+      "season": "全年",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        2,
+        4
+      ],
+      "weight": "light",
+      "stem_strength": "strong",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "点缀",
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "球形点状花头，耐放，适合活泼创意主题。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "千日红",
+        "小菊"
+      ],
+      "pet_risk": "本版本未设置高危阻断；宠物场景避免啃食"
+    },
+    {
+      "id": "ref_043",
+      "name": "牡丹",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_044",
+      "name": "洋水仙",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_045",
+      "name": "水仙花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_046",
+      "name": "风信子",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_047",
+      "name": "葡萄风信子",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_048",
+      "name": "鸢尾",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_049",
+      "name": "唐菖蒲",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_050",
+      "name": "扶郎花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_051",
+      "name": "风铃草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_052",
+      "name": "火鹤花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_053",
+      "name": "鹤望兰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_054",
+      "name": "针垫花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_055",
+      "name": "蜡梅",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_056",
+      "name": "连翘",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_057",
+      "name": "银柳",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_058",
+      "name": "木绣球",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_059",
+      "name": "圆锥绣球",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_060",
+      "name": "姬小菊",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_061",
+      "name": "翠珠",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_062",
+      "name": "蓝星花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_063",
+      "name": "黑种草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_064",
+      "name": "茴香花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_065",
+      "name": "铁筷子",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_066",
+      "name": "圣诞玫瑰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_067",
+      "name": "大花蕙兰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_068",
+      "name": "石斛兰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_069",
+      "name": "万代兰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_070",
+      "name": "文心兰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_071",
+      "name": "卡特兰",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_072",
+      "name": "石蒜",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_073",
+      "name": "百子莲",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_074",
+      "name": "海芋",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_075",
+      "name": "海芋叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_076",
+      "name": "春羽叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_077",
+      "name": "文竹",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_078",
+      "name": "常春藤",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_079",
+      "name": "八角金盘",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_080",
+      "name": "木贼",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_081",
+      "name": "山苏叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_082",
+      "name": "巴西叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_083",
+      "name": "散尾葵叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_084",
+      "name": "银叶菊",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_085",
+      "name": "银叶桉",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_086",
+      "name": "染色满天星",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_087",
+      "name": "鼠尾草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_088",
+      "name": "迷迭香",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_089",
+      "name": "薰衣草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_090",
+      "name": "鼠尾草叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_091",
+      "name": "橄榄枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_092",
+      "name": "栀子叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_093",
+      "name": "茶梅枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_094",
+      "name": "杜鹃枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_095",
+      "name": "腊梅枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_096",
+      "name": "桃花枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_097",
+      "name": "李花枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_098",
+      "name": "樱花枝",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "线条",
+        "叶材"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_099",
+      "name": "喷泉草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_100",
+      "name": "蒲苇",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_101",
+      "name": "狼尾草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_102",
+      "name": "星芹",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_103",
+      "name": "松果菊",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        4,
+        16
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        6
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "点缀",
+        "填充"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_104",
+      "name": "麦秆菊",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_105",
+      "name": "珍珠梅",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_106",
+      "name": "金丝桃果",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        4,
+        16
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        6
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "点缀",
+        "填充"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_107",
+      "name": "火棘果",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        4,
+        16
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        6
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "点缀",
+        "填充"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_108",
+      "name": "雪果",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        4,
+        16
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        6
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "点缀",
+        "填充"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_109",
+      "name": "腊莲绣球",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_110",
+      "name": "木百合",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_111",
+      "name": "山龙眼",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_112",
+      "name": "芍药菊",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_113",
+      "name": "荷兰菊",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_114",
+      "name": "翠扇",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_115",
+      "name": "凤尾兰叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_116",
+      "name": "棕榈叶",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        3,
+        15
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        2,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    },
+    {
+      "id": "ref_117",
+      "name": "高山羊齿",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        5,
+        20
+      ],
+      "availability": "需按本地市场核实",
+      "season": "需按品种与地区核实",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        4,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": null,
+      "roles": [
+        "主花",
+        "过渡"
+      ],
+      "foam_fit": "unknown",
+      "vase_fit": "unknown",
+      "notes": "参考条目：采购、季节、价格、宠物风险与结构适配需结合具体品种和当地供应核实。",
+      "peak_months": [],
+      "market_tier": "参考",
+      "substitutes": [],
+      "pet_risk": "unknown",
+      "evidence": [],
+      "reference_only": true
+    }
+  ],
+  "creative": [
+    {
+      "id": "plush",
+      "name": "毛绒娃娃",
+      "category": "玩偶",
+      "price": [
+        20,
+        120
+      ],
+      "weight_g": [
+        80,
+        800
+      ],
+      "fix": [
+        "双竹签+扎带",
+        "独立花艺铁丝骨架",
+        "轻型亚克力托架"
+      ],
+      "wet_safe": false,
+      "food": false,
+      "notes": "超过约300g时不应把湿花泥当作唯一承重结构；尽量低位、靠近重心。",
+      "aliases": [
+        "娃娃",
+        "玩偶",
+        "小熊",
+        "毛绒玩具",
+        "公仔"
+      ]
+    },
+    {
+      "id": "strawberry",
+      "name": "草莓",
+      "category": "水果",
+      "price": [
+        2,
+        6
+      ],
+      "weight_g": [
+        15,
+        35
+      ],
+      "fix": [
+        "食品级独立包装+竹签",
+        "独立托杯"
+      ],
+      "wet_safe": false,
+      "food": true,
+      "notes": "真食物与花泥水、花材污水隔离；适合短时展示，注意温度和卫生。",
+      "aliases": [
+        "鲜草莓"
+      ]
+    },
+    {
+      "id": "chocolate",
+      "name": "巧克力",
+      "category": "零食",
+      "price": [
+        3,
+        15
+      ],
+      "weight_g": [
+        8,
+        60
+      ],
+      "fix": [
+        "保留原包装+竹签",
+        "胶点固定于独立卡托"
+      ],
+      "wet_safe": false,
+      "food": true,
+      "notes": "避免高温融化，不能直接接触湿花泥或花材水。",
+      "aliases": [
+        "巧克力糖"
+      ]
+    },
+    {
+      "id": "snack",
+      "name": "小包装零食",
+      "category": "零食",
+      "price": [
+        3,
+        12
+      ],
+      "weight_g": [
+        15,
+        120
+      ],
+      "fix": [
+        "原包装+长竹签+胶带"
+      ],
+      "wet_safe": true,
+      "food": true,
+      "notes": "包装体积大，适合外围体块；竹签固定在包装背面而非刺穿包装。",
+      "aliases": [
+        "零食",
+        "薯片",
+        "饼干",
+        "糖果",
+        "小零食"
+      ]
+    },
+    {
+      "id": "can",
+      "name": "罐装饮料",
+      "category": "饮料",
+      "price": [
+        4,
+        15
+      ],
+      "weight_g": [
+        250,
+        500
+      ],
+      "fix": [
+        "独立托架+扎带",
+        "盒体底座承托"
+      ],
+      "wet_safe": true,
+      "food": true,
+      "notes": "重量高，不建议悬挑；优先低位并由底座承担重量。",
+      "aliases": [
+        "饮料",
+        "可乐",
+        "汽水",
+        "易拉罐饮料"
+      ]
+    },
+    {
+      "id": "photo",
+      "name": "照片卡",
+      "category": "纪念物",
+      "price": [
+        1,
+        10
+      ],
+      "weight_g": [
+        2,
+        15
+      ],
+      "fix": [
+        "照片夹+细竹签",
+        "覆膜卡槽"
+      ],
+      "wet_safe": false,
+      "food": false,
+      "notes": "建议覆膜或远离水源。",
+      "aliases": [
+        "照片",
+        "相片",
+        "拍立得",
+        "照片卡片"
+      ]
+    },
+    {
+      "id": "acrylic",
+      "name": "亚克力主题牌",
+      "category": "装饰",
+      "price": [
+        8,
+        40
+      ],
+      "weight_g": [
+        10,
+        180
+      ],
+      "fix": [
+        "插牌杆+扎带",
+        "卡槽"
+      ],
+      "wet_safe": true,
+      "food": false,
+      "notes": "尺寸越大越容易产生杠杆力，外伸长度应受控。",
+      "aliases": [
+        "亚克力牌",
+        "主题牌",
+        "插牌",
+        "文字牌"
+      ]
+    },
+    {
+      "id": "light",
+      "name": "低压电池灯串",
+      "category": "灯光",
+      "price": [
+        8,
+        25
+      ],
+      "weight_g": [
+        20,
+        120
+      ],
+      "fix": [
+        "隐藏绕线+电池盒独立固定"
+      ],
+      "wet_safe": false,
+      "food": false,
+      "notes": "只使用低压电池灯串，电池盒与接头远离水和湿花泥。",
+      "aliases": [
+        "灯串",
+        "小灯串",
+        "电池灯串"
+      ]
+    },
+    {
+      "id": "building",
+      "name": "积木小摆件",
+      "category": "摆件",
+      "price": [
+        10,
+        80
+      ],
+      "weight_g": [
+        20,
+        350
+      ],
+      "fix": [
+        "底部托片+扎带",
+        "双竹签支架"
+      ],
+      "wet_safe": true,
+      "food": false,
+      "notes": "重心高时必须增加底部托片，避免只靠单根竹签。",
+      "aliases": [
+        "积木",
+        "乐高",
+        "积木摆件"
+      ]
+    },
+    {
+      "id": "giftbox",
+      "name": "迷你礼盒",
+      "aliases": [
+        "小礼盒",
+        "礼物盒"
+      ],
+      "category": "礼物",
+      "price": [
+        8,
+        40
+      ],
+      "weight_g": [
+        30,
+        250
+      ],
+      "fix": [
+        "底部托片+扎带",
+        "盒体低位承托"
+      ],
+      "wet_safe": true,
+      "food": false,
+      "notes": "优先低位放置，盒盖需要保持可开启时不要穿刺。"
+    },
+    {
+      "id": "keychain",
+      "name": "钥匙扣/小挂件",
+      "aliases": [
+        "钥匙扣",
+        "挂件",
+        "小挂件"
+      ],
+      "category": "纪念物",
+      "price": [
+        5,
+        40
+      ],
+      "weight_g": [
+        10,
+        100
+      ],
+      "fix": [
+        "透明线悬挂于独立支架",
+        "卡扣固定"
+      ],
+      "wet_safe": true,
+      "food": false,
+      "notes": "适合轻量悬挂，但需避免悬挂线切割鲜花茎。"
+    },
+    {
+      "id": "card",
+      "name": "手写卡片",
+      "aliases": [
+        "卡片",
+        "贺卡",
+        "手写卡"
+      ],
+      "category": "纪念物",
+      "price": [
+        1,
+        10
+      ],
+      "weight_g": [
+        2,
+        20
+      ],
+      "fix": [
+        "卡片夹+细竹签",
+        "独立卡槽"
+      ],
+      "wet_safe": false,
+      "food": false,
+      "notes": "远离水源，建议覆膜或卡套。"
+    },
+    {
+      "id": "coffee",
+      "name": "挂耳咖啡包",
+      "aliases": [
+        "咖啡",
+        "挂耳咖啡"
+      ],
+      "category": "食品",
+      "price": [
+        3,
+        10
+      ],
+      "weight_g": [
+        10,
+        25
+      ],
+      "fix": [
+        "保留原包装+竹签背贴"
+      ],
+      "wet_safe": true,
+      "food": true,
+      "notes": "不可刺穿食品包装；与花材水隔离。"
+    }
+  ],
+  "mechanics": [
+    {
+      "id": "vase-water",
+      "name": "清水瓶插",
+      "best_for": [
+        "高需水花材",
+        "可见茎秆的自然作品"
+      ],
+      "limits": [
+        "角度控制不如花泥精确"
+      ],
+      "notes": "高需水花材优先选择持续水源。"
+    },
+    {
+      "id": "chicken-wire",
+      "name": "鸡笼网/花艺网格",
+      "best_for": [
+        "自然松散瓶插",
+        "需要重复调整角度"
+      ],
+      "limits": [
+        "过多网格会挤占插花空间"
+      ],
+      "evidence": [
+        "teamflower-mechanics"
+      ]
+    },
+    {
+      "id": "floral-foam",
+      "name": "鲜花泥",
+      "best_for": [
+        "需要精确角度固定",
+        "不规则花器"
+      ],
+      "limits": [
+        "重花材会增加花泥破损风险",
+        "高需水花材需要频繁检查补水"
+      ],
+      "evidence": [
+        "teamflower-mechanics",
+        "floralife-hydrangea"
+      ]
+    },
+    {
+      "id": "frog",
+      "name": "剑山/花插",
+      "best_for": [
+        "线条感瓶插",
+        "少量枝条的精准方向"
+      ],
+      "limits": [
+        "重枝需要牢固固定底座"
+      ],
+      "evidence": [
+        "teamflower-mechanics"
+      ]
+    },
+    {
+      "id": "tape-grid",
+      "name": "防水胶带井字网",
+      "best_for": [
+        "家庭花瓶",
+        "低成本快速定位"
+      ],
+      "limits": [
+        "承重能力有限"
+      ]
+    }
+  ]
+}
