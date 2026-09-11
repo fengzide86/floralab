@@ -42,8 +42,8 @@ MANUAL_OPEN={
  },
  'creative:snack':{
    'ok':True,'provider':'Wikimedia Commons','query':'potato chips snack bag package','search_query':'curated','confidence':100,
-   'title':'Chips - Best before 12.01.20201.jpg',
-   'asset':'https://upload.wikimedia.org/wikipedia/commons/1/17/Chips_-_Best_before_12.01.20201.jpg',
+   'title':'Chips - Best before seal; forever.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/3/37/Chips_-_Best_before_seal%3B_forever.jpg',
    'preview':'','source':'https://commons.wikimedia.org/wiki/File:Chips_-_Best_before_12.01.20201.jpg',
    'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Silverije'
  },
@@ -64,7 +64,7 @@ MANUAL_OPEN={
  'creative:light':{
    'ok':True,'provider':'Wikimedia Commons','query':'warm fairy light string LEDs close up','search_query':'curated','confidence':100,
    'title':'LED string lights.jpg',
-   'asset':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/LED_string_lights.jpg/960px-LED_string_lights.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/d/db/LED_string_lights.jpg',
    'preview':'','source':'https://commons.wikimedia.org/wiki/File:LED_string_lights.jpg',
    'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Battuaruna'
  }
