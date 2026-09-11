@@ -2,7 +2,7 @@ const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const app=$('#app');
 const MONTH=new Date().getMonth()+1;
-const S={page:'home',mode:'floral',plan:null,tab:'work',view:'front',selectedNode:null,buildStep:0,status:null,catalog:null,visualRegistry:{items:{}},visualQueries:{items:{}},visualCache:null,visualPromises:{},materialQuery:'',libraryKind:'flower',materialFilters:{role:'',color:'',season:'',making:''},materialId:null,projects:[],installPrompt:null,form:{type:'花束',colors:['紫色','白色'],budget:300,budgetPriority:'balance',style:'温柔、自然',existing:'',size:'medium',designMonth:MONTH,region:'',preferred:'',avoid:'',petContext:'',mechanicPreference:''}};
+const S={page:'home',mode:'floral',plan:null,tab:'work',view:'front',selectedNode:null,buildStep:0,status:null,catalog:null,visualRegistry:{items:{}},visualQueries:{items:{}},visualSources:{items:{}},visualCache:null,visualPromises:{},materialQuery:'',libraryKind:'flower',materialFilters:{role:'',color:'',season:'',making:''},materialId:null,projects:[],installPrompt:null,form:{type:'花束',colors:['紫色','白色'],budget:300,budgetPriority:'balance',style:'温柔、自然',existing:'',size:'medium',designMonth:MONTH,region:'',preferred:'',avoid:'',petContext:'',mechanicPreference:''}};
 const COLORS=[['紫色','#9c87aa'],['白色','#f8f5ee'],['粉色','#ddb0b8'],['红色','#a95b57'],['蓝色','#89a7b8'],['黄色','#dcc36a'],['橙色','#cf8d60'],['绿色','#7d9277'],['奶油色','#e6d7b9'],['黑色','#39373b']];
 const TYPES=['花束','瓶插','桌花','花篮','礼盒','创意花束','创意装置'];
 const STYLES=['自然','温柔','极简','法式','日式','复古','清冷','热烈'];
@@ -94,5 +94,22 @@ window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();S.installPr
 window.addEventListener('appinstalled',()=>{S.installPrompt=null;toast('FloraLab 已安装到设备');});
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
 
-async function init(){await load();try{S.status=await api('/api/status');S.catalog=await api('/api/catalog');}catch{S.status={version:'1.2.0',mode:'zero-api-pwa',catalog:{flowers:117,creative:13}};}try{const [vr,vq]=await Promise.all([fetch('./data/material-visuals.json',{cache:'no-store'}),fetch('./data/material-visual-queries.json',{cache:'no-store'})]);S.visualRegistry=vr.ok?await vr.json():{items:{}};S.visualQueries=vq.ok?await vq.json():{items:{}};}catch{S.visualRegistry={items:{}};S.visualQueries={items:{}};}home();}
+async function init(){
+  await load();
+  try{S.status=await api('/api/status');S.catalog=await api('/api/catalog');}
+  catch{S.status={version:'1.2.0',mode:'zero-api-pwa',catalog:{flowers:117,creative:13}};}
+  try{
+    const [vr,vq]=await Promise.all([
+      fetch('./data/material-visuals.json',{cache:'no-store'}),
+      fetch('./data/material-visual-queries.json',{cache:'no-store'})
+    ]);
+    S.visualRegistry=vr.ok?await vr.json():{items:{}};
+    S.visualQueries=vq.ok?await vq.json():{items:{}};
+  }catch{S.visualRegistry={items:{}};S.visualQueries={items:{}};}
+  try{
+    const vs=await fetch('./data/material-visual-sources.json',{cache:'no-store'});
+    S.visualSources=vs.ok?await vs.json():{items:{}};
+  }catch{S.visualSources={items:{}};}
+  home();
+}
 init();
