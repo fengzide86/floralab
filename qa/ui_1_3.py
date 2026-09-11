@@ -94,6 +94,11 @@ with sync_playwright() as p:
 
     # D01 Home
     ck(page.locator('text=从一个想法').count()>0,'D01 home loaded')
+    ck(page.locator('.hero-cover').get_attribute('src').endswith('assets/hero-render-study.webp'),'D01 approved hero cover')
+    ck(page.locator('[data-go="render"]').count()>=1,'D01 Render workspace entry visible')
+    page.locator('.nav-links [data-go="render"]').click();page.wait_for_selector('#renderIntroCreate')
+    ck(page.locator('text=效果图工作区在作品里面').count()==1,'D01 Render entry explains project requirement')
+    page.locator('#closeModal').click()
     ck(overflow_ok(page),'D01 no overflow')
     shot(page,'1.3-D01-home.png')
 
@@ -114,6 +119,9 @@ with sync_playwright() as p:
         raise AssertionError('D03 generate did not reach project overview')
     page.wait_for_timeout(250)
     ck(px(page,'.project-title')>=40,'D03 overview title scale')
+    page.locator('.nav-links [data-go="render"]').click();page.wait_for_selector('.render-layout')
+    ck(page.locator('[data-tab="render"].active').count()==1,'D03 top Render entry opens workspace')
+    goto_tab(page,'work')
     ck(overflow_ok(page),'D03 no overflow')
     shot(page,'1.3-D03-overview.png')
     page.locator('.next-link').scroll_into_view_if_needed();page.wait_for_timeout(100)
