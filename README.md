@@ -1,4 +1,4 @@
-# FloraLab Studio 1.1.2 — Workspace UI
+# FloraLab Studio 1.2.0 — Material Library
 
 FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流。
 
@@ -9,11 +9,13 @@ FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流
 
 1.1 Anywhere 将 Studio 从本地 Node 服务迁移为 **纯前端 PWA**。正式使用时不需要运行 `server.js`、不需要电脑常开，也不需要同一 Wi‑Fi；GitHub Pages 可以直接在电脑、手机和平板访问。
 
-1.1.2 在不改变确定性数据与制作能力的前提下，重做工作区的信息尺度：桌面更像专业编辑工具，手机更像现场制作工具；Recipe、Structure、Build 与材料库优先保证可读性、触控和首屏效率。
+1.2 在 1.1.2 工作尺度基础上，把原来的材料搜索列表升级为真正的 **Material Library / Botanical Archive**：117 种花材与 13 类创意物料可以按名称、别名、角色、颜色、季节和制作属性检索；详情页展示尺寸、需水、脆弱度、瓶插/花泥适配、季节、替代关系与现实提醒，并与当前 Recipe 建立查看关系。
 
-## 1.1 核心能力
+1.2 同时把 **逐页视觉验收** 升级为正式发布门槛：13 个 Desktop 页面状态 + 14 个 Mobile 页面状态必须分别生成截图并通过浏览器检查；Contact Sheet 不再代替单页验收。
 
-- 117 种核心/参考花材 + 13 类创意物料。
+## 1.2 核心能力
+
+- 117 种核心/参考花材 + 13 类创意物料；Material Library 支持搜索、角色/颜色/季节/制作筛选与独立详情。
 - Recipe：需要 / 已有 / 我的单价 / 还需购买 / 小计实时联动。
 - Reality：预算、季节、供水、花泥适配、宠物风险、食品隔离、重物支撑、尺寸与稳定性。
 - Composition：焦点、体块、线条、填充、留白和基础视觉重心建议，不输出假精确分数。
@@ -25,6 +27,8 @@ FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流
 - `.floralab` 导入/导出；兼容 V5 `floralab/0.5` 并验证重复 Stem ID、负数配方、非法坐标等错误。
 - A4 打印制作单。
 - IndexedDB 设备内项目保存。
+- Material Detail：形态、制作、季节时间轴、宠物/食品等现实提醒、替代关系与当前作品用量。
+- Verified Visual Registry：材料事实图必须记录来源与许可；没有可靠图片时明确显示占位，不用生成图冒充材料识别图。
 - PWA 安装与离线缓存。
 - Windows 桌面快捷入口安装包。
 - Principle-based ChatGPT Project Kit：保留模型自身判断和创造能力，不把对话锁进固定步骤。
