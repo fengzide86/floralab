@@ -12,7 +12,7 @@ ChatGPT Project｜FloraLab 创作空间
                     ⇅
                  .floralab
                     ⇅
-FloraLab Studio 1.1 Anywhere｜GitHub Pages PWA
+FloraLab Studio｜GitHub Pages PWA
   Recipe / Reality / Composition / Blueprint / 五视图 / Build / Feedback
 ```
 
@@ -35,4 +35,4 @@ Studio 继续使用 Atelier 视觉：暖象牙白、深梅紫、灰绿、墨黑�
 
 ## 当前不做
 
-1.1 不加入账号系统、云数据库、自动跨设备同步、商城、支付、供应商、社区、广告、OpenAI API、本地 AI、AR 或实时花市价格。需要跨设备时导出 `.floralab`，通过微信、AirDrop、网盘或文件系统传输后导入。
+当前不加入账号系统、云数据库、自动跨设备同步、商城、支付、供应商、社区、广告、OpenAI API、本地 AI、AR 或实时花市价格。需要跨设备时导出 `.floralab`，通过微信、AirDrop、网盘或文件系统传输后导入。
