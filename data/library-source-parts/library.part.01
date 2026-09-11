@@ -1,0 +1,50 @@
+(function(){
+'use strict';
+const ROLE_ORDER=['主花','焦点','体块','线条','过渡','填充','叶材','点缀'];
+const COLOR_ORDER=['白','紫','粉','红','黄','橙','蓝','绿','香槟','奶油','黑'];
+const SEASONS={spring:[3,4,5],summer:[6,7,8],autumn:[9,10,11],winter:[12,1,2]};
+const COLOR_HEX={白:'#eee9df',紫:'#9d87ad',粉:'#d9aeb7',红:'#a85d59',黄:'#d4b95e',橙:'#ca865c',蓝:'#88a6b7',绿:'#7e9277',香槟:'#d7c4a8',奶油:'#e8dcc2',黑:'#47434a'};
+const WEIGHT_LABEL={light:'轻',medium:'中等',heavy:'偏重'};
+const LEVEL_LABEL={low:'低',medium:'中等',high:'高',good:'适合',fair:'一般',poor:'不适合'};
+
+function q(sel,root=document){return root.querySelector(sel);}
+function qa(sel,root=document){return [...root.querySelectorAll(sel)];}
+function valLabel(v){return LEVEL_LABEL[v]||WEIGHT_LABEL[v]||v||'—';}
+function rangeLabel(v,unit){return Array.isArray(v)&&v.length>=2?`${v[0]}–${v[1]} ${unit}`:'—';}
+function priceLabel(v){return Array.isArray(v)&&v.length>=2?`¥${v[0]}–${v[1]}`:'—';}
+function monthLabel(month){return `${month} 月`;}
+function seasonMonths(season){return SEASONS[season]||[];}
+function palette(m){const colors=(m.colors||[]).slice(0,5);return colors.length?colors:['绿'];}
+function escAttr(s=''){return String(s).replace(/"/g,'&quot;');}
+
+function visualEntry(S,kind,m){
+  const items=S.visualRegistry?.items||{};
+  return items[`${kind}:${m.id}`]||items[m.id]||null;
+}
+function materialVisual(ctx,kind,m,large=false){
+  const {S,esc}=ctx,entry=visualEntry(S,kind,m);
+  if(entry?.verified&&entry.asset){
+    return `<figure class="material-visual ${large?'large':''}"><img src="${esc(entry.asset)}" alt="${esc(m.name)}材料参考图" loading="lazy" decoding="async"><figcaption>${entry.credit?esc(entry.credit):'已核实材料参考图'}</figcaption></figure>`;
+  }
+  const swatches=kind==='flower'?palette(m).map(c=>`<i style="--material-swatch:${COLOR_HEX[c]||'#b9b0a5'}"></i>`).join(''):'<i style="--material-swatch:#bbaea2"></i><i style="--material-swatch:#817388"></i>';
+  return `<figure class="material-visual placeholder ${large?'large':''}" aria-label="${esc(m.name)}暂无可靠图片"><div class="material-visual-mark">${esc(String(m.name||'?').slice(0,1))}</div><div class="material-visual-swatches">${swatches}</div><figcaption>暂无可靠图片 · 不使用生成图冒充材料事实</figcaption></figure>`;
+}
+function currentUse(S,kind,id){
+  if(!S.plan?.recipe)return null;
+  const key=`${kind}:${id}`;
+  return S.plan.recipe.find(r=>r.key===key)||null;
+}
+function flowerByName(S,name){return (S.catalog?.flowers||[]).find(x=>x.name===name||(x.aliases||[]).includes(name));}
+function currentSeasonMatch(f,month){
+  if((f.peak_months||[]).includes(month))return true;
+  if(String(f.season||'').includes('全年'))return true;
+  const map={春:[3,4,5],夏:[6,7,8],秋:[9,10,11],冬:[12,1,2]};
+  return Object.entries(map).some(([k,months])=>String(f.season||'').includes(k)&&months.includes(month));
+}
+function seasonMatch(f,filter,month){
+  if(!filter)return true;
+  if(filter==='current')return currentSeasonMatch(f,month);
+  return seasonMonths(filter).some(m=>(f.peak_months||[]).includes(m))||({spring:'春',summer:'夏',autumn:'秋',winter:'冬'}[filter]&&String(f.season||'').includes({spring:'春',summer:'夏',autumn:'秋',winter:'冬'}[filter]));
+}
+function makingMatch(f,filter){
+  if(!filter)return true;
