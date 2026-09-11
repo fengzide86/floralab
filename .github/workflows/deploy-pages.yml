@@ -74,6 +74,7 @@ jobs:
             qa/1.2-M*.png
             qa/ui-1.2.json
             qa/material-visual-sources.json
+            qa/material-visual-sheet-*.jpg
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
