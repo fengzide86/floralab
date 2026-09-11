@@ -1,8 +1,8 @@
 {
   "name": "floralab-studio",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "private": true,
-  "description": "FloraLab Studio 1.1.2 Workspace UI - Zero API PWA",
+  "description": "FloraLab Studio 1.2 Material Library - Zero API PWA",
   "scripts": {
     "build": "node scripts/build-runtime.js && python scripts/build-icons.py",
     "start": "node scripts/static-server.js",
@@ -13,9 +13,10 @@
     "test:ui": "python qa/ui_1_1.py",
     "test:qa": "npm run test:release && npm run test:ui",
     "test:pwa": "node tests/pwa-1.1.test.js && python qa/assets_1_1.py",
-    "test:release": "npm run build && npm run test:core && npm run test:project && npm run test:static && npm run test:pwa && npm run test:scenarios"
+    "test:release": "npm run build && npm run test:core && npm run test:project && npm run test:static && npm run test:pwa && npm run test:library && npm run test:scenarios",
+    "test:library": "node tests/library-1.2.test.js"
   },
   "engines": {
     "node": ">=18"
   }
-}
+}\n
