@@ -6,7 +6,7 @@
 
 1.1 的核心目标是把 1.0 的 Studio 能力迁移为 GitHub Pages/PWA，而不牺牲 Recipe、Reality、Composition、Blueprint 2.0、Build、文件兼容和 Project 工作流。
 
-当前本地 release gate 通过：**384 项检查全部通过**。
+当前本地 release gate 通过：**392 项检查全部通过**。
 
 | 套件 | 结果 |
 | --- | ---: |
@@ -16,8 +16,8 @@
 | Static / GitHub Pages architecture | 37 / 37 |
 | PWA / Service Worker logic | 26 / 26 |
 | Icon / asset dimensions | 16 / 16 |
-| Desktop + Mobile browser UI | 36 / 36 |
-| **合计** | **384 / 384** |
+| Desktop + Mobile browser UI | 44 / 44 |
+| **合计** | **392 / 392** |
 
 ## 1. 浏览器化迁移
 
@@ -76,6 +76,21 @@
 - assets-1.1：16 / 16
 - scenarios-regression：116 / 116（38 套场景）
 
-即 **GitHub release gate 348 / 348 通过**；浏览器 UI 36 项在本地真实 Chromium Runtime 验收，因此完整 QA 仍为 **384 / 384**。
+即 **GitHub release gate 348 / 348 通过**；1.1.1 浏览器 UI 已扩展到 44 项，因此完整本地 QA 为 **392 / 392**。
 
-当前 Actions 随后停在 `actions/configure-pages@v5`，GitHub 明确返回仓库尚未启用 Pages。这个步骤属于仓库管理设置，不是代码或测试失败。仓库所有者首次在 `Settings → Pages → Build and deployment → Source` 选择 **GitHub Actions** 后，即可重新运行该 workflow 完成正式 Pages 部署。
+GitHub Pages 已由仓库所有者切换为 **GitHub Actions** 发布源，随后 workflow 的 build 与 deploy 均成功；正式地址为 `https://fengzide86.github.io/floralab/`。
+
+
+## 8. 1.1.1 视觉验收
+
+本轮以 2026 主流专业工具和平台设计系统作为参照，不直接复制视觉语言：
+
+- Linear 2026 UI refresh：更安静、一致、易扫读，外围导航弱化，内容区更突出。
+- Figma UI3：工作/画布中心化，工具位置可预测，极简不能牺牲专业效率与可访问标签。
+- Raycast 2.0：原生感、熟悉感与克制的材质层级；视觉效果必须服务功能。
+- Apple WWDC26 / HIG：内容优先、跨尺寸适配、可读性、清楚命名、熟悉交互。
+- Material 3 Expressive：用尺度、颜色、形状、动效与容器有目的地突出关键动作，并强调更大的触控目标和高对比度。
+
+FloraLab 保留 Atelier 编辑感，不跟随“大量玻璃、漂浮卡片、霓虹渐变”的泛化趋势。采用的改动集中在信息层级、可读性、触控、轻量材质感和品牌图标简化。
+
+视觉自动验收新增：手机菜单完整性、菜单触控目标、Recipe 数量控件触控目标、Tab 触控目标、项目副标题对比度、非激活 Tab 对比度、Kicker 对比度。
