@@ -83,7 +83,13 @@ with sync_playwright() as p:
     shot(page,'1.2-D02-new.png')
 
     # D03 Overview
-    page.click('#generate');page.wait_for_timeout(1000)\n    if page.locator('.project-title').count()==0:\n        print('D03 console errors:',errors)\n        print('D03 toasts:',page.locator('.toast').all_text_contents())\n        shot(page,'1.2-D03-FAILED.png')\n        raise AssertionError('D03 generate did not reach project overview')\n    page.wait_for_timeout(250)
+    page.click('#generate');page.wait_for_timeout(1000)
+    if page.locator('.project-title').count()==0:
+        print('D03 console errors:',errors)
+        print('D03 toasts:',page.locator('.toast').all_text_contents())
+        shot(page,'1.2-D03-FAILED.png')
+        raise AssertionError('D03 generate did not reach project overview')
+    page.wait_for_timeout(250)
     ck(px(page,'.project-title')>=40,'D03 overview title scale')
     ck(overflow_ok(page),'D03 no overflow')
     shot(page,'1.2-D03-overview.png')
