@@ -95,6 +95,7 @@ with sync_playwright() as p:
     # D01 Home
     ck(page.locator('text=从一个想法').count()>0,'D01 home loaded')
     ck(page.locator('.hero-cover').get_attribute('src').endswith('assets/hero-render-study.webp'),'D01 approved hero cover')
+    ck(page.locator('.hero-cover').evaluate("e=>e.complete&&e.naturalWidth>=300&&e.naturalHeight>=380"),'D01 hero cover decodes')
     ck(page.locator('[data-go="render"]').count()>=1,'D01 Render workspace entry visible')
     page.locator('.nav-links [data-go="render"]').click();page.wait_for_selector('#renderIntroCreate')
     ck(page.locator('text=效果图工作区在作品里面').count()==1,'D01 Render entry explains project requirement')
@@ -277,6 +278,7 @@ with sync_playwright() as p:
 
     # M01
     ck(mob.locator('.hero-cover').get_attribute('src').endswith('assets/hero-render-study.webp'),'M01 approved hero cover')
+    ck(mob.locator('.hero-cover').evaluate("e=>e.complete&&e.naturalWidth>=300&&e.naturalHeight>=380"),'M01 hero cover decodes')
     mob.click('#navMore');mob.wait_for_timeout(80)
     ck(mob.locator('#mobileMenu [data-go="render"]').count()==1,'M01 mobile Render entry visible')
     mob.click('#navMore');mob.wait_for_timeout(80)
