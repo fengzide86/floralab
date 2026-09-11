@@ -197,7 +197,8 @@ with sync_playwright() as p:
     ck(min(mob.locator('#mobileMenu button').nth(i).bounding_box()['height'] for i in range(mob.locator('#mobileMenu button').count()))>=44,'M07 menu targets')
     shot(mob,'1.2-M07-menu.png');mob.click('#navMore')
     # M08
-    mob.click('[data-go="materials"]');mob.wait_for_selector('.library-shell')
+    mob.click('#navMore');mob.wait_for_timeout(80)
+    mob.click('#mobileMenu [data-go="materials"]');mob.wait_for_selector('.library-shell')
     cols=mob.locator('#libraryResults').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")
     ck(cols==1,'M08 one-column mobile library')
     ck(px(mob,'#materialSearch')>=16,'M08 search input >=16')
