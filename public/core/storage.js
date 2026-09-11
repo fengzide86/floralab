@@ -3,6 +3,10 @@
 
 const DB_NAME='floralab-studio';
 const DB_VERSION=1;
+const STATE_KEY='floralab-studio-state';
+const BACKUP_KEY='floralab-studio-backup';
+const LEGACY_STATE_KEYS=['floralab-1.1','floralab-1.0','floralab-v5','floralab-v4'];
+const LEGACY_BACKUP_KEYS=['floralab-1.1-backup','floralab-1.0-backup'];
 
 function create({state,cleanTitle}){
   if(!state)throw new Error('FloraLabStorage requires state');
@@ -68,10 +72,10 @@ function create({state,cleanTitle}){
 
   function save(){
     try{
-      const prev=localStorage.getItem('floralab-1.1')||localStorage.getItem('floralab-1.0');
-      if(prev)localStorage.setItem('floralab-1.1-backup',prev);
+      const prev=localStorage.getItem(STATE_KEY)||LEGACY_STATE_KEYS.map(key=>localStorage.getItem(key)).find(Boolean);
+      if(prev)localStorage.setItem(BACKUP_KEY,prev);
       const raw=JSON.stringify(snapshot());
-      localStorage.setItem('floralab-1.1',raw);
+      localStorage.setItem(STATE_KEY,raw);
       if(state.plan?.id){
         const row={
           id:state.plan.id,
@@ -90,8 +94,10 @@ function create({state,cleanTitle}){
 
   async function load(){
     try{
-      const raw=localStorage.getItem('floralab-1.1')||localStorage.getItem('floralab-1.0')||localStorage.getItem('floralab-v5')||localStorage.getItem('floralab-v4');
+      const current=localStorage.getItem(STATE_KEY);
+      const raw=current||LEGACY_STATE_KEYS.map(key=>localStorage.getItem(key)).find(Boolean)||'';
       let value=JSON.parse(raw||'{}');
+      if(!current&&raw)localStorage.setItem(STATE_KEY,raw);
       if(!value.plan){
         const meta=await idbGet('meta','current');
         const row=meta?.planId?await idbGet('projects',meta.planId):null;
@@ -106,7 +112,30 @@ function create({state,cleanTitle}){
     }
   }
 
-  return {openDB,idbPut,idbGet,idbAll,snapshot,save,load};
+  async function restoreBackup(){
+    try{
+      const raw=localStorage.getItem(BACKUP_KEY)||LEGACY_BACKUP_KEYS.map(key=>localStorage.getItem(key)).find(Boolean);
+      if(!raw)return {ok:false,message:'没有找到上一版本地备份'};
+      const value=JSON.parse(raw);
+      if(!value.plan)return {ok:false,message:'备份内容不完整'};
+      state.plan=value.plan;
+      state.form={...state.form,...(value.form||{})};
+      state.mode=value.mode||state.mode;
+      localStorage.setItem(STATE_KEY,raw);
+      await idbPut('projects',{
+        id:state.plan.id,
+        title:cleanTitle(state.plan.title),
+        updatedAt:new Date().toISOString(),
+        state:snapshot()
+      });
+      await idbPut('meta',{key:'current',planId:state.plan.id});
+      return {ok:true,message:'已恢复浏览器上一版'};
+    }catch(error){
+      return {ok:false,message:`恢复失败：${error?.message||error}`};
+    }
+  }
+
+  return {openDB,idbPut,idbGet,idbAll,snapshot,save,load,restoreBackup,keys:{state:STATE_KEY,backup:BACKUP_KEY}};
 }
 
 globalThis.FloraLabStorage={create};

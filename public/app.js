@@ -13,7 +13,7 @@ function toast(msg){const n=document.createElement('div');n.className='toast';n.
 async function api(url,opts={}){if(!window.FloraLabRuntime)throw new Error('Studio runtime 未加载');return window.FloraLabRuntime.request(url,opts);}
 function cleanTitle(s=''){return String(s).replace(/\s*·\s*Reality Ready.*$/,'').trim();}
 function colorHex(name,i=0){const map=Object.fromEntries(COLORS);return map[name]||['#a68baa','#f2eee5','#8ba487','#c3a87c'][i%4];}
-const {idbPut,idbGet,idbAll,snapshot,save,load}=window.FloraLabStorage.create({state:S,cleanTitle});
+const {idbPut,idbGet,idbAll,snapshot,save,load,restoreBackup:restoreLocalBackup}=window.FloraLabStorage.create({state:S,cleanTitle});
 
 const Shell=window.FloraLabShell.create({
   state:S,
@@ -108,7 +108,7 @@ function briefText(){const p=S.plan;return `FloraLab 作品：${cleanTitle(p.tit
 async function copyBrief(){try{await navigator.clipboard.writeText(briefText());toast('作品摘要已复制');}catch{const t=document.createElement('textarea');t.value=briefText();document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();toast('作品摘要已复制');}}
 async function copyRenderHandoff(){const text=window.FloraLabRuntime.Studio.renderHandoffText(S.plan);try{await navigator.clipboard.writeText(text);toast('效果图交接已复制');}catch{const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();toast('效果图交接已复制');}}
 async function importPlan(e){const f=e.target.files?.[0];if(!f)return;try{const raw=JSON.parse(await f.text());const v=await api('/api/design/validate-import',{method:'POST',body:JSON.stringify(raw)});S.plan=v.plan;S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.tab='work';save();result();if(v.warnings?.length)toast(`已导入，另有 ${v.warnings.length} 项兼容提醒`);else toast('设计文件已导入');}catch(err){toast(`导入失败：${err.data?.errors?.join('；')||err.message}`);}}
-function restoreBackup(){try{const raw=localStorage.getItem('floralab-1.1-backup')||localStorage.getItem('floralab-1.0-backup');if(!raw)return toast('没有找到上一版本地备份');const x=JSON.parse(raw);if(!x.plan)return toast('备份内容不完整');S.plan=x.plan;S.form={...S.form,...(x.form||{})};S.mode=x.mode||S.mode;localStorage.setItem('floralab-1.1',raw);idbPut('projects',{id:S.plan.id,title:cleanTitle(S.plan.title),updatedAt:new Date().toISOString(),state:snapshot()});toast('已恢复浏览器上一版');result();}catch(e){toast(`恢复失败：${e.message}`);}}
+async function restoreBackup(){const restored=await restoreLocalBackup();toast(restored.message);if(restored.ok)result();}
 function printSheet(p){return `<header><h1>${esc(cleanTitle(p.title))}</h1><p>${esc(p.type)} · ${esc((p.palette||[]).join(' / '))} · ${money(p.cost.total)}</p></header><section><h2>材料</h2>${p.recipe.filter(r=>r.quantity>0).map(r=>`<p>${esc(r.name)} — ${r.quantity}${esc(r.unit)}${r.owned?`（已有 ${r.owned}）`:''}</p>`).join('')}</section><section><h2>正面结构</h2>${renderBlueprint(p,'front',null,false)}</section><section><h2>制作步骤</h2><ol>${(p.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section><footer>${esc(p.mechanics.type)} · FloraLab Studio ${esc(S.status?.version||'dev')}</footer>`;}
 function materials(detailKey=null){
   S.page='materials';
