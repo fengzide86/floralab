@@ -137,6 +137,7 @@ with sync_playwright() as p:
     shot(page,'1.2-D09-library-filter.png')
 
     # D10 Core detail
+    page.click('#resetLibrary');page.wait_for_timeout(120)
     page.click('[data-material-detail="flower:hydrangea"]');page.wait_for_selector('.material-detail-layout')
     ck(page.locator('.material-spec-grid').count()>=2,'D10 flower specs')
     ck(page.locator('.season-timeline').count()==1,'D10 season timeline')
@@ -146,6 +147,7 @@ with sync_playwright() as p:
 
     # D11 Reference detail
     page.click('[data-library-back]');page.wait_for_selector('.library-shell')
+    page.click('.library-more summary');page.wait_for_timeout(80)
     page.click('[data-filter-group="making"][data-filter-value="reference"]');page.wait_for_timeout(120)
     page.locator('.material-card').first.click();page.wait_for_selector('.material-detail-layout')
     ck(page.locator('.material-trust.reference').count()==1,'D11 reference warning')
