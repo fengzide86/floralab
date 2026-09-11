@@ -1,5 +1,19 @@
 # FloraLab Changelog
 
+## 1.2.0 — Material Library
+
+- 将旧材料搜索列表升级为 Material Library / Botanical Archive：117 种花材与 13 类创意物料分开浏览，并保留 Studio 的 Atelier 编辑感而不是改成电商卡片墙。
+- 搜索覆盖名称、别名、颜色、角色与现实属性；花材支持角色、颜色、季节、制作/现实筛选，Desktop 与 Mobile 使用不同的信息密度。
+- 新增花材详情：角色/颜色、枝长、花头、重量、茎强度、脆弱度、需水、瓶插/花泥适配、季节时间轴、静态参考价、现实提醒与替代关系。
+- 新增创意物料详情：类别、重量、湿区、食品隔离、固定方式与制作提醒，不把花材字段机械套用到玩偶/零食/饮料等物料。
+- Recipe 中花材与创意物料可直接进入材料详情；详情页显示当前作品的需要 / 已有 / 还需购买，并可返回 Recipe。
+- reference-only 条目始终明确标记“需核实”；Unknown 不显示为 Safe，高风险宠物与食品隔离信息使用更高视觉层级。
+- 新增 Material Visual Registry。只有记录来源、许可并标记 verified 的事实图片才允许作为材料识别图；缺图时使用明确的非事实占位视觉。
+- Runtime / Package / Service Worker 统一升级到 1.2.0；Library 模块与视觉来源注册表进入 PWA 核心资源。
+- 新增 library-1.2 release gate 52 项；完整非视觉 release gate 为 404 项。
+- 新增 1.2 Page-by-page Visual Gate：13 个 Desktop + 14 个 Mobile 页面状态、56 项浏览器检查、27 张独立截图。逐页验收优先于 Contact Sheet。
+
+
 ## 1.1.2 — Workspace UI
 
 - 工作区从“展示型大版式”收回到真实工具尺度：正文、表格、控件和编辑字段统一提高可读性，但不把页面做成后台卡片墙。
