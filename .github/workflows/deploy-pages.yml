@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-v12
+  group: pages-v12-fast
   cancel-in-progress: true
 
 jobs:
@@ -33,9 +33,6 @@ jobs:
 
       - name: Install QA dependency
         run: python -m pip install --disable-pip-version-check pillow cairosvg playwright
-
-      - name: Install Chromium for visual gate
-        run: python -m playwright install chromium
 
       - name: Install CJK font for visual gate
         run: |
