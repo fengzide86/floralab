@@ -17,6 +17,16 @@ function seasonMonths(season){return SEASONS[season]||[];}
 function palette(m){const colors=(m.colors||[]).slice(0,5);return colors.length?colors:['绿'];}
 function escAttr(s=''){return String(s).replace(/"/g,'&quot;');}
 
+function petRiskInfo(value,referenceOnly=false){
+  const v=String(value||'').trim();
+  if(!v||v==='unknown')return {tone:'unknown',label:referenceOnly?'宠物信息需核实':'宠物信息未提供',text:'没有可靠信息时，不把“未知”显示成“安全”。'};
+  if(v==='block_cat')return {tone:'safety',label:'猫环境高风险',text:'真百合对猫为高危材料；猫环境不使用真百合，并避免花粉、花瓣、叶片和花水接触。'};
+  return {tone:'note',label:'宠物信息',text:v};
+}
+function beginnerLabel(v){
+  return v===true?'新手友好':v===false?'需要一定经验':'需核实';
+}
+
 function visualEntry(S,kind,m){
   const items=S.visualRegistry?.items||{};
   return items[`${kind}:${m.id}`]||items[m.id]||null;
