@@ -21,7 +21,7 @@ def resolve(pair):
     key,item=pair
     query=item['query']
     params={
-      'action':'query','generator':'search','gsrsearch':query,'gsrnamespace':'6','gsrlimit':'8',
+      'action':'query','generator':'search','gsrsearch':query,'gsrnamespace':'6','gsrlimit':'4',
       'prop':'imageinfo','iiprop':'url|extmetadata|mime','iiurlwidth':'1100','format':'json','origin':'*'
     }
     url=API+'?'+urllib.parse.urlencode(params)
@@ -38,21 +38,23 @@ def resolve(pair):
                 return key,{'ok':False,'query':query,'reason':'no_suitable_bitmap'}
             info=best['imageinfo'][0]
             md=info.get('extmetadata') or {}
-            return key,{
+            out={
               'ok':True,'query':query,'title':best.get('title',''),'asset':info.get('thumburl') or info.get('url'),
               'source':info.get('descriptionurl',''),'mime':info.get('mime',''),
               'license':(md.get('LicenseShortName') or md.get('UsageTerms') or {}).get('value','Wikimedia Commons')
             }
+            time.sleep(.35)
+            return key,out
         except Exception as e:
             last=str(e)
             if '429' in last:
-                time.sleep(2.0*(attempt+1))
+                time.sleep(5.0*(attempt+1))
             else:
                 time.sleep(.7*(attempt+1))
     return key,{'ok':False,'query':query,'reason':last or 'request_failed'}
 
 results={}
-with ThreadPoolExecutor(max_workers=2) as pool:
+with ThreadPoolExecutor(max_workers=1) as pool:
     futs=[pool.submit(resolve,pair) for pair in queries.items()]
     for fut in as_completed(futs):
         key,res=fut.result();results[key]=res
