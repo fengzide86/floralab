@@ -39,7 +39,7 @@ function home(){
   shell(window.FloraLabHomeView.render({state:S,esc}));
   $('#newDesign').onclick=create;
   $('#importFile').onchange=importPlan;
-  $('[data-open-project]').forEach(b=>b.onclick=async()=>{
+  $$('[data-open-project]').forEach(b=>b.onclick=async()=>{
     const row=await idbGet('projects',b.dataset.openProject);
     if(!row?.state)return toast('没有找到这件本机作品');
     S.plan=row.state.plan;
@@ -52,10 +52,10 @@ function home(){
 function create(){
   S.page='create';
   shell(window.FloraLabCreateView.render({state:S,colors:COLORS,types:TYPES,styles:STYLES,esc}),'create');
-  $('[data-mode]').forEach(b=>b.onclick=()=>{sync();S.mode=b.dataset.mode;if(S.mode==='creative'&&S.form.type==='花束')S.form.type='创意花束';create();});
-  $('[data-type]').forEach(b=>b.onclick=()=>{S.form.type=b.dataset.type;$('[data-type]').forEach(x=>x.classList.toggle('active',x===b));});
-  $('[data-color]').forEach(b=>b.onclick=()=>{const c=b.dataset.color;S.form.colors=S.form.colors.includes(c)?S.form.colors.filter(x=>x!==c):[...S.form.colors,c].slice(-4);b.classList.toggle('active');});
-  $('[data-style]').forEach(b=>b.onclick=()=>{const x=b.dataset.style;let arr=String($('#style').value||'').split(/[、,，]/).map(s=>s.trim()).filter(Boolean);arr=arr.includes(x)?arr.filter(v=>v!==x):[...arr,x];$('#style').value=arr.join('、');b.classList.toggle('active');});
+  $$('[data-mode]').forEach(b=>b.onclick=()=>{sync();S.mode=b.dataset.mode;if(S.mode==='creative'&&S.form.type==='花束')S.form.type='创意花束';create();});
+  $$('[data-type]').forEach(b=>b.onclick=()=>{S.form.type=b.dataset.type;$$('[data-type]').forEach(x=>x.classList.toggle('active',x===b));});
+  $$('[data-color]').forEach(b=>b.onclick=()=>{const c=b.dataset.color;S.form.colors=S.form.colors.includes(c)?S.form.colors.filter(x=>x!==c):[...S.form.colors,c].slice(-4);b.classList.toggle('active');});
+  $$('[data-style]').forEach(b=>b.onclick=()=>{const x=b.dataset.style;let arr=String($('#style').value||'').split(/[、,，]/).map(s=>s.trim()).filter(Boolean);arr=arr.includes(x)?arr.filter(v=>v!==x):[...arr,x];$('#style').value=arr.join('、');b.classList.toggle('active');});
   $('#generate').onclick=generate;
 }
 function sync(){for(const id of ['budget','style','existing','size','budgetPriority','designMonth','region','preferred','avoid','petContext','mechanicPreference']){const e=$('#'+id);if(e)S.form[id]=e.value;}S.form.budget=Number(S.form.budget||0);S.form.designMonth=Number(S.form.designMonth||MONTH);}
