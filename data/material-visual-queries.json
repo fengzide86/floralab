@@ -102,7 +102,7 @@
       "query": "Ruscus aculeatus foliage"
     },
     "flower:lemonleaf": {
-      "query": "Gaultheria shallon salal foliage"
+      "query": "Gaultheria shallon salal leaves branch"
     },
     "flower:fern": {
       "query": "Rumohra adiantiformis leatherleaf fern"
@@ -264,13 +264,13 @@
       "query": "Eucalyptus cinerea silver dollar foliage"
     },
     "flower:ref_086": {
-      "query": "Gypsophila dyed baby's breath flowers"
+      "query": "Gypsophila paniculata baby breath flowers close up"
     },
     "flower:ref_087": {
       "query": "Salvia flower spike"
     },
     "flower:ref_088": {
-      "query": "Salvia rosmarinus rosemary foliage"
+      "query": "Rosmarinus officinalis rosemary branch leaves"
     },
     "flower:ref_089": {
       "query": "Lavandula angustifolia lavender flower"
@@ -297,7 +297,7 @@
       "query": "Prunus persica peach blossom branch"
     },
     "flower:ref_097": {
-      "query": "Prunus salicina plum blossom branch"
+      "query": "Prunus mume plum blossom branch"
     },
     "flower:ref_098": {
       "query": "Prunus serrulata cherry blossom branch"
@@ -333,7 +333,7 @@
       "query": "Symphoricarpos snowberry branch"
     },
     "flower:ref_109": {
-      "query": "Hydrangea strigosa flower"
+      "query": "Hydrangea strigosa Hydrangea aspera flower"
     },
     "flower:ref_110": {
       "query": "Leucadendron cut flower woody"
