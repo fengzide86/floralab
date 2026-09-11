@@ -109,3 +109,18 @@ Studio 1.0 在导入前检查：
 - 未知 schema 与未收录材料会给兼容提醒。
 
 旧 `floralab/0.5` 会迁移到当前运行结构，包括补齐 Blueprint 2.0 的 vessel / mechanics / anchor 字段。
+
+## Render Handoff 1.3
+
+FloraLab 1.3 does **not** create a second editable Recipe. A top-level `render` section may be included in exported `.floralab` files as a deterministic handoff snapshot.
+
+Authoritative sources remain:
+- `recipe`: material identity, color/variant, quantity.
+- `mechanics`: fixing, support and hydration structure.
+- `blueprint`: 3D node positions, high/low, left/right, front/back, directions and silhouette.
+
+`render` is regenerated from those sources and never overwrites them. Import validation warns when a stale Render Spec disagrees with Recipe quantities.
+
+Render Spec v1.0 includes dimensions, primary view, exact material/count handoff, countability notes, packaging, vessel, Mechanics, special-object anchors, focus nodes, silhouette, visual mass, height/depth layers, directional flow, inferred sparse zones, visual freedom and post-generation self-check items.
+
+No fidelity percentage is stored because generative imagery cannot support that precision.
