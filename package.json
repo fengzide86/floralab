@@ -10,7 +10,7 @@
     "test:project": "node tests/project-kit-1.1.test.js",
     "test:static": "node tests/static-1.1.test.js",
     "test:scenarios": "node qa/scenarios-regression.js",
-    "test:ui": "python qa/ui_1_1.py",
+    "test:ui": "python qa/ui_1_2.py",
     "test:qa": "npm run test:release && npm run test:ui",
     "test:pwa": "node tests/pwa-1.1.test.js && python qa/assets_1_1.py",
     "test:release": "npm run build && npm run test:core && npm run test:project && npm run test:static && npm run test:pwa && npm run test:library && npm run test:scenarios",
