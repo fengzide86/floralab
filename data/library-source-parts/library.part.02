@@ -1,7 +1,7 @@
   if(filter==='beginner')return Boolean(f.beginner);
   if(filter==='vase')return f.vase_fit==='good';
   if(filter==='foam')return f.foam_fit==='good';
-  if(filter==='water')return f.water_ned==='high';
+  if(filter==='water')return f.water_need==='high';
   if(filter==='fragile')return f.fragility==='high';
   if(filter==='pet')return Boolean(f.pet_risk);
   if(filter==='reference')return Boolean(f.reference_only);
