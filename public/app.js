@@ -101,7 +101,7 @@ async function copyBrief(){try{await navigator.clipboard.writeText(briefText());
 async function copyRenderHandoff(){const text=window.FloraLabRuntime.Studio.renderHandoffText(S.plan);try{await navigator.clipboard.writeText(text);toast('效果图交接已复制');}catch{const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove();toast('效果图交接已复制');}}
 async function importPlan(e){const f=e.target.files?.[0];if(!f)return;try{const raw=JSON.parse(await f.text());const v=await api('/api/design/validate-import',{method:'POST',body:JSON.stringify(raw)});S.plan=v.plan;S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.tab='work';save();result();if(v.warnings?.length)toast(`已导入，另有 ${v.warnings.length} 项兼容提醒`);else toast('设计文件已导入');}catch(err){toast(`导入失败：${err.data?.errors?.join('；')||err.message}`);}}
 function restoreBackup(){try{const raw=localStorage.getItem('floralab-1.1-backup')||localStorage.getItem('floralab-1.0-backup');if(!raw)return toast('没有找到上一版本地备份');const x=JSON.parse(raw);if(!x.plan)return toast('备份内容不完整');S.plan=x.plan;S.form={...S.form,...(x.form||{})};S.mode=x.mode||S.mode;localStorage.setItem('floralab-1.1',raw);idbPut('projects',{id:S.plan.id,title:cleanTitle(S.plan.title),updatedAt:new Date().toISOString(),state:snapshot()});toast('已恢复浏览器上一版');result();}catch(e){toast(`恢复失败：${e.message}`);}}
-function printSheet(p){return `<header><h1>${esc(cleanTitle(p.title))}</h1><p>${esc(p.type)} · ${esc((p.palette||[]).join(' / '))} · ${money(p.cost.total)}</p></header><section><h2>材料</h2>${p.recipe.filter(r=>r.quantity>0).map(r=>`<p>${esc(r.name)} — ${r.quantity}${esc(r.unit)}${r.owned?`（已有 ${r.owned}）`:''}</p>`).join('')}</section><section><h2>正面结构</h2>${renderBlueprint(p,'front',null,false)}</section><section><h2>制作步骤</h2><ol>${(p.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section><footer>${esc(p.mechanics.type)} · FloraLab Studio 1.3.1</footer>`;}
+function printSheet(p){return `<header><h1>${esc(cleanTitle(p.title))}</h1><p>${esc(p.type)} · ${esc((p.palette||[]).join(' / '))} · ${money(p.cost.total)}</p></header><section><h2>材料</h2>${p.recipe.filter(r=>r.quantity>0).map(r=>`<p>${esc(r.name)} — ${r.quantity}${esc(r.unit)}${r.owned?`（已有 ${r.owned}）`:''}</p>`).join('')}</section><section><h2>正面结构</h2>${renderBlueprint(p,'front',null,false)}</section><section><h2>制作步骤</h2><ol>${(p.steps||[]).map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section><footer>${esc(p.mechanics.type)} · FloraLab Studio ${esc(S.status?.version||'dev')}</footer>`;}
 function materials(detailKey=null){
   S.page='materials';
   if(!window.FloraLabLibrary){toast('材料库模块未加载');return;}
@@ -118,7 +118,7 @@ if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serv
 async function init(){
   await load();
   try{S.status=await api('/api/status');S.catalog=await api('/api/catalog');}
-  catch{S.status={version:'1.3.1',mode:'zero-api-pwa',catalog:{flowers:117,creative:13}};}
+  catch{S.status={version:'dev',mode:'zero-api-pwa',catalog:{flowers:117,creative:13}};}
   try{
     const [vr,vq]=await Promise.all([
       fetch('./data/material-visuals.json',{cache:'no-store'}),
