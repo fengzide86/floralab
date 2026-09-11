@@ -217,18 +217,36 @@ def resolve(pair):
     except Exception as e:last='commons: '+str(e)
     return key,{'ok':False,'query':query,'reason':last or 'no_confident_open_image'}
 
-def download_bytes(url):
+def download_bytes(url,attempts=4):
     last=None
-    for attempt in range(2):
+    for attempt in range(attempts):
         try:
-            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 FloraLabStudio/1.2'})
-            with urllib.request.urlopen(req,timeout=18) as r:return r.read(12_000_000)
+            req=urllib.request.Request(url,headers={
+              'User-Agent':'Mozilla/5.0 FloraLabStudio/1.2',
+              'Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8'
+            })
+            with urllib.request.urlopen(req,timeout=24) as r:return r.read(12_000_000)
         except Exception as e:
-            last=e;time.sleep(.7*(attempt+1))
+            last=e
+            time.sleep((1.0 if '429' not in str(e) else 3.0)*(attempt+1))
     raise last
 
 def safe_name(key):
     return re.sub(r'[^a-zA-Z0-9_-]+','-',key).strip('-')+'.webp'
+
+def alternative_resolution(key,current):
+    query=queries[key]['query']
+    provider=str(current.get('provider') or '')
+    resolvers=[resolve_commons,resolve_openverse] if provider=='Openverse' else [resolve_openverse,resolve_commons]
+    for fn in resolvers:
+        try:
+            alt=fn(key,query)
+            if alt and alt.get('ok') and alt.get('asset') and alt.get('source')!=current.get('source'):
+                return alt
+        except Exception:
+            pass
+        time.sleep(.25)
+    return None
 
 def persist_asset(key,res):
     if not res.get('ok'):return key,res
@@ -261,12 +279,31 @@ with ThreadPoolExecutor(max_workers=5) as pool:
         key,res=fut.result();persisted[key]=res
         if i%10==0 or i==len(results):print(f"visual-mirror: {i}/{len(results)}",flush=True)
 
+# A resolved remote URL is not enough for the PWA: every factual image must be copied into
+# the release artifact. Retry transient failures, then switch provider/source before failing.
+repair_keys=sorted(k for k,v in persisted.items() if v.get('ok') and v.get('asset') and not v.get('local_asset'))
+if repair_keys:
+    print('visual-mirror-repair:',', '.join(repair_keys),flush=True)
+for key in repair_keys:
+    time.sleep(.4)
+    _,retry=persist_asset(key,persisted[key])
+    if retry.get('local_asset'):
+        persisted[key]=retry
+        continue
+    alt=alternative_resolution(key,persisted[key])
+    if alt:
+        _,retry_alt=persist_asset(key,alt)
+        if retry_alt.get('local_asset'):
+            retry_alt['mirror_recovered_from']=persisted[key].get('provider','')
+            persisted[key]=retry_alt
+
 missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('asset'))
 low_conf=sorted(k for k,v in persisted.items() if v.get('ok') and float(v.get('confidence',0))<10)
+remote_fallback=sorted(k for k,v in persisted.items() if v.get('ok') and v.get('asset') and not v.get('local_asset'))
 report={
   'version':'1.2.1','total':len(queries),'resolved':len(queries)-len(missing),'missing':missing,'low_confidence':low_conf,
   'mirrored':sum(1 for v in persisted.values() if v.get('local_asset')),
-  'remote_fallback':sum(1 for v in persisted.values() if v.get('ok') and v.get('asset') and not v.get('local_asset')),
+  'remote_fallback':len(remote_fallback),
   'policy':'Open reusable photographs only. Search results must contain a material-specific botanical/object keyword in title or metadata; source, creator and license are retained.',
   'items':dict(sorted(persisted.items()))
 }
@@ -305,7 +342,8 @@ for sheet_i in range(0,len(keys),26):
 print(f"material-visual-sources: {report['resolved']} / {report['total']} resolved; {report['mirrored']} mirrored; {report['remote_fallback']} remote fallbacks")
 print(f"material-visual-low-confidence: {len(low_conf)}")
 print(f"material-visual-bytes: {sum(v.get('bytes',0) for v in persisted.values())}")
-if missing or low_conf:
+if missing or low_conf or remote_fallback:
     if missing:print('missing:',', '.join(missing))
     if low_conf:print('low-confidence:',', '.join(low_conf))
+    if remote_fallback:print('remote-fallback:',', '.join(remote_fallback))
     raise SystemExit(1)
