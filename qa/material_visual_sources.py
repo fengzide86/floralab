@@ -64,6 +64,17 @@ def score_text(title,meta,query,must,photograph=False):
     n+=sum(3 for w in qwords if text_matches(title,(w,)))
     n+=sum(1 for w in qwords if text_matches(meta,(w,)))
     if photograph:n+=4
+
+    flower_intent=any(w in words(query) for w in ('flower','flowers','bloom','blossom'))
+    leaf_intent=any(w in words(query) for w in ('leaf','leaves','foliage','frond'))
+    if flower_intent:
+        if any(w in all_text for w in ('flower','flowers','bloom','blossom','inflorescence')): n+=8
+        if any(w in all_text for w in ('seed','seeds','fruit','bark','root','wood','trunk')): n-=18
+    if leaf_intent:
+        if any(w in all_text for w in ('leaf','leaves','foliage','frond')): n+=8
+        if any(w in all_text for w in ('fountain','airport','building','cat ',' dog ')): n-=18
+    if 'close up' in query.lower() or 'close-up' in query.lower():
+        if any(w in all_text for w in ('close-up','close up','macro')): n+=3
     return n
 
 def fetch_json(url,attempts=3):
@@ -94,6 +105,9 @@ def resolve_openverse(key,query):
         for x in openverse_rows(q):
             lic=str(x.get('license') or '').lower()
             if lic not in ALLOWED_OPENVERSE or not (x.get('url') or x.get('thumbnail')) or not x.get('foreign_landing_url'):
+                continue
+            source_name=str(x.get('source') or x.get('provider') or '').lower()
+            if key.startswith('flower:') and 'rawpixel' in source_name:
                 continue
             tags=' '.join(clean(t.get('name')) for t in (x.get('tags') or []) if isinstance(t,dict))
             meta=' '.join([tags,clean(x.get('creator')),clean(x.get('source')),clean(x.get('category'))])
