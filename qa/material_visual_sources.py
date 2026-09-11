@@ -1,118 +1,177 @@
 import html, io, json, re, time, urllib.parse, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageDraw, ImageFont
 
 ROOT=Path(__file__).resolve().parents[1]
 PUB=ROOT/'public'
 OUT=ROOT/'qa'/'material-visual-sources.json'
 PUB_OUT=PUB/'data'/'material-visual-sources.json'
 ASSET_DIR=PUB/'assets'/'materials'
-queries=json.loads((ROOT/'data'/'material-visual-queries.json').read_text(encoding='utf-8'))['items']
+QUERY_FILE=ROOT/'data'/'material-visual-queries.json'
+queries=json.loads(QUERY_FILE.read_text(encoding='utf-8'))['items']
+catalog=json.loads((ROOT/'data'/'catalog.json').read_text(encoding='utf-8'))
 COMMONS='https://commons.wikimedia.org/w/api.php'
 OPENVERSE='https://api.openverse.org/v1/images/'
-BAD=('logo','icon','diagram','map','flag','stamp','drawing','illustration','painting','poster','herbarium','specimen')
+BAD=('logo','icon','diagram','map','flag','stamp','drawing','illustration','painting','poster','herbarium','specimen','catalogue','price list','book page','botanical plate','engraving','plans','glider','aircraft')
+GENERIC={'flower','flowers','branch','leaves','leaf','foliage','close','up','cut','woody','dyed','form','photograph','photo','plant','plants'}
 ALLOWED_OPENVERSE={'cc0','pdm','by','by-sa'}
+CREATIVE_MUST={
+ 'creative:plush':('plush','teddy','bear'),
+ 'creative:strawberry':('strawberry',),
+ 'creative:chocolate':('chocolate',),
+ 'creative:snack':('snack',),
+ 'creative:can':('soda','can','beverage'),
+ 'creative:photo':('photo','polaroid'),
+ 'creative:acrylic':('acrylic','sign'),
+ 'creative:light':('fairy','light','lights'),
+ 'creative:building':('block','blocks','building'),
+ 'creative:giftbox':('gift','box'),
+ 'creative:keychain':('keychain','charm'),
+ 'creative:card':('card','greeting'),
+ 'creative:coffee':('coffee','drip')
+}
 
 def clean(value):
     text=re.sub(r'<[^>]+>',' ',html.unescape(str(value or '')))
     return re.sub(r'\s+',' ',text).strip()
 
-def words(query):
-    return [w for w in re.sub(r'[^a-z0-9]+',' ',query.lower()).split() if len(w)>2]
+def words(value):
+    return [w for w in re.sub(r'[^a-z0-9]+',' ',str(value or '').lower()).split() if len(w)>2]
 
-def title_score(title,query,photograph=False):
-    t=str(title or '').lower()
-    n=sum(3 for w in words(query) if w in t)
-    n-=sum(9 for w in BAD if w in t)
-    if photograph: n+=4
+def profile(key,query):
+    if key in CREATIVE_MUST:
+        must=CREATIVE_MUST[key]
+        qwords=[w for w in words(query) if w not in GENERIC]
+        phrase=' '.join(qwords[:3] or must[:2])
+        return must,phrase,qwords
+    qwords=[w for w in words(query) if w not in GENERIC]
+    must=tuple(qwords[:1])
+    phrase=' '.join(qwords[:2] or qwords[:1])
+    return must,phrase,qwords
+
+def text_matches(text,must):
+    t=' '+str(text or '').lower()+' '
+    return any(re.search(r'(?<![a-z0-9])'+re.escape(w)+r'(?![a-z0-9])',t) for w in must)
+
+def score_text(title,meta,query,must,photograph=False):
+    title=str(title or '').lower();meta=str(meta or '').lower();all_text=title+' '+meta
+    if any(b in all_text for b in BAD): return -100
+    if not text_matches(all_text,must): return -80
+    qwords=[w for w in words(query) if w not in GENERIC]
+    n=10
+    n+=sum(5 for w in must if text_matches(title,(w,)))
+    n+=sum(3 for w in qwords if text_matches(title,(w,)))
+    n+=sum(1 for w in qwords if text_matches(meta,(w,)))
+    if photograph:n+=4
     return n
 
-def commons_score(page,query):
-    info=(page.get('imageinfo') or [{}])[0]
-    n=title_score(page.get('title',''),query)
-    mime=info.get('mime','')
-    n+=4 if mime in ('image/jpeg','image/png','image/webp') else -12
-    md=info.get('extmetadata') or {}
-    desc=clean((md.get('ImageDescription') or md.get('ObjectName') or {}).get('value','')).lower()
-    n+=sum(1 for w in words(query) if w in desc)
-    return n
-
-def fetch_json(url,attempts=2):
+def fetch_json(url,attempts=3):
     last=None
     for attempt in range(attempts):
         try:
             req=urllib.request.Request(url,headers={'User-Agent':'FloraLabStudio/1.2 material visual audit'})
-            with urllib.request.urlopen(req,timeout=8) as r:
+            with urllib.request.urlopen(req,timeout=12) as r:
                 return json.load(r)
         except Exception as e:
             last=e
-            delay=(4.0 if '429' in str(e) else .8)*(attempt+1)
+            delay=(3.0 if '429' in str(e) else .7)*(attempt+1)
             time.sleep(delay)
     raise last
 
-def resolve_openverse(query):
-    params={'q':query,'page_size':'6','mature':'false'}
+def openverse_rows(q):
+    params={'q':q,'page_size':'20','mature':'false','category':'photograph'}
     data=fetch_json(OPENVERSE+'?'+urllib.parse.urlencode(params))
-    rows=[]
-    for x in data.get('results',[]):
-        lic=str(x.get('license') or '').lower()
-        if (x.get('url') or x.get('thumbnail')) and x.get('foreign_landing_url') and lic in ALLOWED_OPENVERSE:
-            rows.append(x)
-    if not rows:return None
-    rows.sort(key=lambda x:title_score(x.get('title',''),query,str(x.get('category','')).lower()=='photograph'),reverse=True)
-    x=rows[0]
-    lic=' '.join(v for v in [str(x.get('license','')).upper(),str(x.get('license_version') or '')] if v)
-    return {
-      'ok':True,'provider':'Openverse','query':query,'title':x.get('title',''),
-      'asset':x.get('thumbnail') or x.get('url'),'preview':x.get('url') or '','source':x.get('foreign_landing_url'),'mime':x.get('filetype',''),
-      'license':lic or 'Open license','license_url':x.get('license_url') or '',
-      'creator':clean(x.get('creator') or x.get('source') or 'Openverse')
-    }
+    return data.get('results',[]) or []
 
-def resolve_commons(query):
+def resolve_openverse(key,query):
+    must,phrase,_=profile(key,query)
+    tried=[]
+    for q in [f'"{phrase}"',query]:
+        if not q or q in tried:continue
+        tried.append(q)
+        rows=[]
+        for x in openverse_rows(q):
+            lic=str(x.get('license') or '').lower()
+            if lic not in ALLOWED_OPENVERSE or not (x.get('url') or x.get('thumbnail')) or not x.get('foreign_landing_url'):
+                continue
+            tags=' '.join(clean(t.get('name')) for t in (x.get('tags') or []) if isinstance(t,dict))
+            meta=' '.join([tags,clean(x.get('creator')),clean(x.get('source')),clean(x.get('category'))])
+            sc=score_text(x.get('title',''),meta,query,must,str(x.get('category','')).lower()=='photograph')
+            if sc>-50: rows.append((sc,x))
+        if not rows:continue
+        rows.sort(key=lambda pair:pair[0],reverse=True)
+        sc,x=rows[0]
+        lic=' '.join(v for v in [str(x.get('license','')).upper(),str(x.get('license_version') or '')] if v)
+        return {
+          'ok':True,'provider':'Openverse','query':query,'search_query':q,'confidence':sc,'title':x.get('title',''),
+          'asset':x.get('thumbnail') or x.get('url'),'preview':x.get('url') or '','source':x.get('foreign_landing_url'),'mime':x.get('filetype',''),
+          'license':lic or 'Open license','license_url':x.get('license_url') or '',
+          'creator':clean(x.get('creator') or x.get('source') or 'Openverse')
+        }
+    return None
+
+def commons_pages(q):
     params={
-      'action':'query','generator':'search','gsrsearch':query,'gsrnamespace':'6','gsrlimit':'6',
+      'action':'query','generator':'search','gsrsearch':q,'gsrnamespace':'6','gsrlimit':'12',
       'prop':'imageinfo','iiprop':'url|extmetadata|mime','iiurlwidth':'1200','format':'json','origin':'*'
     }
     data=fetch_json(COMMONS+'?'+urllib.parse.urlencode(params))
-    pages=[p for p in (data.get('query',{}).get('pages',{}) or {}).values() if p.get('imageinfo')]
-    pages.sort(key=lambda p:commons_score(p,query),reverse=True)
-    best=next((p for p in pages if commons_score(p,query)>-4),None)
-    if not best:return None
-    info=best['imageinfo'][0];md=info.get('extmetadata') or {}
-    return {
-      'ok':True,'provider':'Wikimedia Commons','query':query,'title':best.get('title',''),
-      'asset':info.get('thumburl') or info.get('url'),'preview':info.get('url') or '','source':info.get('descriptionurl',''),'mime':info.get('mime',''),
-      'license':clean((md.get('LicenseShortName') or md.get('UsageTerms') or {}).get('value','Wikimedia Commons')),
-      'license_url':clean((md.get('LicenseUrl') or {}).get('value','')),
-      'creator':clean((md.get('Artist') or md.get('Credit') or {}).get('value','Wikimedia Commons'))[:160]
-    }
+    return [p for p in (data.get('query',{}).get('pages',{}) or {}).values() if p.get('imageinfo')]
+
+def resolve_commons(key,query):
+    must,phrase,_=profile(key,query)
+    tried=[]
+    for q in [f'"{phrase}"',query]:
+        if not q or q in tried:continue
+        tried.append(q)
+        rows=[]
+        for page in commons_pages(q):
+            info=page['imageinfo'][0];md=info.get('extmetadata') or {}
+            mime=info.get('mime','')
+            if mime not in ('image/jpeg','image/png','image/webp'):continue
+            meta=' '.join([
+              clean((md.get('ImageDescription') or {}).get('value','')),
+              clean((md.get('ObjectName') or {}).get('value','')),
+              clean((md.get('Categories') or {}).get('value','')),
+              clean((md.get('Artist') or {}).get('value',''))
+            ])
+            sc=score_text(page.get('title',''),meta,query,must,True)
+            if sc>-50:rows.append((sc,page))
+        if not rows:continue
+        rows.sort(key=lambda pair:pair[0],reverse=True)
+        sc,best=rows[0]
+        info=best['imageinfo'][0];md=info.get('extmetadata') or {}
+        return {
+          'ok':True,'provider':'Wikimedia Commons','query':query,'search_query':q,'confidence':sc,'title':best.get('title',''),
+          'asset':info.get('thumburl') or info.get('url'),'preview':info.get('url') or '','source':info.get('descriptionurl',''),'mime':info.get('mime',''),
+          'license':clean((md.get('LicenseShortName') or md.get('UsageTerms') or {}).get('value','Wikimedia Commons')),
+          'license_url':clean((md.get('LicenseUrl') or {}).get('value','')),
+          'creator':clean((md.get('Artist') or md.get('Credit') or {}).get('value','Wikimedia Commons'))[:160]
+        }
+    return None
 
 def resolve(pair):
     key,item=pair;query=item['query'];last=None
     try:
-        out=resolve_openverse(query)
+        out=resolve_openverse(key,query)
         if out:return key,out
-    except Exception as e:
-        last='openverse: '+str(e)
-    time.sleep(.18)
+    except Exception as e:last='openverse: '+str(e)
+    time.sleep(.08)
     try:
-        out=resolve_commons(query)
+        out=resolve_commons(key,query)
         if out:return key,out
-    except Exception as e:
-        last='commons: '+str(e)
-    return key,{'ok':False,'query':query,'reason':last or 'no_suitable_open_image'}
+    except Exception as e:last='commons: '+str(e)
+    return key,{'ok':False,'query':query,'reason':last or 'no_confident_open_image'}
 
 def download_bytes(url):
     last=None
     for attempt in range(2):
         try:
             req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 FloraLabStudio/1.2'})
-            with urllib.request.urlopen(req,timeout=15) as r:
-                return r.read(12_000_000)
+            with urllib.request.urlopen(req,timeout=18) as r:return r.read(12_000_000)
         except Exception as e:
-            last=e;time.sleep(.8*(attempt+1))
+            last=e;time.sleep(.7*(attempt+1))
     raise last
 
 def safe_name(key):
@@ -123,81 +182,77 @@ def persist_asset(key,res):
     try:
         raw=None;last=None
         for candidate in [res.get('asset'),res.get('preview')]:
-            if not candidate: continue
-            try:
-                raw=download_bytes(candidate);break
-            except Exception as e:
-                last=e
-        if raw is None: raise last or RuntimeError('no_downloadable_asset')
-        im=Image.open(io.BytesIO(raw))
-        im=ImageOps.exif_transpose(im).convert('RGB')
-        im.thumbnail((1200,1200),Image.Resampling.LANCZOS)
+            if not candidate:continue
+            try:raw=download_bytes(candidate);break
+            except Exception as e:last=e
+        if raw is None:raise last or RuntimeError('no_downloadable_asset')
+        im=Image.open(io.BytesIO(raw));im=ImageOps.exif_transpose(im).convert('RGB');im.thumbnail((1200,1200),Image.Resampling.LANCZOS)
         ASSET_DIR.mkdir(parents=True,exist_ok=True)
-        filename=safe_name(key)
-        out=ASSET_DIR/filename
-        im.save(out,'WEBP',quality=84,method=5)
-        res=dict(res)
-        res['local_asset']='./assets/materials/'+filename
-        res['width'],res['height']=im.size
-        res['bytes']=out.stat().st_size
+        filename=safe_name(key);out=ASSET_DIR/filename;im.save(out,'WEBP',quality=84,method=5)
+        res=dict(res);res['local_asset']='./assets/materials/'+filename;res['width'],res['height']=im.size;res['bytes']=out.stat().st_size
         return key,res
     except Exception as e:
-        # If an Openverse thumbnail cannot be mirrored, try a Commons result once.
-        if res.get('provider')=='Openverse':
-            try:
-                alt=resolve_commons(res.get('query',''))
-                if alt:
-                    raw=download_bytes(alt['asset'])
-                    im=Image.open(io.BytesIO(raw))
-                    im=ImageOps.exif_transpose(im).convert('RGB')
-                    im.thumbnail((1200,1200),Image.Resampling.LANCZOS)
-                    ASSET_DIR.mkdir(parents=True,exist_ok=True)
-                    filename=safe_name(key)
-                    out=ASSET_DIR/filename
-                    im.save(out,'WEBP',quality=84,method=5)
-                    alt['local_asset']='./assets/materials/'+filename
-                    alt['width'],alt['height']=im.size
-                    alt['bytes']=out.stat().st_size
-                    return key,alt
-            except Exception:
-                pass
-        fallback=dict(res)
-        fallback['mirror_error']='asset_download: '+str(e)
-        return key,fallback
+        fallback=dict(res);fallback['mirror_error']='asset_download: '+str(e);return key,fallback
 
 results={}
-# Resolve a few items at a time; provider retry/backoff handles 429s without turning 130 lookups into a serial crawl.
-with ThreadPoolExecutor(max_workers=4) as pool:
+with ThreadPoolExecutor(max_workers=3) as pool:
     futs=[pool.submit(resolve,pair) for pair in queries.items()]
-    done=0
-    for fut in as_completed(futs):
-        key,res=fut.result();results[key]=res;done+=1
-        if done%10==0 or done==len(queries):
-            print(f"visual-search: {done}/{len(queries)}",flush=True)
+    for i,fut in enumerate(as_completed(futs),1):
+        key,res=fut.result();results[key]=res
+        if i%10==0 or i==len(queries):print(f"visual-search: {i}/{len(queries)}",flush=True)
 
-# Image downloads are separate and lightly parallel because they hit the selected media hosts, not search APIs.
 persisted={}
-with ThreadPoolExecutor(max_workers=6) as pool:
+with ThreadPoolExecutor(max_workers=5) as pool:
     futs=[pool.submit(persist_asset,k,v) for k,v in results.items()]
-    done=0
-    for fut in as_completed(futs):
-        key,res=fut.result();persisted[key]=res;done+=1
-        if done%10==0 or done==len(results):
-            print(f"visual-mirror: {done}/{len(results)}",flush=True)
+    for i,fut in enumerate(as_completed(futs),1):
+        key,res=fut.result();persisted[key]=res
+        if i%10==0 or i==len(results):print(f"visual-mirror: {i}/{len(results)}",flush=True)
 
 missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('asset'))
+low_conf=sorted(k for k,v in persisted.items() if v.get('ok') and float(v.get('confidence',0))<10)
 report={
-  'version':'1.2.1','total':len(queries),'resolved':len(queries)-len(missing),'missing':missing,
+  'version':'1.2.1','total':len(queries),'resolved':len(queries)-len(missing),'missing':missing,'low_confidence':low_conf,
   'mirrored':sum(1 for v in persisted.values() if v.get('local_asset')),
   'remote_fallback':sum(1 for v in persisted.values() if v.get('ok') and v.get('asset') and not v.get('local_asset')),
-  'policy':'Open reusable photograph first. Images are mirrored when providers allow it; rate-limited items retain their licensed remote asset URL with source, creator and license attribution.',
+  'policy':'Open reusable photographs only. Search results must contain a material-specific botanical/object keyword in title or metadata; source, creator and license are retained.',
   'items':dict(sorted(persisted.items()))
 }
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-PUB_OUT.parent.mkdir(parents=True,exist_ok=True)
-PUB_OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+PUB_OUT.parent.mkdir(parents=True,exist_ok=True);PUB_OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+
+# Material-image audit sheets are supplemental QA, not a substitute for page-by-page UI review.
+names={**{'flower:'+x['id']:x['name'] for x in catalog['flowers']},**{'creative:'+x['id']:x['name'] for x in catalog['creative']}}
+font_paths=['/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.otf']
+font=ImageFont.load_default()
+for fp in font_paths:
+    if Path(fp).exists():
+        try:font=ImageFont.truetype(fp,18);break
+        except Exception:pass
+keys=sorted(persisted)
+for sheet_i in range(0,len(keys),26):
+    subset=keys[sheet_i:sheet_i+26];canvas=Image.new('RGB',(1300,5*230),(246,243,238));draw=ImageDraw.Draw(canvas)
+    for idx,key in enumerate(subset):
+        col=idx%5;row=idx//5;x=col*260;y=row*230
+        res=persisted[key];im=None
+        path=ASSET_DIR/safe_name(key)
+        if path.exists():
+            try:im=Image.open(path).convert('RGB')
+            except Exception:im=None
+        if im is None and res.get('asset'):
+            try:im=Image.open(io.BytesIO(download_bytes(res['asset']))).convert('RGB')
+            except Exception:im=None
+        if im:
+            im=ImageOps.fit(im,(240,165),method=Image.Resampling.LANCZOS);canvas.paste(im,(x+10,y+8))
+        else:
+            draw.rectangle((x+10,y+8,x+250,y+173),outline=(170,160,150),width=2);draw.text((x+28,y+72),'NO IMAGE',fill=(100,90,85),font=font)
+        label=(names.get(key,key)+'  '+key)[:34];draw.text((x+10,y+181),label,fill=(55,48,44),font=font)
+        meta=(res.get('provider','')+' · '+str(res.get('confidence','')))[:32];draw.text((x+10,y+204),meta,fill=(110,100,94),font=font)
+    canvas.save(ROOT/'qa'/f'material-visual-sheet-{sheet_i//26+1:02d}.jpg',quality=88)
+
 print(f"material-visual-sources: {report['resolved']} / {report['total']} resolved; {report['mirrored']} mirrored; {report['remote_fallback']} remote fallbacks")
+print(f"material-visual-low-confidence: {len(low_conf)}")
 print(f"material-visual-bytes: {sum(v.get('bytes',0) for v in persisted.values())}")
-if missing:
-    print('missing:', ', '.join(missing))
+if missing or low_conf:
+    if missing:print('missing:',', '.join(missing))
+    if low_conf:print('low-confidence:',', '.join(low_conf))
     raise SystemExit(1)
