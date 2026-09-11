@@ -1,7 +1,7 @@
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.join(__dirname,'..'),pub=path.join(root,'public');
 let n=0;const ok=(x,m)=>{assert.ok(x,m);n++};
-const must=['public/app.js','public/core/storage.js','public/core/shell.js','public/views/home.js','public/views/create.js','public/style.css','public/service-worker.js','public/runtime.js','lib/engine.js','lib/studio.js','lib/versions.js','lib/exploration.js','package.json'];
+const must=['public/app.js','public/core/storage.js','public/core/shell.js','public/views/home.js','public/views/create.js','public/style.css','public/service-worker.js','public/runtime.js','lib/engine.js','lib/studio.js','lib/versions.js','lib/exploration.js','lib/composition-grammar.js','package.json'];
 for(const rel of must)ok(fs.existsSync(path.join(root,rel)),rel);
 const app=fs.readFileSync(path.join(pub,'app.js'),'utf8');
 const storage=fs.readFileSync(path.join(pub,'core','storage.js'),'utf8');
@@ -46,6 +46,8 @@ ok(runtime.includes('buildRenderSpec'),'Render Spec bundled');
 ok(runtime.includes('/api/design/update-blueprint'),'Blueprint update route bundled');
 ok(runtime.includes('/api/design/update-exploration'),'creative lock route bundled');
 ok(runtime.includes('/api/design/fork'),'creative branch route bundled');
+ok(runtime.includes('/api/design/variation-options'),'variation options route bundled');
+ok(runtime.includes('/api/design/variation'),'variation route bundled');
 const sw=fs.readFileSync(path.join(pub,'service-worker.js'),'utf8');
 ok(sw.includes('NETWORK_FIRST'),'PWA shell refresh policy preserved');
 ok(sw.includes(`floralab-${pkg.version}-shell-refresh`),'service worker cache follows package');
