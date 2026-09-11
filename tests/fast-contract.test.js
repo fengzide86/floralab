@@ -1,11 +1,13 @@
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.join(__dirname,'..'),pub=path.join(root,'public');
 let n=0;const ok=(x,m)=>{assert.ok(x,m);n++};
-const must=['public/app.js','public/core/storage.js','public/core/shell.js','public/style.css','public/service-worker.js','public/runtime.js','lib/engine.js','lib/studio.js','lib/versions.js','package.json'];
+const must=['public/app.js','public/core/storage.js','public/core/shell.js','public/views/home.js','public/views/create.js','public/style.css','public/service-worker.js','public/runtime.js','lib/engine.js','lib/studio.js','lib/versions.js','package.json'];
 for(const rel of must)ok(fs.existsSync(path.join(root,rel)),rel);
 const app=fs.readFileSync(path.join(pub,'app.js'),'utf8');
 const storage=fs.readFileSync(path.join(pub,'core','storage.js'),'utf8');
 const shell=fs.readFileSync(path.join(pub,'core','shell.js'),'utf8');
+const homeView=fs.readFileSync(path.join(pub,'views','home.js'),'utf8');
+const createView=fs.readFileSync(path.join(pub,'views','create.js'),'utf8');
 ok(app.includes('FloraLabRuntime.request'),'runtime client used');
 ok(app.includes('FloraLabStorage.create'),'app uses storage module');
 ok(!app.includes('indexedDB.open'),'IndexedDB implementation removed from app');
@@ -15,6 +17,10 @@ ok(storage.includes("LEGACY_STATE_KEYS=['floralab-1.1'"),'legacy storage keys re
 ok(app.includes('restoreBackup:restoreLocalBackup'),'app restores through storage module');
 ok(!app.includes("floralab-1.1-backup"),'app no longer owns legacy backup keys');
 ok(app.includes('FloraLabShell.create'),'app uses shell module');
+ok(app.includes('FloraLabHomeView.render'),'app uses Home view module');
+ok(app.includes('FloraLabCreateView.render'),'app uses Create view module');
+ok(homeView.includes('hero-cover'),'Home view owns landing artwork');
+ok(createView.includes('id="generate"'),'Create view owns design form markup');
 const singleQueryIteration=app.replaceAll('$(','__ALL__(');
 ok(!/\$\([^)]*\)\.forEach/.test(singleQueryIteration),'single query selector is never iterated');
 ok(!app.includes('block_cat'),'internal pet-risk enum is not rendered by app');
