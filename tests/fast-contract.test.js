@@ -1,10 +1,14 @@
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.join(__dirname,'..'),pub=path.join(root,'public');
 let n=0;const ok=(x,m)=>{assert.ok(x,m);n++};
-const must=['public/app.js','public/style.css','public/service-worker.js','public/runtime.js','lib/engine.js','lib/studio.js','package.json'];
+const must=['public/app.js','public/core/storage.js','public/style.css','public/service-worker.js','public/runtime.js','lib/engine.js','lib/studio.js','package.json'];
 for(const rel of must)ok(fs.existsSync(path.join(root,rel)),rel);
 const app=fs.readFileSync(path.join(pub,'app.js'),'utf8');
+const storage=fs.readFileSync(path.join(pub,'core','storage.js'),'utf8');
 ok(app.includes('FloraLabRuntime.request'),'runtime client used');
+ok(app.includes('FloraLabStorage.create'),'app uses storage module');
+ok(!app.includes('indexedDB.open'),'IndexedDB implementation removed from app');
+ok(storage.includes('indexedDB.open'),'storage module owns IndexedDB');
 ok(app.includes("$$('[data-go]').forEach"),'all navigation actions are bound');
 ok(app.includes("$$('[data-tab]').forEach"),'all workspace tabs are bound');
 ok(app.includes("['render','效果图']"),'Render workspace remains present');
