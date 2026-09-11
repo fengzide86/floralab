@@ -43,7 +43,7 @@ def fetch_json(url,attempts=4):
     for attempt in range(attempts):
         try:
             req=urllib.request.Request(url,headers={'User-Agent':'FloraLabStudio/1.2 material visual audit'})
-            with urllib.request.urlopen(req,timeout=25) as r:
+            with urllib.request.urlopen(req,timeout=12) as r:
                 return json.load(r)
         except Exception as e:
             last=e
@@ -158,17 +158,24 @@ def persist_asset(key,res):
         return key,{'ok':False,'query':res.get('query',''),'reason':'asset_download: '+str(e)}
 
 results={}
-# Search is intentionally serialized to respect provider rate limits.
-for pair in queries.items():
-    key,res=resolve(pair);results[key]=res
-    time.sleep(.12)
+# Resolve a few items at a time; provider retry/backoff handles 429s without turning 130 lookups into a serial crawl.
+with ThreadPoolExecutor(max_workers=4) as pool:
+    futs=[pool.submit(resolve,pair) for pair in queries.items()]
+    done=0
+    for fut in as_completed(futs):
+        key,res=fut.result();results[key]=res;done+=1
+        if done%10==0 or done==len(queries):
+            print(f"visual-search: {done}/{len(queries)}",flush=True)
 
 # Image downloads are separate and lightly parallel because they hit the selected media hosts, not search APIs.
 persisted={}
-with ThreadPoolExecutor(max_workers=4) as pool:
+with ThreadPoolExecutor(max_workers=6) as pool:
     futs=[pool.submit(persist_asset,k,v) for k,v in results.items()]
+    done=0
     for fut in as_completed(futs):
-        key,res=fut.result();persisted[key]=res
+        key,res=fut.result();persisted[key]=res;done+=1
+        if done%10==0 or done==len(results):
+            print(f"visual-mirror: {done}/{len(results)}",flush=True)
 
 missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('local_asset'))
 report={
