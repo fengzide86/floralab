@@ -28,6 +28,7 @@ function beginnerLabel(v){
 }
 
 const COMMONS_API='https://commons.wikimedia.org/w/api.php';
+const OPENVERSE_API='https://api.openverse.org/v1/images/';
 const VISUAL_CACHE_KEY='floralab-commons-visual-cache-v2';
 function visualKey(kind,m){return `${kind}:${m.id}`;}
 function visualEntry(S,kind,m){
@@ -88,27 +89,46 @@ function pumpVisualFetchQueue(S){
 function queuedCommonsJson(S,url){
   return new Promise((resolve,reject)=>{S.visualFetchQueue=S.visualFetchQueue||[];S.visualFetchQueue.push({url,resolve,reject});pumpVisualFetchQueue(S);});
 }
+async function openverseResult(S,query){
+  const params=new URLSearchParams({q:query,page_size:'8',mature:'false'});
+  const data=await queuedCommonsJson(S,`${OPENVERSE_API}?${params.toString()}`);
+  const rows=(data?.results||[]).filter(x=>x?.thumbnail&&x?.foreign_landing_url);
+  const bad=['logo','icon','diagram','map','flag','stamp','drawing','illustration','painting','poster'];
+  const qwords=String(query||'').toLowerCase().split(/[^a-z0-9]+/).filter(x=>x.length>2);
+  rows.sort((a,b)=>{
+    const score=x=>{const t=String(x.title||'').toLowerCase();let n=0;for(const w of qwords)if(t.includes(w))n+=2;for(const w of bad)if(t.includes(w))n-=8;if(String(x.category||'').toLowerCase()==='photograph')n+=3;return n;};
+    return score(b)-score(a);
+  });
+  const x=rows[0];if(!x)return null;
+  const license=[String(x.license||'').toUpperCase(),x.license_version].filter(Boolean).join(' ');
+  return {asset:x.thumbnail,source:x.foreign_landing_url,license:license||'Open license',credit:String(x.creator||x.source||'Openverse'),provider:'Openverse',query,resolved_at:Date.now()};
+}
+async function commonsResult(S,query){
+  const params=new URLSearchParams({action:'query',generator:'search',gsrsearch:query,gsrnamespace:'6',gsrlimit:'8',prop:'imageinfo',iiprop:'url|extmetadata|mime',iiurlwidth:'1100',format:'json',origin:'*'});
+  const data=await queuedCommonsJson(S,`${COMMONS_API}?${params.toString()}`),pages=Object.values(data?.query?.pages||{}).filter(p=>p?.imageinfo?.[0]);
+  pages.sort((a,b)=>commonsScore(b,query)-commonsScore(a,query));
+  const best=pages.find(p=>commonsScore(p,query)>-3);if(!best)return null;
+  const info=best.imageinfo[0],md=info.extmetadata||{};
+  const license=stripHtml(md.LicenseShortName?.value||md.UsageTerms?.value||'Wikimedia Commons');
+  let artist=stripHtml(md.Artist?.value||md.Credit?.value||'Wikimedia Commons');if(artist.length>80)artist=artist.slice(0,77)+'…';
+  return {asset:info.thumburl||info.url,source:info.descriptionurl||`https://commons.wikimedia.org/wiki/${encodeURIComponent(best.title)}`,license,credit:artist,provider:'Wikimedia Commons',query,resolved_at:Date.now()};
+}
 async function commonsVisual(S,key,query){
   const cache=readVisualCache(S);if(cache[key])return cache[key];
   if(S.visualPromises?.[key])return S.visualPromises[key];
   S.visualPromises=S.visualPromises||{};
   S.visualPromises[key]=(async()=>{
-    const params=new URLSearchParams({action:'query',generator:'search',gsrsearch:query,gsrnamespace:'6',gsrlimit:'8',prop:'imageinfo',iiprop:'url|extmetadata|mime',iiurlwidth:'1100',format:'json',origin:'*'});
-    const data=await queuedCommonsJson(S,`${COMMONS_API}?${params.toString()}`),pages=Object.values(data?.query?.pages||{}).filter(p=>p?.imageinfo?.[0]);
-    pages.sort((a,b)=>commonsScore(b,query)-commonsScore(a,query));
-    const best=pages.find(p=>commonsScore(p,query)>-3);if(!best)throw new Error('commons_no_match');
-    const info=best.imageinfo[0],md=info.extmetadata||{};
-    const license=stripHtml(md.LicenseShortName?.value||md.UsageTerms?.value||'Wikimedia Commons');
-    let artist=stripHtml(md.Artist?.value||md.Credit?.value||'Wikimedia Commons');
-    if(artist.length>80)artist=artist.slice(0,77)+'…';
-    const out={asset:info.thumburl||info.url,source:info.descriptionurl||`https://commons.wikimedia.org/wiki/${encodeURIComponent(best.title)}`,license,credit:artist,provider:'Wikimedia Commons',query,resolved_at:Date.now()};
+    let out=null;
+    try{out=await openverseResult(S,query);}catch{}
+    if(!out){try{out=await commonsResult(S,query);}catch{}}
+    if(!out)throw new Error('open_image_no_match');
     cache[key]=out;writeVisualCache(S);return out;
   })().finally(()=>{delete S.visualPromises[key];});
   return S.visualPromises[key];
 }
 function visualCaption(fig,res){
   const cap=fig.querySelector('figcaption');if(!cap)return;
-  cap.textContent='';const a=document.createElement('a');a.href=res.source;a.target='_blank';a.rel='noopener noreferrer';a.textContent=`Wikimedia Commons · ${res.license}`;
+  cap.textContent='';const a=document.createElement('a');a.href=res.source;a.target='_blank';a.rel='noopener noreferrer';a.textContent=`${res.provider||'开放图库'} · ${res.license}`;
   cap.appendChild(a);if(res.credit){const span=document.createElement('span');span.textContent=` · ${res.credit}`;cap.appendChild(span);}
 }
 function markVisualMissing(fig,label='图片暂未载入'){
