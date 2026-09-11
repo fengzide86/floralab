@@ -338,6 +338,8 @@ with sync_playwright() as p:
     ck(mob.locator('[data-tab="render"].active').count()==1,'M07 mobile Render entry opens workspace')
 
     # M17 Install modal
+    if mob.locator('#mobileMenu[hidden]').count():
+        mob.click('#navMore');mob.wait_for_timeout(80)
     mob.click('#installAppMobile');mob.wait_for_selector('#installModal')
     ck(mob.locator('#installModal .modal').count()==1,'M17 install modal visible')
     shot(mob,'1.3-M17-install.png')
