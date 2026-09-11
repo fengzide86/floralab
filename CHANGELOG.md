@@ -10,8 +10,9 @@
 - reference-only 条目始终明确标记“需核实”；Unknown 不显示为 Safe，高风险宠物与食品隔离信息使用更高视觉层级。
 - 新增 Material Visual Registry。只有记录来源、许可并标记 verified 的事实图片才允许作为材料识别图；缺图时使用明确的非事实占位视觉。
 - Runtime / Package / Service Worker 统一升级到 1.2.0；Library 模块与视觉来源注册表进入 PWA 核心资源。
-- 新增 library-1.2 release gate 52 项；完整非视觉 release gate 为 404 项。
-- 新增 1.2 Page-by-page Visual Gate：13 个 Desktop + 14 个 Mobile 页面状态、56 项浏览器检查、27 张独立截图。逐页验收优先于 Contact Sheet。
+- library-1.2 release gate 最终为 57 项；完整非视觉 release gate 为 409 项。新增 130 个材料详情逐一渲染的 surface audit，阻止 block_cat、unknown、very_high、undefined、字面量转义等内部值进入可见 UI。
+- 1.2 Page-by-page Visual Gate 最终扩展为 21 个 Desktop + 23 个 Mobile 状态、67 项浏览器检查、44 张独立截图；覆盖 Feedback、History、安装/创作空间弹窗与长页关键滚动位置。逐页验收优先于 Contact Sheet。
+- GitHub Pages deploy 后新增 online verify job：直接访问正式 Pages URL，再跑同一套 67 项 / 44 页；最终线上与构建态逐页像素对比中，40 页完全一致，4 页仅历史时间字符发生预期差异。
 
 
 ## 1.1.2 — Workspace UI

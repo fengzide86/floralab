@@ -6,7 +6,7 @@
 
 1.2.0 的目标是在保留 1.1.2 Workspace UI、1.1 Anywhere、Recipe、Reality、Composition、Blueprint 2.0、Build、文件兼容和 Project 工作流的前提下，把材料库从检索列表升级为真正可浏览、可理解、可核实的 Material Library / Botanical Archive，并把逐页视觉验收纳入正式发布门槛。
 
-当前 1.2 自动验收通过：**404 项非视觉 release checks + 56 项浏览器 UI checks = 460 项检查全部通过**。此外，最终视觉集包含 **27 张独立页面截图（13 Desktop + 14 Mobile）**，按页面逐张人工检查；Contact Sheet 不作为单页通过依据。
+当前 1.2 发布前自动验收通过：**409 项非视觉 release checks + 67 项浏览器 UI checks = 476 项检查全部通过**。最终视觉集包含 **44 张独立页面截图（21 Desktop + 23 Mobile）**，按页面与关键滚动位置逐张人工检查；Contact Sheet 不作为单页通过依据。部署到 GitHub Pages 后，正式线上 URL 再重复同一套 **67 项 / 44 页** Visual Gate 并通过。
 
 | 套件 | 结果 |
 | --- | ---: |
@@ -16,10 +16,11 @@
 | Static / GitHub Pages architecture | 39 / 39 |
 | PWA / Service Worker logic | 28 / 28 |
 | Icon / asset dimensions | 16 / 16 |
-| Material Library 1.2 | 52 / 52 |
-| Desktop + Mobile browser UI | 56 / 56 |
-| **自动检查合计** | **460 / 460** |
-| 逐页视觉截图 | **27 页：13 Desktop + 14 Mobile** |
+| Material Library 1.2 | 57 / 57 |
+| Desktop + Mobile browser UI | 67 / 67 |
+| **发布前自动检查合计** | **476 / 476** |
+| 构建态逐页视觉截图 | **44 页：21 Desktop + 23 Mobile** |
+| 正式 Pages 线上复验 | **67 / 67 + 44 页** |
 
 ## 1. 浏览器化迁移
 
@@ -59,9 +60,11 @@
 
 ### 环境说明
 
-本次执行环境中的 Chromium 被管理员策略禁止直接导航 localhost / file URL。UI QA 因此通过 Playwright `set_content` 加载真实 `public/` 页面，并用路由拦截返回真实 Runtime/CSS/JSON/SVG 资源。为绕过 about:blank 的浏览器存储权限限制，QA 注入轻量 IndexedDB/localStorage mock 仅验证应用的存储调用与恢复语义。
+发布前 Build Visual Gate 通过 Playwright `set_content` 加载真实 `public/` 构建产物，并用路由拦截返回真实 Runtime/CSS/JSON/SVG 资源；这一模式使用轻量 IndexedDB/localStorage mock，目的是稳定验证页面逻辑与视觉。
 
-因此，**原生 Service Worker 注册、浏览器真正的“安装 PWA”按钮、真实设备 IndexedDB 持久性**无法在该沙箱中声称完成端到端自动化验证。它们已通过静态/VM/资源结构检查，并应在 GitHub Pages 首次上线后用用户真实 Windows + 手机做最终接受性检查。
+1.2 最终流程另外增加 **post-deploy online verify**：Pages deploy 成功后，Playwright 直接访问正式 `https://fengzide86.github.io/floralab/`，不再使用本地路由或存储 mock，并重新执行同一套 67 项浏览器检查与 44 张截图。由此实际覆盖 GitHub Pages 子路径、线上静态资源加载、真实浏览器存储 API 路径与正式部署后的页面视觉。
+
+仍不把 headless 浏览器等同于用户真实设备：操作系统级 PWA 安装体验、不同手机浏览器的系统分享/安装 UI、跨浏览器重启后的长期 IndexedDB 持久性，仍属于真实设备接受性范围。
 
 ## 6. 人工视觉检查
 
@@ -130,16 +133,28 @@ Material Library 的现实边界：
 - static-1.1：39 / 39
 - pwa-1.1：28 / 28
 - assets-1.1：16 / 16
-- library-1.2：52 / 52
+- library-1.2：57 / 57
 - scenarios-regression：116 / 116（38 套场景）
-- ui-1.2：56 / 56
+- ui-1.2：67 / 67
 
-非视觉 release gate 合计 **404 / 404**；加浏览器 UI 检查后为 **460 / 460**。
+非视觉 release gate 合计 **409 / 409**；加发布前浏览器 UI 检查后为 **476 / 476**。Pages 部署后再重复 **67 / 67** online browser checks。
 
 ### 逐页视觉验收
 
-- Desktop：D01–D13，共 13 页。
-- Mobile：M01–M14，共 14 页。
-- 覆盖首页、新建、作品总览、Recipe、Structure、Build、移动菜单、Library 首页、搜索、筛选、核心花材详情、参考条目、宠物安全、创意物料与 Empty State。
-- 逐页人工检查中实际发现并修复：Recipe 材料详情绑定空值回归、筛选状态误导文案、详情页进入位置、内部枚举直出英文、CJK QA 字体、作品预览标题孤字换行，以及安全警告截图未真正进入视口等问题。
-- 每次修复后重新运行全部 release tests 和 27 页浏览器 Visual Gate；发布仅在 build / visual gate / Pages deploy 全部成功后成立。
+- Desktop：21 个状态；Mobile：23 个状态；合计 44 张独立截图。
+- 除首页、新建、作品总览、Recipe、Structure、Build、Library 外，还覆盖 Feedback、History、移动菜单、安装弹窗、创作空间弹窗、搜索/筛选/Empty State、核心与参考材料详情，以及长页下半段的生成按钮、Composition、Structure Inspector、Build Actions、Feedback 保存按钮、宠物安全与食品隔离。
+- 额外逐一渲染全部 **117 花材 + 13 创意物料 = 130 个详情页**，扫描内部枚举、undefined、null、NaN、字面量转义等开发痕迹；最终无泄漏。
+- 逐页人工检查中实际发现并修复：Recipe 材料详情绑定空值回归、筛选状态误导、详情页进入位置、内部枚举直出、reference-only 新手状态被布尔化、宠物风险等级混用、HTML 字面量转义、CJK QA 字体、作品标题孤字换行、移动 History 标题被按钮挤压、安装弹窗后菜单未收起，以及安全警告/长页关键控制未进入原验收视口等问题。
+- 正式 Pages deploy 后使用线上 URL 重跑同一套 67 项 / 44 页。构建态与线上态逐页像素比较：**40 页完全 0 差异，4 页仅历史时间字符有极小预期差异**，未发现布局、资源、字体、颜色或交互状态漂移。
+- 发布只有在 **build → release gate → build visual gate → Pages deploy → online visual verify** 全部成功后才成立。
+
+
+## 11. 1.2 最终发布状态
+
+最终发布工作流采用三段式门禁：
+
+1. **build**：409 项非视觉 release checks + 67 项 build browser checks + 44 张构建态截图。
+2. **deploy**：GitHub Pages 正式发布。
+3. **verify**：直接访问正式 Pages URL，重复 67 项 browser checks、44 张线上截图与 130 个材料详情 surface audit。
+
+三个 job 均成功才视为 1.2 发布完成。正式地址：`https://fengzide86.github.io/floralab/`。
