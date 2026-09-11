@@ -32,7 +32,10 @@ jobs:
           python-version: '3.12'
 
       - name: Install QA dependency
-        run: python -m pip install --disable-pip-version-check pillow cairosvg
+        run: python -m pip install --disable-pip-version-check pillow cairosvg playwright
+
+      - name: Install Chromium for visual gate
+        run: python -m playwright install --with-deps chromium
 
       - name: Release tests
         shell: bash
@@ -52,6 +55,18 @@ jobs:
             echo "::error title=FloraLab release tests failed::See the job summary for the exact test output."
             exit "$code"
           fi
+
+      - name: Page-by-page visual gate
+        run: python qa/ui_1_2.py
+
+      - name: Upload visual acceptance pages
+        uses: actions/upload-artifact@v4
+        with:
+          name: floralab-1.2-visual-pages
+          path: |
+            qa/1.2-D*.png
+            qa/1.2-M*.png
+            qa/ui-1.2.json
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
