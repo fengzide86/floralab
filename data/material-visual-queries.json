@@ -6,7 +6,7 @@
     "https://commons.wikimedia.org/w/api.php"
   ],
   "strategy": "Openverse first, Wikimedia Commons fallback; AI generation only for entries unresolved or visually unsuitable after search.",
-  "note": "Queries are deliberately specific so Commons search results are identification-oriented. Runtime stores source/artist/license metadata and never labels an unverified search result as a verified botanical fact.",
+  "note": "Queries are identification-oriented. Ambiguous florist trade names are resolved to a documented botanical reference where possible; source/creator/license metadata is retained.",
   "items": {
     "flower:rose": {
       "query": "Rosa rose flower close-up"
@@ -333,7 +333,7 @@
       "query": "Symphoricarpos snowberry branch"
     },
     "flower:ref_109": {
-      "query": "腊莲绣球 flower"
+      "query": "Hydrangea strigosa flower"
     },
     "flower:ref_110": {
       "query": "Leucadendron cut flower woody"
@@ -342,13 +342,13 @@
       "query": "Banksia flower"
     },
     "flower:ref_112": {
-      "query": "peony chrysanthemum flower"
+      "query": "Chrysanthemum morifolium peony form flower"
     },
     "flower:ref_113": {
       "query": "Symphyotrichum novi-belgii aster flower"
     },
     "flower:ref_114": {
-      "query": "翠扇 florist foliage"
+      "query": "Thlaspi arvense field pennycress seed pods foliage"
     },
     "flower:ref_115": {
       "query": "Yucca gloriosa leaf"
