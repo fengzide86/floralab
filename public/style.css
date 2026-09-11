@@ -261,3 +261,176 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 }
 
 @media(max-width:900px){.nav{position:sticky;top:0}}
+
+/* 1.1.2 Workspace UI Redesign — working scale, not poster scale */
+:root{
+  --wrap:1280px;
+  --text:16px;
+  --text-sm:14px;
+  --control:16px;
+}
+body{font-size:var(--text);line-height:1.52}
+.wrap{padding-left:40px;padding-right:40px}
+.nav{height:72px;padding-left:max(40px,calc((100vw - var(--wrap))/2 + 40px));padding-right:max(40px,calc((100vw - var(--wrap))/2 + 40px))}
+.wordmark{font-size:25px;display:flex;align-items:center;gap:10px}
+.brand-mark{width:32px;height:32px;margin:0;border:0;border-radius:8px;object-fit:cover;display:block;box-shadow:0 0 0 1px rgba(36,33,30,.08)}
+.nav-links{gap:30px}
+.nav-link{font-size:15px;min-height:44px;padding:10px 0}
+.nav-new{font-size:14px;min-height:44px;padding:10px 16px}
+.nav-more{font-size:14px;min-height:44px}
+.mobile-menu button{font-size:15px}
+.kicker{font-size:11px;letter-spacing:.15em}
+.primary,.secondary,.text-action{font-size:15px}
+.primary{min-height:48px;padding:13px 22px}.secondary{min-height:46px;padding:12px 18px}
+
+/* Home: still editorial, but readable */
+.hero{min-height:690px;gap:72px;padding:52px 0 68px}
+.hero h1{font-size:72px;line-height:.99;margin:18px 0 26px}
+.hero p{font-size:20px;line-height:1.65;max-width:560px}
+.figure-note{font-size:12px;letter-spacing:.06em}
+.process{padding-top:38px;padding-bottom:78px}
+.process h2{font-size:27px;margin-top:24px}.process p{font-size:15px;line-height:1.65;max-width:310px}
+.local-project small,.install-note{font-size:14px}
+
+/* General work pages */
+.workspace{padding-top:54px;padding-bottom:96px}
+.page-head{padding-bottom:26px}
+.page-title{font-size:50px;margin:10px 0 11px}
+.page-sub{font-size:15px;line-height:1.65;max-width:720px}
+.mode-switch button{font-size:15px;min-height:44px}
+.design-form{max-width:1040px}
+.form-row{grid-template-columns:220px 1fr;gap:58px;padding:38px 0}
+.form-label b{font-size:23px;margin-bottom:9px}.form-label span{font-size:14px;line-height:1.6}
+.form-control select,.form-control input,.form-control textarea{font-size:16px;padding:12px 0}
+.form-control textarea{min-height:98px}
+.money-line span{font-size:28px}.money-line input{font-size:38px}
+.choice{font-size:15px;min-height:44px;padding:10px 16px}
+.color-choice{font-size:13px;min-width:54px;min-height:62px;gap:8px}.color-choice i{width:34px;height:34px}
+.advanced{padding:26px 0}.advanced summary{font-size:15px;min-height:44px}.advanced-grid label span{font-size:14px}.advanced-grid input,.advanced-grid select{font-size:16px;padding:11px 0}
+.form-end{padding-top:38px}
+
+/* Project workspace: overview can breathe; tools become compact */
+.project{padding-top:34px;padding-bottom:105px}
+.project-head{align-items:center;gap:34px}
+.project-head-overview{padding-bottom:26px}
+.project-head-overview .project-title{font-size:44px;margin:7px 0 8px}
+.project-head-overview .project-sub{font-size:15px}
+.project-head-overview .project-meta strong{font-size:31px}
+.project-head-compact{grid-template-columns:minmax(0,1fr) auto;padding:15px 0 16px;align-items:center}
+.project-head-compact .kicker{display:none}
+.project-head-compact .project-title{font-size:29px;line-height:1.05;margin:0 0 5px;letter-spacing:-.03em}
+.project-head-compact .project-sub{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:660px}
+.project-meta{gap:8px}.project-state{display:grid;justify-items:end;gap:2px}
+.project-meta strong{font-size:28px}.project-meta span{font-size:14px}
+.project-actions{gap:16px;margin-top:6px}.project-actions button{font-size:13px;min-height:38px;padding:8px 0}
+.tabs{gap:34px;margin-bottom:34px}
+.tabs button{font-size:15px;min-height:50px;padding:15px 0 12px}
+
+/* Overview */
+.editorial-grid{grid-template-columns:1.04fr .96fr;gap:56px}
+.visual-inner{padding:32px}.visual-inner small{font-size:12px}.visual-inner b{font-size:31px}.visual-inner p{font-size:14px;line-height:1.6}
+.story h2,.section-title{font-size:34px;line-height:1.16}.story>p{font-size:18px;line-height:1.7}
+.stats-line b{font-size:24px}.stats-line span{font-size:12px;letter-spacing:.08em}
+.check-row{grid-template-columns:15px 140px 1fr;gap:16px;padding:17px 0}.check-row b,.check-row p{font-size:14px}.check-row p{line-height:1.55}
+.comp-row{grid-template-columns:150px 1fr;gap:18px}.comp-row b,.comp-row p{font-size:14px}
+.next-link{font-size:15px;margin-top:28px}
+
+/* Recipe — working table scale */
+.panel-head{margin-bottom:30px}.panel-head p{font-size:15px;line-height:1.6;max-width:620px}
+.total-box strong{font-size:36px}.total-box span{font-size:14px}
+.recipe-head,.recipe-row{grid-template-columns:1.5fr 1.12fr .72fr .9fr .82fr .78fr;gap:20px}
+.recipe-head{font-size:13px;letter-spacing:.08em;padding:15px 0;color:#625c56}
+.recipe-row{min-height:88px;padding:18px 0}
+.recipe-name b{font-size:21px}.recipe-name span{font-size:14px;margin-top:4px;display:block}
+.qty-control{gap:8px}.qty-control button{width:40px;height:40px;font-size:17px}.qty-control input,.recipe-row .mini{font-size:16px;min-height:40px;width:58px}.qty-control em,.price-control span{font-size:14px}
+.recipe-row strong{font-size:15px}.recipe-foot{font-size:14px;line-height:1.6;padding-top:24px}
+
+/* Blueprint editor */
+.structure-layout{grid-template-columns:minmax(0,1fr) 360px;gap:40px}
+.structure-main{padding-top:14px}.view-switch{gap:26px;margin-bottom:16px}.view-switch button{font-size:14px;min-height:44px;padding:8px 0}
+.blueprint-frame{min-height:590px}.blueprint-caption{font-size:12px;letter-spacing:.06em;bottom:16px}
+.structure-side{top:90px}.structure-side h3{font-size:26px;line-height:1.25;margin-bottom:22px}
+.node-info{min-height:190px;padding-top:20px}.node-info .node-id{font-size:34px}.node-info b{font-size:16px;margin:7px 0 18px}.node-info dl{grid-template-columns:86px 1fr;gap:11px 12px;font-size:14px}
+.editor-controls{padding-top:20px;margin-top:18px}.editor-grid{gap:14px 16px}.editor-grid label{font-size:12px;letter-spacing:.05em}.editor-grid input{font-size:16px;padding:9px 0}
+.node-actions{gap:9px;margin-top:18px}.node-actions button{font-size:14px;min-height:40px;padding:9px 13px}
+.mechanics-note{margin-top:30px;padding-top:22px}.mechanics-note b{font-size:21px}.mechanics-note p{font-size:14px;line-height:1.6}.mechanics-note small{font-size:13px;color:var(--muted)}
+.legend-row b{font-size:14px}.legend-row small{font-size:12px}
+
+/* Build focus */
+.build-layout{grid-template-columns:205px minmax(0,1fr);gap:48px}
+.build-nav{padding-right:28px}.build-count{font-size:32px}.build-nav button{font-size:14px;min-height:42px;padding:10px 0}
+.build-step{max-width:800px}.step-no{font-size:56px}.build-step h2{font-size:40px;margin:4px 0 16px}.build-step>p{font-size:18px;line-height:1.7;max-width:760px}.build-preview{min-height:320px;margin:24px 0 28px}
+.prep-visual small{font-size:14px}.needed>b{font-size:13px}.needed span{font-size:14px;padding:7px 0}
+.inventory-mini{margin-top:30px}.use-row{padding:14px 0}.use-row b{font-size:15px}.use-row small{font-size:13px;margin-top:3px;display:block}.use-row button{font-size:13px;min-height:40px;padding:9px 11px}
+.shortage-box b{font-size:14px}.shortage-box p{font-size:13px}
+.step-actions{margin-top:38px}
+
+/* Feedback / History */
+.feedback-layout{gap:56px}.feedback-layout>div>p{font-size:15px;line-height:1.65}.feedback-form{gap:28px 30px}.feedback-form label span{font-size:14px}.feedback-form input,.feedback-form select,.feedback-form textarea{font-size:16px;padding:12px 0}.feedback-form textarea{min-height:110px}.feedback-summary span{font-size:13px}
+.history-list article{grid-template-columns:58px 1fr;padding:20px 0}.history-list article>span{font-size:23px}.history-list b{font-size:15px}.history-list small{font-size:13px;margin-top:5px}
+
+/* Library */
+.library{max-width:1040px}.library-search{padding:22px 0}.library-search input{font-size:30px}.library-search span{font-size:14px;padding-bottom:14px}
+.material-row{padding:22px 0}.material-row b{font-size:22px}.material-row span,.material-row small{font-size:14px;line-height:1.5;margin-top:6px}.material-row strong{font-size:15px}
+.empty-state{font-size:15px}
+.toast{font-size:14px;padding:12px 18px}
+
+/* Tablet */
+@media(max-width:900px){
+  .wrap{padding-left:26px;padding-right:26px}.nav{padding-left:26px;padding-right:26px}
+  .project-head-compact{grid-template-columns:1fr}.project-meta{grid-template-columns:1fr}.project-state{justify-items:start}.project-actions{justify-content:flex-start}
+  .structure-layout{grid-template-columns:1fr}.structure-side{position:static}.blueprint-frame{min-height:520px}
+  .build-layout{grid-template-columns:1fr}.build-nav{border-right:0;border-bottom:1px solid var(--line);padding:0 0 16px;display:flex;gap:12px;overflow:auto}.build-nav .build-count,.build-nav .build-progress{display:none}.build-nav button{width:auto;white-space:nowrap;padding:10px 2px}
+}
+
+/* Phone — a field tool, not desktop squeezed down */
+@media(max-width:640px){
+  body{font-size:16px}
+  .wrap{padding-left:18px;padding-right:18px}
+  .nav{height:60px;padding-left:18px;padding-right:18px}.wordmark{font-size:20px;gap:8px}.brand-mark{width:30px;height:30px;border-radius:7px}.nav-links{gap:11px}.nav-link{font-size:14px}.nav-new{font-size:14px;min-height:42px;padding:8px 10px}.nav-more{font-size:14px}
+  .mobile-menu{right:12px;top:54px;width:210px}.mobile-menu button{font-size:16px;min-height:48px;padding:13px 12px}
+  .hero{padding:36px 0 48px;gap:30px}.hero h1{font-size:42px;line-height:1.02;margin:14px 0 20px}.hero p{font-size:18px;line-height:1.6}.hero-figure img{height:390px}.figure-note{font-size:11px}.process h2{font-size:25px}.process p{font-size:15px}
+  .workspace,.project{padding-top:24px;padding-bottom:72px}.page-title{font-size:38px}.page-sub{font-size:15px}.page-head{padding-bottom:22px}.mode-switch{margin-top:18px}.mode-switch button{font-size:15px}
+  .form-row{padding:28px 0;gap:14px}.form-label b{font-size:22px}.form-label span{font-size:14px}.choice{font-size:15px;min-height:44px}.color-choice{font-size:13px}.advanced summary{font-size:15px}.advanced-grid label span{font-size:14px}
+
+  .project-head{display:grid;border-bottom:1px solid var(--line);gap:12px}
+  .project-head-overview,.project-head-compact{grid-template-columns:1fr;padding:0 0 15px}
+  .project-head .kicker{display:none}
+  .project-head-overview .project-title,.project-head-compact .project-title{font-size:27px;line-height:1.06;margin:0 0 6px;letter-spacing:-.03em}
+  .project-sub{font-size:14px;line-height:1.45;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .project-meta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.project-state{display:flex;align-items:baseline;gap:10px}.project-meta strong{font-size:23px}.project-meta span{font-size:13px}.project-actions{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:0}.project-actions button{font-size:13px;min-height:42px;border:1px solid var(--line);padding:8px 5px}
+  .tabs{position:sticky;top:60px;z-index:20;background:rgba(244,241,234,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);gap:24px;margin:0 -18px 22px;padding:0 18px;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{font-size:15px;min-height:50px;white-space:nowrap;padding:15px 0 12px}
+
+  .editorial-grid{gap:28px}.visual-slot{aspect-ratio:5/6}.visual-inner{padding:22px}.visual-inner small{font-size:11px}.visual-inner b{font-size:25px}.visual-inner p{font-size:14px}.story h2,.section-title{font-size:28px}.story>p{font-size:17px;margin-bottom:26px}.stats-line b{font-size:22px}.stats-line span{font-size:12px}.check-row{grid-template-columns:12px 94px 1fr;gap:10px;padding:15px 0}.check-row b,.check-row p{font-size:14px}.comp-row{grid-template-columns:1fr;gap:5px}.comp-row b,.comp-row p{font-size:14px}
+
+  .panel-head{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;margin-bottom:24px}.panel-head p{font-size:14px}.total-box strong{font-size:28px}.total-box span{font-size:13px}
+  .recipe-row{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px;padding:22px 0}.recipe-name{grid-column:1/-1}.recipe-name b{font-size:22px}.recipe-name span{font-size:14px}.rcell{padding-top:22px}.rcell::before{font-size:12px;letter-spacing:.06em;color:#655f59}.qty-control{justify-content:flex-start}.qty-control button{width:44px;height:44px}.qty-control input,.recipe-row .mini{font-size:16px;min-height:44px;width:62px}.qty-control em,.price-control span{font-size:14px}.recipe-row strong{font-size:16px}.recipe-foot{font-size:14px}
+
+  .view-switch{gap:22px;margin-bottom:14px;overflow:auto;scrollbar-width:none}.view-switch::-webkit-scrollbar{display:none}.view-switch button{font-size:15px;min-height:44px;white-space:nowrap}.blueprint-frame{min-height:430px;margin-left:-4px;margin-right:-4px}.blueprint-caption{font-size:11px;left:14px;bottom:12px}.structure-side{padding-top:24px}.structure-side h3{font-size:24px}.node-info .node-id{font-size:31px}.node-info b{font-size:16px}.node-info dl{font-size:14px;grid-template-columns:78px 1fr}.editor-grid label{font-size:12px}.editor-grid input{font-size:16px;min-height:42px}.node-actions{display:grid;grid-template-columns:repeat(2,1fr)}.node-actions button{font-size:14px;min-height:44px}.mechanics-note p{font-size:14px}
+
+  .build-nav{margin:0 -2px 18px;gap:18px;padding-bottom:12px}.build-nav button{font-size:14px;min-height:44px}.step-no{font-size:32px;color:#9b9188;margin-bottom:2px}.build-step h2{font-size:30px;margin:0 0 12px}.build-step>p{font-size:17px;line-height:1.62;margin-bottom:20px}.build-preview{min-height:250px;margin:20px 0 24px}.prep-visual span{font-size:48px}.prep-visual b{font-size:22px}.prep-visual small{font-size:14px}.needed>b{font-size:13px}.needed span{font-size:14px}.use-row{gap:12px;padding:14px 0}.use-row b{font-size:15px}.use-row small{font-size:13px}.use-row>div:last-child{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:8px}.use-row button{font-size:14px;min-height:44px;margin:0}.step-actions{gap:10px}.step-actions button{flex:1}
+
+  .feedback-layout{gap:28px}.feedback-layout>div>p{font-size:15px}.feedback-form label span{font-size:14px}.feedback-form input,.feedback-form select,.feedback-form textarea{font-size:16px}.feedback-form button{width:100%}
+  .history-list article{grid-template-columns:50px 1fr;padding:18px 0}.history-list b{font-size:15px}.history-list small{font-size:13px}
+  .library{max-width:none}.library-search{grid-template-columns:1fr;padding:16px 0 18px}.library-search input{font-size:25px}.library-search span{font-size:13px;padding:0}.material-row{grid-template-columns:1fr;gap:10px;padding:20px 0}.material-row b{font-size:21px}.material-row span,.material-row small{font-size:14px}.material-row strong{font-size:16px;text-align:left}
+}
+
+/* 1.1.2 per-page acceptance fixes */
+.editor-frame .bp-node .bp-label{opacity:0;transition:opacity .12s ease}
+.editor-frame .bp-node:hover .bp-label,.editor-frame .bp-node.selected .bp-label{opacity:1;font-weight:600}
+.library-search input{width:100%;min-width:0}
+@media(max-width:640px){
+  .form-row{grid-template-columns:1fr}
+  .editorial-grid{grid-template-columns:1fr}
+  .project-workspace .project-head-compact{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:0 0 13px}
+  .project-workspace .project-head-compact .project-identity{min-width:0;flex:1}
+  .project-workspace .project-head-compact .project-title{font-size:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0;max-width:245px}
+  .project-workspace .project-head-compact .project-sub{display:none}
+  .project-workspace .project-head-compact .project-meta{display:block;flex:0 0 auto}
+  .project-workspace .project-head-compact .project-state{display:grid;justify-items:end;gap:1px}
+  .project-workspace .project-head-compact .project-meta strong{font-size:21px}
+  .project-workspace .project-head-compact .project-meta span{font-size:12px;white-space:nowrap}
+  .project-workspace .project-head-compact .project-actions{display:none}
+  .project-workspace .tabs{margin-top:0}
+  .library-search input{font-size:23px;text-overflow:ellipsis}
+}
