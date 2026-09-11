@@ -15,4 +15,4 @@ function usePanel(ctx,kind,m){
   return `<aside class="material-project-use"><div><span>当前作品正在使用</span><b>${use.quantity}${esc(use.unit)} · 已有 ${use.owned}${esc(use.unit)} · 还需 ${use.to_buy}${esc(use.unit)}</b></div><button id="returnRecipe">回到 Recipe →</button></aside>`;
 }
 function flowerDetail(ctx,m){
-  const {S,esc}=ctx,ref=Boolean(m.reference_only),subs=(m.substitutes||[]).map(n=>flowerByName(S,n)).filter(Boolean),months=m.peak_months||[],pet=m.pet_risk||'';
+  const {S,esc}=ctx,ref=Boolean(m.reference_only),subs=(m.substitutes||[]).map(n=>flowerByName(S,n)).filter(Boolean),months=m.peak_months||[],pet=petRiskInfo(m.pet_risk,ref);
