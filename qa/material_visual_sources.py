@@ -38,12 +38,12 @@ def commons_score(page,query):
     n+=sum(1 for w in words(query) if w in desc)
     return n
 
-def fetch_json(url,attempts=4):
+def fetch_json(url,attempts=2):
     last=None
     for attempt in range(attempts):
         try:
             req=urllib.request.Request(url,headers={'User-Agent':'FloraLabStudio/1.2 material visual audit'})
-            with urllib.request.urlopen(req,timeout=12) as r:
+            with urllib.request.urlopen(req,timeout=8) as r:
                 return json.load(r)
         except Exception as e:
             last=e
@@ -52,7 +52,7 @@ def fetch_json(url,attempts=4):
     raise last
 
 def resolve_openverse(query):
-    params={'q':query,'page_size':'10','mature':'false'}
+    params={'q':query,'page_size':'6','mature':'false'}
     data=fetch_json(OPENVERSE+'?'+urllib.parse.urlencode(params))
     rows=[]
     for x in data.get('results',[]):
@@ -106,10 +106,10 @@ def resolve(pair):
 
 def download_bytes(url):
     last=None
-    for attempt in range(3):
+    for attempt in range(2):
         try:
             req=urllib.request.Request(url,headers={'User-Agent':'FloraLabStudio/1.2 material visual build','Accept':'image/*'})
-            with urllib.request.urlopen(req,timeout=30) as r:
+            with urllib.request.urlopen(req,timeout=15) as r:
                 return r.read(12_000_000)
         except Exception as e:
             last=e;time.sleep(.8*(attempt+1))
