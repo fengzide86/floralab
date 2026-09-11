@@ -5,7 +5,7 @@ const COLOR_ORDER=['白','紫','粉','红','黄','橙','蓝','绿','香槟','奶
 const SEASONS={spring:[3,4,5],summer:[6,7,8],autumn:[9,10,11],winter:[12,1,2]};
 const COLOR_HEX={白:'#eee9df',紫:'#9d87ad',粉:'#d9aeb7',红:'#a85d59',黄:'#d4b95e',橙:'#ca865c',蓝:'#88a6b7',绿:'#7e9277',香槟:'#d7c4a8',奶油:'#e8dcc2',黑:'#47434a'};
 const WEIGHT_LABEL={light:'轻',medium:'中等',heavy:'偏重'};
-const LEVEL_LABEL={low:'低',medium:'中等',high:'高',good:'适合',fair:'一般',poor:'不适合'};
+const LEVEL_LABEL={low:'低',medium:'中等',high:'高',good:'适合',fair:'一般',poor:'不适合',flexible:'柔韧',woody:'木质',strong:'强',soft:'柔软',very_high:'很高',conditional:'有条件适用',excellent:'非常适合',unknown:'需核实'};
 
 function q(sel,root=document){return root.querySelector(sel);}
 function qa(sel,root=document){return [...root.querySelectorAll(sel)];}
