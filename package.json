@@ -1,8 +1,8 @@
 {
   "name": "floralab-studio",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
-  "description": "FloraLab Studio 1.2 Material Library - Zero API PWA",
+  "description": "FloraLab Studio 1.3 Render Handoff - Zero API PWA",
   "scripts": {
     "build": "node scripts/build-runtime.js && python scripts/build-icons.py",
     "start": "node scripts/static-server.js",
@@ -10,11 +10,12 @@
     "test:project": "node tests/project-kit-1.1.test.js",
     "test:static": "node tests/static-1.1.test.js",
     "test:scenarios": "node qa/scenarios-regression.js",
-    "test:ui": "python qa/ui_1_2.py",
+    "test:ui": "python qa/ui_1_3.py",
     "test:qa": "npm run test:release && npm run test:ui",
     "test:pwa": "node tests/pwa-1.1.test.js && python qa/assets_1_1.py",
-    "test:release": "npm run build && npm run test:core && npm run test:project && npm run test:static && npm run test:pwa && npm run test:library && npm run test:scenarios",
-    "test:library": "node tests/library-1.2.test.js"
+    "test:release": "npm run build && npm run test:core && npm run test:render && npm run test:project && npm run test:static && npm run test:pwa && npm run test:library && npm run test:scenarios",
+    "test:library": "node tests/library-1.2.test.js",
+    "test:render": "node tests/render-1.3.test.js"
   },
   "engines": {
     "node": ">=18"

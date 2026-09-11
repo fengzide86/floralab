@@ -1,4 +1,4 @@
-const CACHE='floralab-1.2.1-visuals';
+const CACHE='floralab-1.3.0-render-handoff';
 const CORE=['./','./index.html','./style.css','./runtime.js','./library.js','./app.js','./manifest.webmanifest','./data/catalog.json','./data/material-visuals.json','./data/material-visual-queries.json','./data/material-visual-sources.json','./icons/icon-32.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-180.png','./assets/demo-purple-white.svg'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});

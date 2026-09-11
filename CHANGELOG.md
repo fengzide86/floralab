@@ -1,5 +1,15 @@
 # FloraLab Changelog
 
+## 1.3.0 — Render Handoff
+
+- Added deterministic Render Spec derived from Recipe / Mechanics / Blueprint without duplicating editable source facts.
+- Added a dedicated 效果图 workspace with Render View, locked material facts, structure summary, special-object anchors, visual freedom and self-check guidance.
+- Exported `.floralab` files now include a top-level `render` snapshot; stale Render data never overrides Recipe or Blueprint.
+- Added exact render-handoff copy for FloraLab 创作空间, including Recipe quantities and the explicit boundary for branched/multi-head material countability.
+- Added Render 1.3 regression tests plus Desktop/Mobile page-by-page visual coverage.
+- Kept schema compatibility with existing `floralab/1.0` files.
+
+
 ## 1.2.0 — Material Library
 
 - 将旧材料搜索列表升级为 Material Library / Botanical Archive：117 种花材与 13 类创意物料分开浏览，并保留 Studio 的 Atelier 编辑感而不是改成电商卡片墙。

@@ -1,11 +1,12 @@
-# FloraLab Studio 1.2.0 — Material Library
+# FloraLab Studio 1.3.0 — Render Handoff
 
 FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流。
 
 它由两个互补工作空间组成：
 
 - **FloraLab 创作空间（ChatGPT Project）**：负责灵感、自然语言讨论、参考图理解、视觉探索、图片生成/修改与制作复盘。
-- **FloraLab Studio**：负责确定性的 Recipe、预算、制作检查、Composition、Stem Blueprint、五视图、制作消耗、损耗、反馈和项目文件。
+- **FloraLab Studio**：负责确定性的 Recipe、预算、制作检查、Composition、Stem Blueprint、五视图、Render Handoff、制作消耗、损耗、反馈和项目文件。
+- **Render Handoff**：从 Recipe / Mechanics / Blueprint 即时生成效果图交接，不复制第二份可编辑 Recipe；冲突时始终以作品事实源为准。
 
 1.1 Anywhere 将 Studio 从本地 Node 服务迁移为 **纯前端 PWA**。正式使用时不需要运行 `server.js`、不需要电脑常开，也不需要同一 Wi‑Fi；GitHub Pages 可以直接在电脑、手机和平板访问。
 
@@ -13,7 +14,7 @@ FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流
 
 1.2 同时把 **逐页视觉验收** 升级为正式发布门槛：21 个 Desktop 状态 + 23 个 Mobile 状态，共 44 张独立截图，覆盖主页面、长页关键滚动位置与弹窗；Contact Sheet 不再代替单页验收。GitHub Pages 部署后还会用正式线上 URL 再跑同一套 44 页。
 
-## 1.2 核心能力
+## 1.3 核心能力
 
 - 117 种核心/参考花材 + 13 类创意物料；Material Library 支持搜索、角色/颜色/季节/制作筛选与独立详情。
 - Recipe：需要 / 已有 / 我的单价 / 还需购买 / 小计实时联动。
