@@ -29,7 +29,7 @@ const library=fs.readFileSync(path.join(pub,'library.js'),'utf8');
 ok(library.includes('FloraLabLibrary'),'library module built');
 ok(library.includes('commonsVisual'),'Commons visual resolver');
 ok(library.includes('Wikimedia Commons'),'Commons attribution surface');
-ok(library.includes('不使用生成图冒充材料事实'),'no fake identification visual');
+ok(library.includes('公开图库暂未找到合适图片'),'real-image failure is explicit');
 ok(library.includes('reference_only'),'reference handling');
 ok(library.includes('season-timeline'),'season timeline');
 ok(library.includes('substitutes'),'substitute navigation');
