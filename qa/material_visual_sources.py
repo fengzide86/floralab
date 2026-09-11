@@ -57,7 +57,7 @@ def resolve_openverse(query):
     rows=[]
     for x in data.get('results',[]):
         lic=str(x.get('license') or '').lower()
-        if x.get('thumbnail') and x.get('foreign_landing_url') and lic in ALLOWED_OPENVERSE:
+        if (x.get('url') or x.get('thumbnail')) and x.get('foreign_landing_url') and lic in ALLOWED_OPENVERSE:
             rows.append(x)
     if not rows:return None
     rows.sort(key=lambda x:title_score(x.get('title',''),query,str(x.get('category','')).lower()=='photograph'),reverse=True)
@@ -65,7 +65,7 @@ def resolve_openverse(query):
     lic=' '.join(v for v in [str(x.get('license','')).upper(),str(x.get('license_version') or '')] if v)
     return {
       'ok':True,'provider':'Openverse','query':query,'title':x.get('title',''),
-      'asset':x.get('thumbnail'),'source':x.get('foreign_landing_url'),'mime':x.get('filetype',''),
+      'asset':x.get('url') or x.get('thumbnail'),'preview':x.get('thumbnail') or '','source':x.get('foreign_landing_url'),'mime':x.get('filetype',''),
       'license':lic or 'Open license','license_url':x.get('license_url') or '',
       'creator':clean(x.get('creator') or x.get('source') or 'Openverse')
     }
@@ -108,7 +108,7 @@ def download_bytes(url):
     last=None
     for attempt in range(2):
         try:
-            req=urllib.request.Request(url,headers={'User-Agent':'FloraLabStudio/1.2 material visual build','Accept':'image/*'})
+            req=urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0 FloraLabStudio/1.2'})
             with urllib.request.urlopen(req,timeout=15) as r:
                 return r.read(12_000_000)
         except Exception as e:
@@ -120,9 +120,15 @@ def safe_name(key):
 
 def persist_asset(key,res):
     if not res.get('ok'):return key,res
-    candidates=[res]
     try:
-        raw=download_bytes(res['asset'])
+        raw=None;last=None
+        for candidate in [res.get('asset'),res.get('preview')]:
+            if not candidate: continue
+            try:
+                raw=download_bytes(candidate);break
+            except Exception as e:
+                last=e
+        if raw is None: raise last or RuntimeError('no_downloadable_asset')
         im=Image.open(io.BytesIO(raw))
         im=ImageOps.exif_transpose(im).convert('RGB')
         im.thumbnail((1200,1200),Image.Resampling.LANCZOS)
