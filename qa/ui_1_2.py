@@ -170,6 +170,38 @@ with sync_playwright() as p:
     ck(page.locator('.library-empty').count()==1,'D13 empty state')
     shot(page,'1.2-D13-empty.png')
 
+    # Exhaustive material-surface audit: render every material detail and reject internal tokens.
+    surface_audit=page.evaluate("""async()=>{
+      const catalog=await window.FloraLabRuntime.getCatalog();
+      const blocked=['block_cat','very_high','conditional','excellent','unknown','woody','flexible','strong','soft','undefined','null','NaN','[object Object]','true','false'];
+      const findings=[];
+      let audited=0;
+      const scan=(kind,id)=>{
+        const key=kind+':'+id;
+        const btn=[...document.querySelectorAll('[data-material-detail]')].find(x=>x.dataset.materialDetail===key);
+        if(!btn){findings.push(key+':missing-card');return;}
+        btn.click();
+        audited++;
+        const root=document.querySelector('.material-detail-workspace');
+        const text=(root?.innerText||'');
+        const normalized=' '+text.replace(/\\s+/g,' ')+' ';
+        for(const token of blocked){
+          if(token==='[object Object]' ? text.includes(token) : normalized.toLowerCase().includes(' '+token.toLowerCase()+' ')) findings.push(key+':'+token);
+        }
+        if(text.includes('\\\\n'))findings.push(key+':literal-backslash-n');
+        const back=document.querySelector('[data-library-back]');
+        if(!back){findings.push(key+':missing-back');return;}
+        back.click();
+      };
+      document.querySelector('[data-library-kind="flower"]')?.click();
+      for(const m of catalog.flowers||[])scan('flower',m.id);
+      document.querySelector('[data-library-kind="creative"]')?.click();
+      for(const m of catalog.creative||[])scan('creative',m.id);
+      return {audited,findings};
+    }""")
+    ck(surface_audit['audited']==130,'all 130 material details rendered in surface audit')
+    ck(len(surface_audit['findings'])==0,'no internal tokens in rendered material details: '+str(surface_audit['findings'][:20]))
+
     # Mobile fresh page
     mob=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1,accept_downloads=True)
     mob.set_default_timeout(9000);mnet=[];merrors=[];set_app(mob,mnet,merrors)
