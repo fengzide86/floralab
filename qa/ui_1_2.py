@@ -15,6 +15,11 @@ def ck(cond,name):
     checks.append(name)
 
 def shot(page,name):
+    if page.locator('.material-visual[data-visual-query]').count():
+        try:
+            page.wait_for_function("""()=>[...document.querySelectorAll('.material-visual[data-visual-query]')].filter(el=>{const r=el.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;}).every(el=>['loaded','missing'].includes(el.dataset.visualState))""",timeout=15000)
+        except Exception:
+            pass
     page.screenshot(path=str(QA/name),full_page=False)
 
 def overflow_ok(page):
