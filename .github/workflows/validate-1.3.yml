@@ -1,16 +1,16 @@
-name: Validate FloraLab 1.3
+name: Validate FloraLab Development
 
 on:
   push:
     branches:
-      - dev/floralab-1.3-render-handoff
+      - 'dev/**'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: floralab-v13-render-validation
+  group: floralab-development-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -45,16 +45,15 @@ jobs:
         run: npm run test:release
 
       - name: Page-by-page visual gate
-        run: python qa/ui_1_3.py
+        run: npm run test:ui
 
       - name: Upload 1.3 visual acceptance pages
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: floralab-1.3-dev-visual-pages
+          name: floralab-dev-visual-pages
           path: |
-            qa/1.3-D*.png
-            qa/1.3-M*.png
-            qa/ui-1.3.json
+            qa/*.png
+            qa/ui-*.json
             qa/material-visual-sources.json
             qa/material-visual-sheet-*.jpg
