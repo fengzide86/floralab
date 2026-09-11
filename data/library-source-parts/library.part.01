@@ -32,8 +32,8 @@ const OPENVERSE_API='https://api.openverse.org/v1/images/';
 const VISUAL_CACHE_KEY='floralab-commons-visual-cache-v2';
 function visualKey(kind,m){return `${kind}:${m.id}`;}
 function visualEntry(S,kind,m){
-  const items=S.visualRegistry?.items||{};
-  return items[visualKey(kind,m)]||items[m.id]||null;
+  const key=visualKey(kind,m),verified=S.visualRegistry?.items||{},resolved=S.visualSources?.items||{};
+  return verified[key]||verified[m.id]||resolved[key]||null;
 }
 function visualQuery(S,kind,m){
   const item=S.visualQueries?.items?.[visualKey(kind,m)]||null;
@@ -158,9 +158,12 @@ function hydrateMaterialVisuals(ctx,root=document){
 }
 function materialVisual(ctx,kind,m,large=false){
   const {S,esc}=ctx,entry=visualEntry(S,kind,m);
-  if(entry?.verified&&entry.asset){
-    const source=entry.source?`<a href="${esc(entry.source)}" target="_blank" rel="noopener noreferrer">${entry.credit?esc(entry.credit):'已核实材料参考图'}</a>`:(entry.credit?esc(entry.credit):'已核实材料参考图');
-    return `<figure class="material-visual resolved ${large?'large':''}"><img src="${esc(entry.asset)}" alt="${esc(m.name)}材料参考图" loading="lazy" decoding="async"><figcaption>${source}</figcaption></figure>`;
+  if(entry?.asset||entry?.local_asset){
+    const asset=entry.local_asset||entry.asset;
+    const provider=entry.provider||'已核实材料图',license=entry.license||'',credit=entry.creator||entry.credit||'';
+    const label=[provider,license].filter(Boolean).join(' · ');
+    const source=entry.source?`<a href="${esc(entry.source)}" target="_blank" rel="noopener noreferrer">${esc(label||'材料参考图')}</a>`:esc(label||'材料参考图');
+    return `<figure class="material-visual resolved ${large?'large':''}"><img src="${esc(asset)}" alt="${esc(m.name)}真实材料参考图" loading="lazy" decoding="async"><figcaption>${source}${credit?`<span> · ${esc(credit)}</span>`:''}</figcaption></figure>`;
   }
   const key=visualKey(kind,m),query=visualQuery(S,kind,m);
   const swatches=kind==='flower'?palette(m).map(c=>`<i style="--material-swatch:${COLOR_HEX[c]||'#b9b0a5'}"></i>`).join(''):'<i style="--material-swatch:#bbaea2"></i><i style="--material-swatch:#817388"></i>';
