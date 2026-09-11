@@ -160,7 +160,7 @@ function materialVisual(ctx,kind,m,large=false){
   const {S,esc}=ctx,entry=visualEntry(S,kind,m);
   if(entry?.asset||entry?.local_asset){
     const asset=entry.local_asset||entry.asset;
-    const provider=entry.provider||'已核实材料图',license=entry.license||'',credit=entry.creator||entry.credit||'';
+    const provider=entry.provider||'已核实材料图',license=entry.license||'',creditRaw=String(entry.creator||entry.credit||'').trim(),credit=/^unknown$/i.test(creditRaw)?'':creditRaw;
     const label=[provider,license].filter(Boolean).join(' · ');
     const source=entry.source?`<a href="${esc(entry.source)}" target="_blank" rel="noopener noreferrer">${esc(label||'材料参考图')}</a>`:esc(label||'材料参考图');
     return `<figure class="material-visual resolved ${large?'large':''}"><img src="${esc(asset)}" alt="${esc(m.name)}真实材料参考图" loading="lazy" decoding="async"><figcaption>${source}${credit?`<span> · ${esc(credit)}</span>`:''}</figcaption></figure>`;
