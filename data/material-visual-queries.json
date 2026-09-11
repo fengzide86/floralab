@@ -1,0 +1,399 @@
+{
+  "version": "1.2.1",
+  "provider": "Wikimedia Commons",
+  "provider_api": "https://commons.wikimedia.org/w/api.php",
+  "strategy": "Real reusable image search first; AI fallback only for unresolved or unsuitable items.",
+  "note": "Queries are deliberately specific so Commons search results are identification-oriented. Runtime stores source/artist/license metadata and never labels an unverified search result as a verified botanical fact.",
+  "items": {
+    "flower:rose": {
+      "query": "Rosa rose flower close-up"
+    },
+    "flower:lisianthus": {
+      "query": "Eustoma grandiflorum lisianthus flower"
+    },
+    "flower:hydrangea": {
+      "query": "Hydrangea macrophylla flower"
+    },
+    "flower:phalaenopsis": {
+      "query": "Phalaenopsis orchid flower"
+    },
+    "flower:delphinium": {
+      "query": "Delphinium flower spike"
+    },
+    "flower:tulip": {
+      "query": "Tulipa tulip flower"
+    },
+    "flower:carnation": {
+      "query": "Dianthus caryophyllus carnation flower"
+    },
+    "flower:sunflower": {
+      "query": "Helianthus annuus sunflower flower"
+    },
+    "flower:lily": {
+      "query": "Lilium lily flower"
+    },
+    "flower:chrysanthemum": {
+      "query": "Chrysanthemum morifolium flower"
+    },
+    "flower:calla": {
+      "query": "Zantedeschia calla lily flower"
+    },
+    "flower:anemone": {
+      "query": "Anemone coronaria flower"
+    },
+    "flower:eucalyptus": {
+      "query": "Eucalyptus foliage branch leaves"
+    },
+    "flower:spirea": {
+      "query": "Spiraea thunbergii flower branch"
+    },
+    "flower:gypsophila": {
+      "query": "Gypsophila paniculata baby's breath flowers"
+    },
+    "flower:gerbera": {
+      "query": "Gerbera jamesonii flower"
+    },
+    "flower:scabiosa": {
+      "query": "Scabiosa atropurpurea flower"
+    },
+    "flower:statice": {
+      "query": "Limonium sinuatum statice flower"
+    },
+    "flower:dahlia": {
+      "query": "Dahlia flower"
+    },
+    "flower:peony": {
+      "query": "Paeonia lactiflora peony flower"
+    },
+    "flower:freesia": {
+      "query": "Freesia flower"
+    },
+    "flower:alstroemeria": {
+      "query": "Alstroemeria flower"
+    },
+    "flower:snapdragon": {
+      "query": "Antirrhinum majus snapdragon flower"
+    },
+    "flower:gomphrena": {
+      "query": "Gomphrena globosa flower"
+    },
+    "flower:ranunculus": {
+      "query": "Ranunculus asiaticus flower"
+    },
+    "flower:stock": {
+      "query": "Matthiola incana stock flower"
+    },
+    "flower:waxflower": {
+      "query": "Chamelaucium uncinatum waxflower"
+    },
+    "flower:astilbe": {
+      "query": "Astilbe flower"
+    },
+    "flower:sweetpea": {
+      "query": "Lathyrus odoratus sweet pea flower"
+    },
+    "flower:ammi": {
+      "query": "Ammi majus flower"
+    },
+    "flower:ruscus": {
+      "query": "Ruscus aculeatus foliage"
+    },
+    "flower:lemonleaf": {
+      "query": "Gaultheria shallon salal foliage"
+    },
+    "flower:fern": {
+      "query": "Rumohra adiantiformis leatherleaf fern"
+    },
+    "flower:monstera": {
+      "query": "Monstera deliciosa leaf"
+    },
+    "flower:anthurium": {
+      "query": "Anthurium andraeanum flower"
+    },
+    "flower:protea": {
+      "query": "Protea cynaroides king protea flower"
+    },
+    "flower:leucadendron": {
+      "query": "Leucadendron flower foliage"
+    },
+    "flower:chamomile": {
+      "query": "Matricaria chamomilla flower"
+    },
+    "flower:cosmos": {
+      "query": "Cosmos bipinnatus flower"
+    },
+    "flower:zinnia": {
+      "query": "Zinnia elegans flower"
+    },
+    "flower:celosia": {
+      "query": "Celosia cristata flower"
+    },
+    "flower:craspedia": {
+      "query": "Craspedia globosa flower"
+    },
+    "flower:ref_043": {
+      "query": "Paeonia suffruticosa tree peony flower"
+    },
+    "flower:ref_044": {
+      "query": "Narcissus pseudonarcissus daffodil flower"
+    },
+    "flower:ref_045": {
+      "query": "Narcissus tazetta flower"
+    },
+    "flower:ref_046": {
+      "query": "Hyacinthus orientalis hyacinth flower"
+    },
+    "flower:ref_047": {
+      "query": "Muscari armeniacum grape hyacinth flower"
+    },
+    "flower:ref_048": {
+      "query": "Iris germanica iris flower"
+    },
+    "flower:ref_049": {
+      "query": "Gladiolus flower spike"
+    },
+    "flower:ref_050": {
+      "query": "Gerbera jamesonii flower"
+    },
+    "flower:ref_051": {
+      "query": "Campanula medium bellflower"
+    },
+    "flower:ref_052": {
+      "query": "Anthurium andraeanum flower"
+    },
+    "flower:ref_053": {
+      "query": "Strelitzia reginae bird of paradise flower"
+    },
+    "flower:ref_054": {
+      "query": "Leucospermum cordifolium pincushion flower"
+    },
+    "flower:ref_055": {
+      "query": "Chimonanthus praecox wintersweet flower"
+    },
+    "flower:ref_056": {
+      "query": "Forsythia suspensa flower branch"
+    },
+    "flower:ref_057": {
+      "query": "pussy willow Salix branch catkins"
+    },
+    "flower:ref_058": {
+      "query": "Viburnum macrocephalum snowball flower"
+    },
+    "flower:ref_059": {
+      "query": "Hydrangea paniculata flower"
+    },
+    "flower:ref_060": {
+      "query": "Brachyscome iberidifolia flower"
+    },
+    "flower:ref_061": {
+      "query": "Trachelium caeruleum flower"
+    },
+    "flower:ref_062": {
+      "query": "Oxypetalum caeruleum Tweedia flower"
+    },
+    "flower:ref_063": {
+      "query": "Nigella damascena flower"
+    },
+    "flower:ref_064": {
+      "query": "Foeniculum vulgare fennel flower umbels"
+    },
+    "flower:ref_065": {
+      "query": "Helleborus orientalis flower"
+    },
+    "flower:ref_066": {
+      "query": "Helleborus niger Christmas rose flower"
+    },
+    "flower:ref_067": {
+      "query": "Cymbidium orchid flower"
+    },
+    "flower:ref_068": {
+      "query": "Dendrobium orchid flower"
+    },
+    "flower:ref_069": {
+      "query": "Vanda orchid flower"
+    },
+    "flower:ref_070": {
+      "query": "Oncidium orchid flower"
+    },
+    "flower:ref_071": {
+      "query": "Cattleya orchid flower"
+    },
+    "flower:ref_072": {
+      "query": "Lycoris radiata flower"
+    },
+    "flower:ref_073": {
+      "query": "Agapanthus africanus flower"
+    },
+    "flower:ref_074": {
+      "query": "Alocasia macrorrhizos flower"
+    },
+    "flower:ref_075": {
+      "query": "Alocasia macrorrhizos leaf"
+    },
+    "flower:ref_076": {
+      "query": "Thaumatophyllum bipinnatifidum leaf"
+    },
+    "flower:ref_077": {
+      "query": "Asparagus setaceus foliage"
+    },
+    "flower:ref_078": {
+      "query": "Hedera helix ivy foliage"
+    },
+    "flower:ref_079": {
+      "query": "Fatsia japonica leaf"
+    },
+    "flower:ref_080": {
+      "query": "Equisetum hyemale horsetail stems"
+    },
+    "flower:ref_081": {
+      "query": "Asplenium nidus bird's nest fern leaf"
+    },
+    "flower:ref_082": {
+      "query": "Dracaena fragrans leaf foliage"
+    },
+    "flower:ref_083": {
+      "query": "Dypsis lutescens palm leaf"
+    },
+    "flower:ref_084": {
+      "query": "Jacobaea maritima dusty miller leaf"
+    },
+    "flower:ref_085": {
+      "query": "Eucalyptus cinerea silver dollar foliage"
+    },
+    "flower:ref_086": {
+      "query": "Gypsophila dyed baby's breath flowers"
+    },
+    "flower:ref_087": {
+      "query": "Salvia flower spike"
+    },
+    "flower:ref_088": {
+      "query": "Salvia rosmarinus rosemary foliage"
+    },
+    "flower:ref_089": {
+      "query": "Lavandula angustifolia lavender flower"
+    },
+    "flower:ref_090": {
+      "query": "Salvia leaves foliage"
+    },
+    "flower:ref_091": {
+      "query": "Olea europaea olive branch leaves"
+    },
+    "flower:ref_092": {
+      "query": "Gardenia jasminoides leaves"
+    },
+    "flower:ref_093": {
+      "query": "Camellia sasanqua branch flower"
+    },
+    "flower:ref_094": {
+      "query": "Rhododendron branch flower"
+    },
+    "flower:ref_095": {
+      "query": "Chimonanthus praecox flowering branch"
+    },
+    "flower:ref_096": {
+      "query": "Prunus persica peach blossom branch"
+    },
+    "flower:ref_097": {
+      "query": "Prunus salicina plum blossom branch"
+    },
+    "flower:ref_098": {
+      "query": "Prunus serrulata cherry blossom branch"
+    },
+    "flower:ref_099": {
+      "query": "Pennisetum setaceum fountain grass"
+    },
+    "flower:ref_100": {
+      "query": "Cortaderia selloana pampas grass"
+    },
+    "flower:ref_101": {
+      "query": "Pennisetum alopecuroides fountain grass"
+    },
+    "flower:ref_102": {
+      "query": "Astrantia major flower"
+    },
+    "flower:ref_103": {
+      "query": "Echinacea purpurea flower"
+    },
+    "flower:ref_104": {
+      "query": "Xerochrysum bracteatum strawflower"
+    },
+    "flower:ref_105": {
+      "query": "Sorbaria sorbifolia flower"
+    },
+    "flower:ref_106": {
+      "query": "Hypericum berries branch"
+    },
+    "flower:ref_107": {
+      "query": "Pyracantha berries branch"
+    },
+    "flower:ref_108": {
+      "query": "Symphoricarpos snowberry branch"
+    },
+    "flower:ref_109": {
+      "query": "腊莲绣球 flower"
+    },
+    "flower:ref_110": {
+      "query": "Leucadendron cut flower woody"
+    },
+    "flower:ref_111": {
+      "query": "Banksia flower"
+    },
+    "flower:ref_112": {
+      "query": "peony chrysanthemum flower"
+    },
+    "flower:ref_113": {
+      "query": "Symphyotrichum novi-belgii aster flower"
+    },
+    "flower:ref_114": {
+      "query": "翠扇 florist foliage"
+    },
+    "flower:ref_115": {
+      "query": "Yucca gloriosa leaf"
+    },
+    "flower:ref_116": {
+      "query": "palm leaf foliage"
+    },
+    "flower:ref_117": {
+      "query": "fern frond foliage"
+    },
+    "creative:plush": {
+      "query": "plush teddy bear toy"
+    },
+    "creative:strawberry": {
+      "query": "strawberry fruit close up"
+    },
+    "creative:chocolate": {
+      "query": "chocolate wrapped candy"
+    },
+    "creative:snack": {
+      "query": "packaged snack bag"
+    },
+    "creative:can": {
+      "query": "beverage soda can"
+    },
+    "creative:photo": {
+      "query": "instant photo card polaroid"
+    },
+    "creative:acrylic": {
+      "query": "acrylic sign display"
+    },
+    "creative:light": {
+      "query": "battery fairy lights string"
+    },
+    "creative:building": {
+      "query": "building blocks toy"
+    },
+    "creative:giftbox": {
+      "query": "small gift box"
+    },
+    "creative:keychain": {
+      "query": "keychain charm"
+    },
+    "creative:card": {
+      "query": "handwritten greeting card"
+    },
+    "creative:coffee": {
+      "query": "drip coffee bag packet"
+    }
+  }
+}
