@@ -19,7 +19,8 @@
     "check:syntax": "node --check public/app.js && node --check lib/engine.js && node --check lib/studio.js && node --check scripts/build-runtime.js && node --check scripts/build-service-worker.js && node --check scripts/static-server.js",
     "check:fast": "npm run check:syntax && npm run build:runtime && npm run test:core && npm run test:render && npm run test:fast-contract",
     "build:runtime": "node scripts/build-runtime.js && node scripts/build-service-worker.js",
-    "test:fast-contract": "node tests/fast-contract.test.js"
+    "test:fast-contract": "node tests/fast-contract.test.js",
+    "test:ui:smoke": "python qa/ui_smoke_1_4.py"
   },
   "engines": {
     "node": ">=18"
