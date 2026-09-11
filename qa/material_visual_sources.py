@@ -60,6 +60,13 @@ MANUAL_OPEN={
    'asset':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg/960px-Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
    'preview':'','source':'https://commons.wikimedia.org/wiki/File:Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
    'mime':'image/jpeg','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','creator':'Moki8'
+ },
+ 'creative:light':{
+   'ok':True,'provider':'Wikimedia Commons','query':'warm fairy light string LEDs close up','search_query':'curated','confidence':100,
+   'title':'LED string lights.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/LED_string_lights.jpg/960px-LED_string_lights.jpg',
+   'preview':'','source':'https://commons.wikimedia.org/wiki/File:LED_string_lights.jpg',
+   'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Battuaruna'
  }
 }
 
