@@ -333,16 +333,16 @@
       "query": "Symphoricarpos snowberry branch"
     },
     "flower:ref_109": {
-      "query": "Hydrangea strigosa Hydrangea aspera flower"
+      "query": "Hydrangea aspera strigosa flower"
     },
     "flower:ref_110": {
-      "query": "Leucadendron cut flower woody"
+      "query": "Leucadendron salignum flower"
     },
     "flower:ref_111": {
       "query": "Banksia flower"
     },
     "flower:ref_112": {
-      "query": "Chrysanthemum morifolium peony form flower"
+      "query": "double chrysanthemum flower"
     },
     "flower:ref_113": {
       "query": "Symphyotrichum novi-belgii aster flower"
@@ -396,7 +396,7 @@
       "query": "handwritten greeting card"
     },
     "creative:coffee": {
-      "query": "drip coffee bag packet"
+      "query": "coffee drip bag packet"
     }
   }
 }
