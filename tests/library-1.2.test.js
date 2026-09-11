@@ -28,7 +28,8 @@ ok(studio.includes("beginner:f.beginner===true?true:(f.beginner===false?false:nu
 const library=fs.readFileSync(path.join(pub,'library.js'),'utf8');
 ok(library.includes('FloraLabLibrary'),'library module built');
 ok(library.includes('commonsVisual'),'Commons visual resolver');
-ok(library.includes('Wikimedia Commons'),'Commons attribution surface');
+ok(library.includes('Openverse'),'Openverse resolver surface');
+ok(library.includes('Wikimedia Commons'),'Commons fallback surface');
 ok(library.includes('公开图库暂未找到合适图片'),'real-image failure is explicit');
 ok(library.includes('reference_only'),'reference handling');
 ok(library.includes('season-timeline'),'season timeline');
