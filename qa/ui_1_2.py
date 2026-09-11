@@ -1,4 +1,4 @@
-import json, mimetypes
+import json, mimetypes, shutil
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -65,7 +65,10 @@ def goto_tab(page,tab):
     page.wait_for_timeout(180)
 
 with sync_playwright() as p:
-    browser=p.chromium.launch(headless=True,args=['--no-sandbox'])
+    chrome=shutil.which('google-chrome') or shutil.which('google-chrome-stable') or shutil.which('chromium') or shutil.which('chromium-browser')
+    if not chrome:
+        raise RuntimeError('System Chrome/Chromium is required for FloraLab visual QA')
+    browser=p.chromium.launch(headless=True,executable_path=chrome,args=['--no-sandbox'])
     network=[];errors=[]
     page=browser.new_page(viewport={'width':1440,'height':1000},device_scale_factor=1,accept_downloads=True)
     page.set_default_timeout(9000)
