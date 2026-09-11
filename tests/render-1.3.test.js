@@ -39,4 +39,38 @@ const old=Studio.handoffObject(plan);delete old.render;
 const oldV=Studio.validateImportObject(old,catalog),migrated=Studio.migratePlan(catalog,old),regen=Studio.handoffObject(migrated);
 ok(oldV.ok,'old 1.0 file without Render remains valid');
 ok(regen.render&&regen.render.materials.length>0,'old file regenerates Render on export');
+
+// Regression fixture from the real failures that motivated 1.3: white flowers must not
+// silently recolor, eucalyptus stays at 4, and a confirmed acrylic sign keeps its anchor.
+const violet={
+  title:'Violet Playground · 紫雾奇想',handoff:{version:7},dimensions:{height:56,width:62,depth:42},
+  recipe:[
+    {key:'flower:rose:white',kind:'flower',name:'玫瑰',variant:'白',role:'主花',quantity:8,unit:'枝'},
+    {key:'flower:lisianthus:white',kind:'flower',name:'洋桔梗',variant:'白',role:'过渡',quantity:5,unit:'枝'},
+    {key:'flower:hydrangea:white',kind:'flower',name:'绣球',variant:'白',role:'体块',quantity:1,unit:'枝'},
+    {key:'flower:eucalyptus:green',kind:'flower',name:'尤加利',variant:'绿',role:'叶材',quantity:4,unit:'枝'},
+    {key:'flower:statice:purple',kind:'flower',name:'补血草',variant:'紫',role:'填充',quantity:5,unit:'枝'},
+    {key:'creative:acrylic',kind:'creative',name:'亚克力牌',variant:'透明紫',role:'特殊物件',quantity:1,unit:'个'}
+  ],
+  mechanics:{type:'bundle tie + independent armature',items:['束扎','独立骨架'],why:'保持特殊物件上部位置'},
+  blueprint:{version:'2.0',dimensions:{height:56,width:62,depth:42},nodes:[
+    {id:'R01',material_id:'rose',kind:'flower',name:'玫瑰',color:'白',role:'主花',x:-7,y:-2,z:34,head_cm:7},
+    {id:'H01',material_id:'hydrangea',kind:'flower',name:'绣球',color:'白',role:'体块',x:5,y:1,z:31,head_cm:15},
+    {id:'E01',material_id:'eucalyptus',kind:'flower',name:'尤加利',color:'绿',role:'叶材',x:-24,y:4,z:38,head_cm:4},
+    {id:'A01',material_id:'acrylic',kind:'creative',name:'亚克力牌',color:'透明紫',role:'特殊物件',x:7,y:6,z:50,head_cm:8}
+  ],vessel:null,mechanics:{anchors:[{x:0,y:0,z:0}]}}
+};
+const violetSpec=Studio.buildRenderSpec(violet);
+const q=name=>violetSpec.materials.find(x=>x.name===name);
+ok(q('玫瑰').variant==='白'&&q('玫瑰').quantity===8,'white roses stay white x8');
+ok(q('绣球').variant==='白'&&q('绣球').quantity===1,'white hydrangea stays white x1');
+ok(q('尤加利').quantity===4,'eucalyptus remains x4');
+ok(q('补血草').quantity===5,'statice remains x5');
+ok(violetSpec.special_objects.length===1&&violetSpec.special_objects[0].name==='亚克力牌','acrylic sign is retained');
+ok(violetSpec.special_objects[0].positions[0].z===50,'acrylic sign upper anchor is retained');
+ok(violetSpec.mechanics.type==='bundle tie + independent armature','confirmed Mechanics retained');
+const violetText=Studio.renderHandoffText(violet);
+ok(violetText.includes('玫瑰（白） × 8枝')&&violetText.includes('尤加利（绿） × 4枝'),'handoff text locks real regression quantities/colors');
+ok(violetText.includes('亚克力牌 × 1')&&violetText.includes('A01'),'handoff text carries special-object anchor');
+
 console.log(`render-1.3: ${n} checks passed`);
