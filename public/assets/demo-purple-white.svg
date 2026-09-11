@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1180" role="img" aria-label="紫白花艺结构示意">
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e9e2da"/><stop offset="1" stop-color="#d5cfca"/></linearGradient><filter id="s"><feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#342d31" flood-opacity=".13"/></filter></defs>
+<rect width="960" height="1180" fill="url(#bg)"/>
+<g transform="translate(480 650)" filter="url(#s)">
+  <path d="M-126 135 C-110 245 -98 328 -82 440 L82 440 C98 328 110 245 126 135 Z" fill="#f0ece5"/>
+  <ellipse cx="0" cy="135" rx="126" ry="28" fill="#fbf8f2"/>
+</g>
+<g stroke="#6f7868" stroke-width="8" stroke-linecap="round" fill="none" opacity=".82">
+<path d="M480 780 Q430 555 290 360"/><path d="M480 780 Q520 520 690 318"/><path d="M475 780 Q440 490 450 230"/><path d="M485 780 Q560 575 760 520"/><path d="M470 780 Q365 625 220 585"/>
+</g>
+<g fill="#f7f4ee" stroke="#ded9d0" stroke-width="2">
+<circle cx="425" cy="470" r="94"/><circle cx="570" cy="500" r="84"/><circle cx="350" cy="575" r="72"/><circle cx="610" cy="620" r="76"/>
+</g>
+<g fill="#7f6687"><circle cx="300" cy="380" r="58"/><circle cx="515" cy="330" r="66"/><circle cx="680" cy="410" r="54"/><circle cx="525" cy="585" r="48"/></g>
+<g fill="#a894b0" opacity=".9"><circle cx="260" cy="560" r="38"/><circle cx="710" cy="545" r="42"/><circle cx="430" cy="290" r="36"/></g>
+<g fill="#788071" opacity=".72"><ellipse cx="255" cy="675" rx="26" ry="90" transform="rotate(-55 255 675)"/><ellipse cx="685" cy="690" rx="26" ry="98" transform="rotate(55 685 690)"/><ellipse cx="220" cy="470" rx="20" ry="78" transform="rotate(-40 220 470)"/><ellipse cx="740" cy="390" rx="20" ry="80" transform="rotate(40 740 390)"/></g>
+<text x="72" y="1080" font-family="Georgia,serif" font-size="28" fill="#4a4442" letter-spacing="6">FLORALAB STUDY</text>
+</svg>

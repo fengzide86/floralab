@@ -1,0 +1,1000 @@
+{
+  "meta": {
+    "currency": "CNY",
+    "price_note": "价格仅用于方案内相对估算，不代表实时花市报价；真实采购价会受城市、季节、节日和等级影响。",
+    "sources": [
+      {
+        "id": "teamflower-mechanics",
+        "label": "Team Flower · Floral Mechanic Basics",
+        "url": "https://education.teamflower.org/learn/2014/12/20/flower-arranging-wire-foam-frogs",
+        "use": "花泥、鸡笼网、花插/剑山等基础固定结构的适用性。"
+      },
+      {
+        "id": "floralife-hydrangea",
+        "label": "FloraLife · Hydrangea Troubleshooting",
+        "url": "https://floralife.com/article/hydrangea-troubleshooting/",
+        "use": "绣球需水量高、花头和茎秆较重，瓶插通常优于花泥；花泥使用时应固定牢靠并持续补水。"
+      },
+      {
+        "id": "aspca-lily-cats",
+        "label": "ASPCA · Lily toxicity to cats",
+        "url": "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/lily",
+        "use": "真百合（Lilium spp.）对猫有严重毒性风险，宠物场景应阻止使用。"
+      },
+      {
+        "id": "floralife-hydration-2026",
+        "label": "FloraLife · Water Temperature and Cut Flower Hydration (2026)",
+        "url": "https://floralife.com/2026/02/18/water-temperature-and-cut-flower-hydration/",
+        "use": "切花补水受温度、蒸腾和水分吸收影响；用于通用预处理提醒。"
+      },
+      {
+        "id": "aspca-lily-2026",
+        "label": "ASPCA · Which Flowers and Plants are Toxic to Pets? (2026)",
+        "url": "https://www.aspca.org/news/do-you-know-which-flowers-and-plants-are-toxic-pets-our-experts-explain",
+        "use": "Lilium/Hemerocallis 对猫存在严重风险，用于宠物环境阻断规则。"
+      }
+    ],
+    "catalog_version": "1.0.0",
+    "price_scope": "Studio 1.0 使用静态参考区间与“我的单价”；参考条目不冒充实时花市行情。",
+    "reference_entries_note": "reference_only=true 的条目只用于初步方案与检索；宠物风险、季节、价格和结构适配未知时必须提示核实。"
+  },
+  "flowers": [
+    {
+      "id": "rose",
+      "name": "玫瑰",
+      "aliases": [
+        "月季切花"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "紫",
+        "香槟",
+        "黄",
+        "橙"
+      ],
+      "price": [
+        5,
+        18
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        40,
+        70
+      ],
+      "head_cm": [
+        5,
+        10
+      ],
+      "weight": "medium",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "焦点"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "通用性强，不同品种与节日价格差异较大。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "洋桔梗",
+        "康乃馨"
+      ],
+      "pet_risk": "一般不列为猫的高危切花，但仍避免宠物啃食"
+    },
+    {
+      "id": "lisianthus",
+      "name": "洋桔梗",
+      "aliases": [
+        "桔梗"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "绿",
+        "香槟"
+      ],
+      "price": [
+        6,
+        16
+      ],
+      "availability": "全年较常见",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        75
+      ],
+      "head_cm": [
+        4,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "过渡",
+        "填充"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "一枝多头，适合增加层次和空气感。",
+      "peak_months": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "玫瑰",
+        "康乃馨"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "hydrangea",
+      "name": "绣球",
+      "aliases": [
+        "八仙花"
+      ],
+      "colors": [
+        "白",
+        "蓝",
+        "紫",
+        "粉",
+        "绿"
+      ],
+      "price": [
+        15,
+        45
+      ],
+      "availability": "全年可见，春夏选择更多",
+      "season": "春夏优势",
+      "stem_cm": [
+        35,
+        65
+      ],
+      "head_cm": [
+        12,
+        25
+      ],
+      "weight": "heavy",
+      "stem_strength": "woody",
+      "water_need": "very_high",
+      "fragility": "medium",
+      "beginner": false,
+      "roles": [
+        "体块",
+        "主花"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "excellent",
+      "notes": "非常需水；花头大、茎偏重。优先保证持续水源。",
+      "evidence": [
+        "floralife-hydrangea"
+      ],
+      "peak_months": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "market_tier": "中等",
+      "substitutes": [
+        "康乃馨",
+        "小菊"
+      ],
+      "pet_risk": "避免宠物啃食"
+    },
+    {
+      "id": "phalaenopsis",
+      "name": "蝴蝶兰",
+      "aliases": [
+        "蝶兰"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "黄"
+      ],
+      "price": [
+        22,
+        80
+      ],
+      "availability": "全年可采购，节日前后波动",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        90
+      ],
+      "head_cm": [
+        7,
+        13
+      ],
+      "weight": "medium",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "焦点",
+        "线条"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "good",
+      "notes": "花朵脆，跨度大或悬垂时宜增加水管/铁丝等支撑。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "偏高",
+      "substitutes": [
+        "马蹄莲",
+        "洋桔梗"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "delphinium",
+      "name": "飞燕草",
+      "aliases": [
+        "翠雀"
+      ],
+      "colors": [
+        "蓝",
+        "紫",
+        "白",
+        "粉"
+      ],
+      "price": [
+        10,
+        30
+      ],
+      "availability": "春夏更常见",
+      "season": "春夏优势",
+      "stem_cm": [
+        60,
+        110
+      ],
+      "head_cm": [
+        2,
+        5
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "适合拉高轮廓，长茎运输和操作时注意折断。",
+      "peak_months": [
+        3,
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "market_tier": "中高",
+      "substitutes": [
+        "金鱼草",
+        "雪柳"
+      ],
+      "pet_risk": "避免宠物啃食"
+    },
+    {
+      "id": "tulip",
+      "name": "郁金香",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "紫",
+        "黄",
+        "橙"
+      ],
+      "price": [
+        5,
+        16
+      ],
+      "availability": "冬春优势",
+      "season": "冬春优势",
+      "stem_cm": [
+        30,
+        55
+      ],
+      "head_cm": [
+        4,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "线条"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "excellent",
+      "notes": "切后仍可能继续生长并弯曲，后期姿态会变化。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "季节型",
+      "substitutes": [
+        "小苍兰",
+        "玫瑰"
+      ],
+      "pet_risk": "球根类植物对宠物可能有风险，宠物场景谨慎"
+    },
+    {
+      "id": "carnation",
+      "name": "康乃馨",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "紫",
+        "黄",
+        "绿"
+      ],
+      "price": [
+        2,
+        7
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        70
+      ],
+      "head_cm": [
+        5,
+        9
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "填充"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "耐放、性价比高，适合控预算。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "玫瑰",
+        "洋桔梗"
+      ],
+      "pet_risk": "避免宠物啃食"
+    },
+    {
+      "id": "sunflower",
+      "name": "向日葵",
+      "aliases": [],
+      "colors": [
+        "黄",
+        "奶油黄"
+      ],
+      "price": [
+        4,
+        12
+      ],
+      "availability": "夏秋更丰富",
+      "season": "夏秋优势",
+      "stem_cm": [
+        45,
+        90
+      ],
+      "head_cm": [
+        8,
+        18
+      ],
+      "weight": "heavy",
+      "stem_strength": "strong",
+      "water_need": "high",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "焦点",
+        "主花"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "good",
+      "notes": "花头较重，长杆造型要注意重心。",
+      "peak_months": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "非洲菊",
+        "大丽花"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "lily",
+      "name": "百合",
+      "aliases": [
+        "香水百合"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "黄",
+        "橙"
+      ],
+      "price": [
+        8,
+        25
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        60,
+        100
+      ],
+      "head_cm": [
+        10,
+        20
+      ],
+      "weight": "heavy",
+      "stem_strength": "strong",
+      "water_need": "high",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "焦点",
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "香味、花粉及宠物环境需要额外考虑。",
+      "pet_risk": "block_cat",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "六出花",
+        "洋桔梗"
+      ],
+      "scientific_group": "Lilium spp.",
+      "evidence": [
+        "aspca-lily-cats"
+      ]
+    },
+    {
+      "id": "chrysanthemum",
+      "name": "小菊",
+      "aliases": [
+        "喷泉菊",
+        "多头菊"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "黄",
+        "绿",
+        "紫"
+      ],
+      "price": [
+        3,
+        9
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        75
+      ],
+      "head_cm": [
+        2,
+        6
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "medium",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "填充",
+        "过渡"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "耐放、容易采购。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "康乃馨",
+        "补血草"
+      ],
+      "pet_risk": "避免宠物啃食"
+    },
+    {
+      "id": "calla",
+      "name": "马蹄莲",
+      "aliases": [],
+      "colors": [
+        "白",
+        "紫",
+        "粉",
+        "黄"
+      ],
+      "price": [
+        8,
+        25
+      ],
+      "availability": "全年可采购",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        80
+      ],
+      "head_cm": [
+        5,
+        10
+      ],
+      "weight": "light",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": false,
+      "roles": [
+        "线条",
+        "焦点"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "excellent",
+      "notes": "杆体柔，弯折塑形应轻柔。",
+      "peak_months": [
+        3,
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "market_tier": "中高",
+      "substitutes": [
+        "小苍兰",
+        "洋桔梗"
+      ],
+      "pet_risk": "宠物场景谨慎"
+    },
+    {
+      "id": "anemone",
+      "name": "银莲花",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "紫",
+        "蓝"
+      ],
+      "price": [
+        7,
+        18
+      ],
+      "availability": "冬春优势",
+      "season": "冬春优势",
+      "stem_cm": [
+        25,
+        50
+      ],
+      "head_cm": [
+        4,
+        8
+      ],
+      "weight": "light",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "high",
+      "beginner": false,
+      "roles": [
+        "焦点",
+        "点缀"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "good",
+      "notes": "娇嫩，炎热环境保鲜难度更高。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "季节型",
+      "substitutes": [
+        "松虫草",
+        "小苍兰"
+      ],
+      "pet_risk": "避免宠物啃食"
+    },
+    {
+      "id": "eucalyptus",
+      "name": "尤加利",
+      "aliases": [
+        "桉叶"
+      ],
+      "colors": [
+        "绿",
+        "灰绿"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        40,
+        90
+      ],
+      "head_cm": [
+        1,
+        4
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "叶材",
+        "线条"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "常用叶材，适合搭轮廓。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "其他常见叶材"
+      ],
+      "pet_risk": "宠物场景避免啃食"
+    },
+    {
+      "id": "spirea",
+      "name": "雪柳",
+      "aliases": [],
+      "colors": [
+        "白",
+        "绿"
+      ],
+      "price": [
+        8,
+        25
+      ],
+      "availability": "冬春更常见",
+      "season": "冬春优势",
+      "stem_cm": [
+        70,
+        130
+      ],
+      "head_cm": [
+        1,
+        3
+      ],
+      "weight": "light",
+      "stem_strength": "woody",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "线条",
+        "氛围"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "excellent",
+      "notes": "枝条长，适合自然伸展型作品。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "market_tier": "季节型",
+      "substitutes": [
+        "金鱼草",
+        "尤加利"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "gypsophila",
+      "name": "满天星",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉"
+      ],
+      "price": [
+        5,
+        15
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        45,
+        80
+      ],
+      "head_cm": [
+        0.3,
+        1
+      ],
+      "weight": "light",
+      "stem_strength": "medium",
+      "water_need": "low",
+      "fragility": "low",
+      "beginner": true,
+      "roles": [
+        "填充",
+        "氛围"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "用量太多容易遮蔽主花层次。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "补血草",
+        "千日红"
+      ],
+      "pet_risk": "避免宠物啃食"
+    },
+    {
+      "id": "gerbera",
+      "name": "非洲菊",
+      "aliases": [
+        "扶郎花"
+      ],
+      "colors": [
+        "白",
+        "粉",
+        "红",
+        "黄",
+        "橙"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [
+        35,
+        65
+      ],
+      "head_cm": [
+        7,
+        13
+      ],
+      "weight": "medium",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": true,
+      "roles": [
+        "主花",
+        "焦点"
+      ],
+      "foam_fit": "conditional",
+      "vase_fit": "good",
+      "notes": "花头较大、花杆偏柔，长距离外伸时要控制长度。",
+      "peak_months": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "market_tier": "常见",
+      "substitutes": [
+        "向日葵",
+        "大丽花"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "scabiosa",
+      "name": "松虫草",
+      "aliases": [],
+      "colors": [
+        "白",
+        "粉",
+        "紫",
+        "酒红"
+      ],
+      "price": [
+        6,
+        16
+      ],
+      "availability": "春秋更常见",
+      "season": "春秋优势",
+      "stem_cm": [
+        35,
+        70
+      ],
+      "head_cm": [
+        3,
+        7
+      ],
+      "weight": "light",
+      "stem_strength": "flexible",
+      "water_need": "medium",
+      "fragility": "medium",
+      "beginner": false,
+      "roles": [
+        "点缀",
+        "空气感"
+      ],
+      "foam_fit": "good",
+      "vase_fit": "good",
+      "notes": "适合增加轻盈层次。",
+      "peak_months": [
+        3,
+        4,
+        5,
+        9,
+        10,
+        11
+      ],
+      "market_tier": "中等",
+      "substitutes": [
+        "银莲花",
+        "千日红"
+      ],
+      "pet_risk": "未纳入本版本高危阻断规则"
+    },
+    {
+      "id": "statice",
+      "name": "补血草",
+      "aliases": [
+        "情人草",
+        "勿忘我类配花"
+      ],
+      "colors": [
+        "紫",
+        "白",
+        "粉",
+        "黄"
+      ],
+      "price": [
+        3,
+        10
+      ],
+      "availability": "全年常见",
+      "season": "全年",
+      "stem_cm": [

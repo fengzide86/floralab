@@ -1,0 +1,11 @@
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.join(__dirname,'..','project-kit');let n=0;const ok=(x,m)=>{assert.ok(x,m);n++};
+const required=['PROJECT_SYSTEM_PROMPT.md','00_START_HERE.md','01_FLORALAB_CONTEXT.md','02_CREATIVE_REFERENCE.md','03_STUDIO_HANDOFF.md','04_REALITY_REFERENCE.md','05_IMAGE_CONTEXT.md','06_MAKING_AND_FEEDBACK.md','07_LANGUAGE_STYLE.md','08_EXAMPLE_CONVERSATIONS.md','09_SELF_CHECKS.md','HANDOFF_SCHEMA.json','FLOWER_CATALOG_1_1.json','README.md'];
+for(const f of required)ok(fs.existsSync(path.join(root,f)),`missing ${f}`);
+const prompt=fs.readFileSync(path.join(root,'PROJECT_SYSTEM_PROMPT.md'),'utf8');
+ok(prompt.includes('相信自己的综合判断'),'prompt trusts model judgment');
+ok(prompt.includes('.floralab'),'prompt handoff');ok(prompt.includes('FloraLab Studio'),'prompt studio context');ok(prompt.includes('图像'),'prompt visual capability');ok(/不要为了.{0,8}遵守流程.{0,20}(增加步骤|多问)|不固定.{0,12}(数量|结构)/s.test(prompt),'prompt avoids rigid workflow');
+ok(!/必须给\s*[23三两]\s*个/.test(prompt),'no fixed option count');ok(!prompt.includes('必须先确认预算'),'no rigid budget gate');
+const schema=JSON.parse(fs.readFileSync(path.join(root,'HANDOFF_SCHEMA.json')));ok(schema.schema==='floralab/1.0','schema compatibility');ok(schema.blueprint.version==='2.0','blueprint version');ok(schema.blueprint.views.length===5,'five views');
+const cat=JSON.parse(fs.readFileSync(path.join(root,'FLOWER_CATALOG_1_1.json')));ok(cat.flowers.length===117,'117 flowers');ok(cat.creative.length===13,'13 creative');ok(cat.flowers.some(x=>x.name==='百合'&&x.pet_risk==='block_cat'),'lily cat risk retained');
+console.log(`project-kit-1.1: ${n} checks passed`);

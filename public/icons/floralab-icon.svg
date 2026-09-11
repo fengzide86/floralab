@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="116" fill="#F4F1EA"/>
+  <circle cx="256" cy="256" r="184" fill="#FCFBF8" stroke="#DED8CF" stroke-width="6"/>
+  <!-- F as living stem -->
+  <path d="M232 359 C231 291 233 222 243 153" fill="none" stroke="#2E2928" stroke-width="23" stroke-linecap="round"/>
+  <path d="M243 224 C286 194 332 190 369 213 C327 244 285 247 243 224Z" fill="#78816E"/>
+  <path d="M238 282 C273 260 309 261 337 281 C304 304 270 304 238 282Z" fill="#8A927E"/>
+  <!-- vase / atelier craft cue -->
+  <path d="M190 324 C203 368 221 393 256 406 C291 393 309 368 322 324 Z" fill="#46313F"/>
+  <path d="M207 324 H305" stroke="#46313F" stroke-width="14" stroke-linecap="round"/>
+  <!-- flower -->
+  <g transform="translate(252 139)">
+    <ellipse cx="0" cy="-45" rx="34" ry="55" fill="#704A68"/>
+    <ellipse cx="43" cy="-15" rx="34" ry="55" transform="rotate(58 43 -15)" fill="#835C7A"/>
+    <ellipse cx="33" cy="34" rx="34" ry="55" transform="rotate(118 33 34)" fill="#65435D"/>
+    <ellipse cx="-24" cy="40" rx="34" ry="55" transform="rotate(-118 -24 40)" fill="#8A6482"/>
+    <ellipse cx="-48" cy="-10" rx="34" ry="55" transform="rotate(-55 -48 -10)" fill="#77506D"/>
+    <circle r="25" fill="#D6C9A2"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+{
+  "schema":"floralab/1.0",
+  "purpose":"creative-space-studio-handoff",
+  "preferred_sections":["project","intent","recipe","dimensions","mechanics","blueprint","build","resultFeedback","history"],
+  "blueprint":{"version":"2.0","views":["front","left","back","right","top"]}
+}
