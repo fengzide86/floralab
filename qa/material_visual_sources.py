@@ -83,7 +83,7 @@ def resolve_commons(query):
     info=best['imageinfo'][0];md=info.get('extmetadata') or {}
     return {
       'ok':True,'provider':'Wikimedia Commons','query':query,'title':best.get('title',''),
-      'asset':info.get('url') or info.get('thumburl'),'source':info.get('descriptionurl',''),'mime':info.get('mime',''),
+      'asset':info.get('thumburl') or info.get('url'),'preview':info.get('url') or '','source':info.get('descriptionurl',''),'mime':info.get('mime',''),
       'license':clean((md.get('LicenseShortName') or md.get('UsageTerms') or {}).get('value','Wikimedia Commons')),
       'license_url':clean((md.get('LicenseUrl') or {}).get('value','')),
       'creator':clean((md.get('Artist') or md.get('Credit') or {}).get('value','Wikimedia Commons'))[:160]
@@ -161,7 +161,9 @@ def persist_asset(key,res):
                     return key,alt
             except Exception:
                 pass
-        return key,{'ok':False,'query':res.get('query',''),'reason':'asset_download: '+str(e)}
+        fallback=dict(res)
+        fallback['mirror_error']='asset_download: '+str(e)
+        return key,fallback
 
 results={}
 # Resolve a few items at a time; provider retry/backoff handles 429s without turning 130 lookups into a serial crawl.
@@ -183,16 +185,18 @@ with ThreadPoolExecutor(max_workers=6) as pool:
         if done%10==0 or done==len(results):
             print(f"visual-mirror: {done}/{len(results)}",flush=True)
 
-missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('local_asset'))
+missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('asset'))
 report={
   'version':'1.2.1','total':len(queries),'resolved':len(queries)-len(missing),'missing':missing,
-  'policy':'Open reusable photograph first. Assets are mirrored into the deployed FloraLab bundle; source, creator and license are retained for attribution.',
+  'mirrored':sum(1 for v in persisted.values() if v.get('local_asset')),
+  'remote_fallback':sum(1 for v in persisted.values() if v.get('ok') and v.get('asset') and not v.get('local_asset')),
+  'policy':'Open reusable photograph first. Images are mirrored when providers allow it; rate-limited items retain their licensed remote asset URL with source, creator and license attribution.',
   'items':dict(sorted(persisted.items()))
 }
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
 PUB_OUT.parent.mkdir(parents=True,exist_ok=True)
 PUB_OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-print(f"material-visual-sources: {report['resolved']} / {report['total']} resolved and mirrored")
+print(f"material-visual-sources: {report['resolved']} / {report['total']} resolved; {report['mirrored']} mirrored; {report['remote_fallback']} remote fallbacks")
 print(f"material-visual-bytes: {sum(v.get('bytes',0) for v in persisted.values())}")
 if missing:
     print('missing:', ', '.join(missing))
