@@ -234,6 +234,138 @@ def download_bytes(url,attempts=4):
 def safe_name(key):
     return re.sub(r'[^a-zA-Z0-9_-]+','-',key).strip('-')+'.webp'
 
+def wikimedia_thumbnail(url,width=960):
+    if not url:return None
+    try:
+        p=urllib.parse.urlsplit(url)
+        path=p.path
+        marker='/wikipedia/commons/'
+        if p.netloc not in ('upload.wikimedia.org','thumb.wikimedia.org') or marker not in path or '/thumb/' in path:
+            return None
+        base=path.rsplit('/',1)[-1]
+        if not re.search(r'\.(?:jpe?g|png|webp)    query=queries[key]['query']
+    provider=str(current.get('provider') or '')
+    resolvers=[resolve_commons,resolve_openverse] if provider=='Openverse' else [resolve_openverse,resolve_commons]
+    for fn in resolvers:
+        try:
+            alt=fn(key,query)
+            if alt and alt.get('ok') and alt.get('asset') and alt.get('source')!=current.get('source'):
+                return alt
+        except Exception:
+            pass
+        time.sleep(.25)
+    return None
+
+def persist_asset(key,res):
+    if not res.get('ok'):return key,res
+    try:
+        raw=None;last=None
+        candidates=[]
+        for original in [res.get('asset'),res.get('preview')]:
+            thumb=wikimedia_thumbnail(original)
+            if thumb and thumb not in candidates:candidates.append(thumb)
+            if original and original not in candidates:candidates.append(original)
+        for candidate in candidates:
+            try:raw=download_bytes(candidate);break
+            except Exception as e:last=e
+        if raw is None:raise last or RuntimeError('no_downloadable_asset')
+        im=Image.open(io.BytesIO(raw));im=ImageOps.exif_transpose(im).convert('RGB');im.thumbnail((1200,1200),Image.Resampling.LANCZOS)
+        ASSET_DIR.mkdir(parents=True,exist_ok=True)
+        filename=safe_name(key);out=ASSET_DIR/filename;im.save(out,'WEBP',quality=84,method=5)
+        res=dict(res);res['local_asset']='./assets/materials/'+filename;res['width'],res['height']=im.size;res['bytes']=out.stat().st_size
+        return key,res
+    except Exception as e:
+        fallback=dict(res);fallback['mirror_error']='asset_download: '+str(e);return key,fallback
+
+results={}
+with ThreadPoolExecutor(max_workers=3) as pool:
+    futs=[pool.submit(resolve,pair) for pair in queries.items()]
+    for i,fut in enumerate(as_completed(futs),1):
+        key,res=fut.result();results[key]=res
+        if i%10==0 or i==len(queries):print(f"visual-search: {i}/{len(queries)}",flush=True)
+
+persisted={}
+with ThreadPoolExecutor(max_workers=5) as pool:
+    futs=[pool.submit(persist_asset,k,v) for k,v in results.items()]
+    for i,fut in enumerate(as_completed(futs),1):
+        key,res=fut.result();persisted[key]=res
+        if i%10==0 or i==len(results):print(f"visual-mirror: {i}/{len(results)}",flush=True)
+
+# A resolved remote URL is not enough for the PWA: every factual image must be copied into
+# the release artifact. Retry transient failures, then switch provider/source before failing.
+repair_keys=sorted(k for k,v in persisted.items() if v.get('ok') and v.get('asset') and not v.get('local_asset'))
+if repair_keys:
+    print('visual-mirror-repair:',', '.join(repair_keys),flush=True)
+for key in repair_keys:
+    time.sleep(.4)
+    _,retry=persist_asset(key,persisted[key])
+    if retry.get('local_asset'):
+        persisted[key]=retry
+        continue
+    alt=alternative_resolution(key,persisted[key])
+    if alt:
+        _,retry_alt=persist_asset(key,alt)
+        if retry_alt.get('local_asset'):
+            retry_alt['mirror_recovered_from']=persisted[key].get('provider','')
+            persisted[key]=retry_alt
+
+missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('asset'))
+low_conf=sorted(k for k,v in persisted.items() if v.get('ok') and float(v.get('confidence',0))<10)
+remote_fallback=sorted(k for k,v in persisted.items() if v.get('ok') and v.get('asset') and not v.get('local_asset'))
+report={
+  'version':'1.2.1','total':len(queries),'resolved':len(queries)-len(missing),'missing':missing,'low_confidence':low_conf,
+  'mirrored':sum(1 for v in persisted.values() if v.get('local_asset')),
+  'remote_fallback':len(remote_fallback),
+  'policy':'Open reusable photographs only. Search results must contain a material-specific botanical/object keyword in title or metadata; source, creator and license are retained.',
+  'items':dict(sorted(persisted.items()))
+}
+OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+PUB_OUT.parent.mkdir(parents=True,exist_ok=True);PUB_OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+
+# Material-image audit sheets are supplemental QA, not a substitute for page-by-page UI review.
+names={**{'flower:'+x['id']:x['name'] for x in catalog['flowers']},**{'creative:'+x['id']:x['name'] for x in catalog['creative']}}
+font_paths=['/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.otf']
+font=ImageFont.load_default()
+for fp in font_paths:
+    if Path(fp).exists():
+        try:font=ImageFont.truetype(fp,18);break
+        except Exception:pass
+keys=sorted(persisted)
+for sheet_i in range(0,len(keys),26):
+    subset=keys[sheet_i:sheet_i+26];canvas=Image.new('RGB',(1300,5*230),(246,243,238));draw=ImageDraw.Draw(canvas)
+    for idx,key in enumerate(subset):
+        col=idx%5;row=idx//5;x=col*260;y=row*230
+        res=persisted[key];im=None
+        path=ASSET_DIR/safe_name(key)
+        if path.exists():
+            try:im=Image.open(path).convert('RGB')
+            except Exception:im=None
+        if im is None and res.get('asset'):
+            try:im=Image.open(io.BytesIO(download_bytes(res['asset']))).convert('RGB')
+            except Exception:im=None
+        if im:
+            im=ImageOps.fit(im,(240,165),method=Image.Resampling.LANCZOS);canvas.paste(im,(x+10,y+8))
+        else:
+            draw.rectangle((x+10,y+8,x+250,y+173),outline=(170,160,150),width=2);draw.text((x+28,y+72),'NO IMAGE',fill=(100,90,85),font=font)
+        label=(names.get(key,key)+'  '+key)[:34];draw.text((x+10,y+181),label,fill=(55,48,44),font=font)
+        meta=(res.get('provider','')+' · '+str(res.get('confidence','')))[:32];draw.text((x+10,y+204),meta,fill=(110,100,94),font=font)
+    canvas.save(ROOT/'qa'/f'material-visual-sheet-{sheet_i//26+1:02d}.jpg',quality=88)
+
+print(f"material-visual-sources: {report['resolved']} / {report['total']} resolved; {report['mirrored']} mirrored; {report['remote_fallback']} remote fallbacks")
+print(f"material-visual-low-confidence: {len(low_conf)}")
+print(f"material-visual-bytes: {sum(v.get('bytes',0) for v in persisted.values())}")
+if missing or low_conf or remote_fallback:
+    if missing:print('missing:',', '.join(missing))
+    if low_conf:print('low-confidence:',', '.join(low_conf))
+    if remote_fallback:print('remote-fallback:',', '.join(remote_fallback))
+    raise SystemExit(1)
+,base,re.I):
+            return None
+        thumb_path=path.replace(marker,'/wikipedia/commons/thumb/',1)+f'/{width}px-{base}'
+        return urllib.parse.urlunsplit(('https','upload.wikimedia.org',thumb_path,'',''))
+    except Exception:
+        return None
+
 def alternative_resolution(key,current):
     query=queries[key]['query']
     provider=str(current.get('provider') or '')
