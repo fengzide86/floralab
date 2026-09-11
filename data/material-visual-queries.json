@@ -381,22 +381,22 @@
       "query": "acrylic sign display"
     },
     "creative:light": {
-      "query": "battery fairy lights string"
+      "query": "fairy lights"
     },
     "creative:building": {
       "query": "building blocks toy"
     },
     "creative:giftbox": {
-      "query": "small gift box"
+      "query": "gift box"
     },
     "creative:keychain": {
       "query": "keychain charm"
     },
     "creative:card": {
-      "query": "handwritten greeting card"
+      "query": "greeting card"
     },
     "creative:coffee": {
-      "query": "coffee bag package"
+      "query": "drip coffee bag"
     }
   }
 }
