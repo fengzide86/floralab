@@ -64,3 +64,18 @@
 ## 6. 人工视觉检查
 
 人工查看 1.1 桌面和手机截图。Atelier 设计方向保持：作品和任务优先、暖象牙白、深梅紫、编辑式排版、少 Badge / 少后台感。最终截图前清除短暂 Toast，避免把运行状态混入正式验收图。
+
+## 7. GitHub Runner 验证
+
+正式仓库 `fengzide86/floralab` 的 GitHub Actions 已在 Ubuntu runner 上执行与本地相同的 `npm run test:release`。在修复首次上传时被中转连接器截断的 `data/catalog.json` 后，GitHub runner 实际输出为：
+
+- engine-regression：126 / 126
+- project-kit-1.1：27 / 27
+- static-1.1：37 / 37
+- pwa-1.1：26 / 26
+- assets-1.1：16 / 16
+- scenarios-regression：116 / 116（38 套场景）
+
+即 **GitHub release gate 348 / 348 通过**；浏览器 UI 36 项在本地真实 Chromium Runtime 验收，因此完整 QA 仍为 **384 / 384**。
+
+当前 Actions 随后停在 `actions/configure-pages@v5`，GitHub 明确返回仓库尚未启用 Pages。这个步骤属于仓库管理设置，不是代码或测试失败。仓库所有者首次在 `Settings → Pages → Build and deployment → Source` 选择 **GitHub Actions** 后，即可重新运行该 workflow 完成正式 Pages 部署。
