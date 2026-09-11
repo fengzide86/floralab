@@ -21,6 +21,7 @@ ok(visuals.policy&&String(visuals.policy.rule).includes('verified'),'visual veri
 for(const [id,v] of Object.entries(visuals.items||{})){if(v.verified){ok(Boolean(v.asset),`${id} verified asset`);ok(Boolean(v.source),`${id} verified source`);ok(Boolean(v.license),`${id} verified license`);}}
 const studio=fs.readFileSync(path.join(root,'lib','studio.js'),'utf8');
 for(const key of ['stem_cm','head_cm','weight','stem_strength','fragility','peak_months','market_tier'])ok(studio.includes(key),`public catalog exposes ${key}`);
+ok(studio.includes("beginner:f.beginner===true?true:(f.beginner===false?false:null)"),'public catalog preserves unknown beginner state');
 const library=fs.readFileSync(path.join(pub,'library.js'),'utf8');
 ok(library.includes('FloraLabLibrary'),'library module built');
 ok(library.includes('暂无可靠图片'),'unknown visual fallback');
@@ -29,6 +30,9 @@ ok(library.includes('reference_only'),'reference handling');
 ok(library.includes('season-timeline'),'season timeline');
 ok(library.includes('substitutes'),'substitute navigation');
 ok(library.includes('currentUse'),'current project context');
+ok(library.includes('petRiskInfo'),'pet risk normalization');
+ok(library.includes('猫环境高风险'),'cat high-risk user-facing label');
+ok(library.includes('宠物信息需核实'),'unknown pet risk user-facing label');
 ok(library.includes("food?'食品'"),'creative food search');
 const app=fs.readFileSync(path.join(pub,'app.js'),'utf8');
 ok(app.includes('FloraLabLibrary.render'),'app loads library module');
@@ -36,6 +40,7 @@ ok(app.includes('recipe-material-link'),'Recipe links to detail');
 ok(app.includes("fetch('./data/material-visuals.json'"),'visual provenance registry loaded');
 const index=fs.readFileSync(path.join(pub,'index.html'),'utf8');
 ok(index.includes('./library.js'),'library script linked');
+ok(!index.includes('\\n'),'public shell has no visible escape artifact');
 const sw=fs.readFileSync(path.join(pub,'service-worker.js'),'utf8');
 ok(sw.includes("'./library.js'"),'library offline shell');
 ok(sw.includes("'./data/material-visuals.json'"),'visual registry offline shell');
