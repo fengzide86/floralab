@@ -67,15 +67,34 @@ function commonsScore(page,query){
   for(const w of words)if(desc.includes(w))score+=1;
   return score;
 }
+function pumpVisualFetchQueue(S){
+  S.visualFetchQueue=S.visualFetchQueue||[];S.visualFetchActive=S.visualFetchActive||0;
+  while(S.visualFetchActive<3&&S.visualFetchQueue.length){
+    const job=S.visualFetchQueue.shift();S.visualFetchActive++;
+    (async()=>{
+      let last;
+      for(let attempt=0;attempt<4;attempt++){
+        try{
+          const res=await fetch(job.url,{mode:'cors',credentials:'omit'});
+          if(res.status===429){last=new Error('commons_429');await new Promise(r=>setTimeout(r,900*(attempt+1)));continue;}
+          if(!res.ok)throw new Error('commons_'+res.status);
+          job.resolve(await res.json());return;
+        }catch(err){last=err;if(attempt<3)await new Promise(r=>setTimeout(r,550*(attempt+1)));}
+      }
+      job.reject(last||new Error('commons_request_failed'));
+    })().finally(()=>{S.visualFetchActive--;pumpVisualFetchQueue(S);});
+  }
+}
+function queuedCommonsJson(S,url){
+  return new Promise((resolve,reject)=>{S.visualFetchQueue=S.visualFetchQueue||[];S.visualFetchQueue.push({url,resolve,reject});pumpVisualFetchQueue(S);});
+}
 async function commonsVisual(S,key,query){
   const cache=readVisualCache(S);if(cache[key])return cache[key];
   if(S.visualPromises?.[key])return S.visualPromises[key];
   S.visualPromises=S.visualPromises||{};
   S.visualPromises[key]=(async()=>{
     const params=new URLSearchParams({action:'query',generator:'search',gsrsearch:query,gsrnamespace:'6',gsrlimit:'8',prop:'imageinfo',iiprop:'url|extmetadata|mime',iiurlwidth:'1100',format:'json',origin:'*'});
-    const res=await fetch(`${COMMONS_API}?${params.toString()}`,{mode:'cors',credentials:'omit'});
-    if(!res.ok)throw new Error(`commons_${res.status}`);
-    const data=await res.json(),pages=Object.values(data?.query?.pages||{}).filter(p=>p?.imageinfo?.[0]);
+    const data=await queuedCommonsJson(S,`${COMMONS_API}?${params.toString()}`),pages=Object.values(data?.query?.pages||{}).filter(p=>p?.imageinfo?.[0]);
     pages.sort((a,b)=>commonsScore(b,query)-commonsScore(a,query));
     const best=pages.find(p=>commonsScore(p,query)>-3);if(!best)throw new Error('commons_no_match');
     const info=best.imageinfo[0],md=info.extmetadata||{};
