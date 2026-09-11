@@ -32,6 +32,37 @@ CREATIVE_MUST={
  'creative:coffee':('coffee','drip')
 }
 
+MANUAL_OPEN={
+ 'creative:acrylic':{
+   'ok':True,'provider':'Wikimedia Commons','query':'clear acrylic sign display stand','search_query':'curated','confidence':100,
+   'title':'Printed acrylic display with informative graphics.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/3/38/Printed_acrylic_display_with_informative_graphics.jpg',
+   'preview':'','source':'https://commons.wikimedia.org/wiki/File:Printed_acrylic_display_with_informative_graphics.jpg',
+   'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Helene.3160'
+ },
+ 'creative:snack':{
+   'ok':True,'provider':'Wikimedia Commons','query':'potato chips snack bag package','search_query':'curated','confidence':100,
+   'title':'Chips - Best before seal; forever.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/3/37/Chips_-_Best_before_seal%3B_forever.jpg',
+   'preview':'','source':'https://commons.wikimedia.org/wiki/File:Chips_-_Best_before_seal%3B_forever.jpg',
+   'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Silverije'
+ },
+ 'creative:chocolate':{
+   'ok':True,'provider':'Wikimedia Commons','query':'wrapped chocolate candy close up','search_query':'curated','confidence':100,
+   'title':'Chocolate balls close up.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/d/d0/Chocolate_balls_close_up.jpg',
+   'preview':'','source':'https://commons.wikimedia.org/wiki/File:Chocolate_balls_close_up.jpg',
+   'mime':'image/jpeg','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','creator':'Gnu-Bricoleur'
+ },
+ 'creative:photo':{
+   'ok':True,'provider':'Wikimedia Commons','query':'instant photo card polaroid','search_query':'curated','confidence':100,
+   'title':'Polaroid Time Zero SX-70 AutoFocus Special Edition With Photos.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/e/ea/Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
+   'preview':'','source':'https://commons.wikimedia.org/wiki/File:Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
+   'mime':'image/jpeg','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','creator':'Moki8'
+ }
+}
+
 def clean(value):
     text=re.sub(r'<[^>]+>',' ',html.unescape(str(value or '')))
     return re.sub(r'\s+',' ',text).strip()
@@ -167,6 +198,7 @@ def resolve_commons(key,query):
 
 def resolve(pair):
     key,item=pair;query=item['query'];last=None
+    if key in MANUAL_OPEN:return key,dict(MANUAL_OPEN[key])
     try:
         out=resolve_openverse(key,query)
         if out:return key,out
