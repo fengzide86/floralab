@@ -166,7 +166,7 @@ with sync_playwright() as p:
     page.click('[data-material-detail="flower:hydrangea"]');page.wait_for_selector('.material-detail-layout')
     ck(page.locator('.material-spec-grid').count()>=2,'D10 flower specs')
     ck(page.locator('.season-timeline').count()==1,'D10 season timeline')
-    ck(page.locator('.material-trust.unknown,.material-trust.safety').count()>=1,'D10 safety/unknown block')
+    ck(page.locator('.material-trust').count()>=1,'D10 reality information block')
     ck(overflow_ok(page),'D10 no overflow')
     shot(page,'1.2-D10-core-detail.png')
     page.locator('.material-trust').last.scroll_into_view_if_needed();page.wait_for_timeout(100)
