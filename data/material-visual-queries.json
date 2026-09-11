@@ -9,7 +9,7 @@
   "note": "Queries are identification-oriented. Ambiguous florist trade names are resolved to a documented botanical reference where possible; source/creator/license metadata is retained.",
   "items": {
     "flower:rose": {
-      "query": "Rosa rose flower close-up"
+      "query": "Rosa rose flower close up photograph"
     },
     "flower:lisianthus": {
       "query": "Eustoma grandiflorum lisianthus flower"
@@ -24,7 +24,7 @@
       "query": "Delphinium flower spike"
     },
     "flower:tulip": {
-      "query": "Tulipa tulip flower"
+      "query": "Tulipa tulip flower close up"
     },
     "flower:carnation": {
       "query": "Dianthus caryophyllus carnation flower"
@@ -45,16 +45,16 @@
       "query": "Anemone coronaria flower"
     },
     "flower:eucalyptus": {
-      "query": "Eucalyptus foliage branch leaves"
+      "query": "Eucalyptus cinerea foliage branch leaves"
     },
     "flower:spirea": {
       "query": "Spiraea thunbergii flower branch"
     },
     "flower:gypsophila": {
-      "query": "Gypsophila paniculata baby's breath flowers"
+      "query": "Gypsophila paniculata white flowers close up"
     },
     "flower:gerbera": {
-      "query": "Gerbera jamesonii flower"
+      "query": "Gerbera jamesonii flower close up"
     },
     "flower:scabiosa": {
       "query": "Scabiosa atropurpurea flower"
@@ -69,7 +69,7 @@
       "query": "Paeonia lactiflora peony flower"
     },
     "flower:freesia": {
-      "query": "Freesia flower"
+      "query": "Freesia flower close up"
     },
     "flower:alstroemeria": {
       "query": "Alstroemeria flower"
@@ -84,7 +84,7 @@
       "query": "Ranunculus asiaticus flower"
     },
     "flower:stock": {
-      "query": "Matthiola incana stock flower"
+      "query": "Matthiola incana stock flower close up"
     },
     "flower:waxflower": {
       "query": "Chamelaucium uncinatum waxflower"
@@ -93,10 +93,10 @@
       "query": "Astilbe flower"
     },
     "flower:sweetpea": {
-      "query": "Lathyrus odoratus sweet pea flower"
+      "query": "Lathyrus odoratus sweet pea flowers bloom"
     },
     "flower:ammi": {
-      "query": "Ammi majus flower"
+      "query": "Ammi majus white umbel flowers close up"
     },
     "flower:ruscus": {
       "query": "Ruscus aculeatus foliage"
@@ -108,7 +108,7 @@
       "query": "Rumohra adiantiformis leatherleaf fern"
     },
     "flower:monstera": {
-      "query": "Monstera deliciosa leaf"
+      "query": "Monstera deliciosa green leaf close up"
     },
     "flower:anthurium": {
       "query": "Anthurium andraeanum flower"
@@ -132,13 +132,13 @@
       "query": "Celosia cristata flower"
     },
     "flower:craspedia": {
-      "query": "Craspedia globosa flower"
+      "query": "Craspedia globosa yellow flower heads close up"
     },
     "flower:ref_043": {
       "query": "Paeonia suffruticosa tree peony flower"
     },
     "flower:ref_044": {
-      "query": "Narcissus pseudonarcissus daffodil flower"
+      "query": "Narcissus pseudonarcissus daffodil flower close up"
     },
     "flower:ref_045": {
       "query": "Narcissus tazetta flower"
@@ -150,7 +150,7 @@
       "query": "Muscari armeniacum grape hyacinth flower"
     },
     "flower:ref_048": {
-      "query": "Iris germanica iris flower"
+      "query": "Iris germanica flower close up"
     },
     "flower:ref_049": {
       "query": "Gladiolus flower spike"
@@ -177,7 +177,7 @@
       "query": "Forsythia suspensa flower branch"
     },
     "flower:ref_057": {
-      "query": "pussy willow Salix branch catkins"
+      "query": "Salix pussy willow catkins close up"
     },
     "flower:ref_058": {
       "query": "Viburnum macrocephalum snowball flower"
@@ -189,7 +189,7 @@
       "query": "Brachyscome iberidifolia flower"
     },
     "flower:ref_061": {
-      "query": "Trachelium caeruleum flower"
+      "query": "Trachelium caeruleum flower cluster close up"
     },
     "flower:ref_062": {
       "query": "Oxypetalum caeruleum Tweedia flower"
@@ -207,7 +207,7 @@
       "query": "Helleborus niger Christmas rose flower"
     },
     "flower:ref_067": {
-      "query": "Cymbidium orchid flower"
+      "query": "Cymbidium orchid flower color photograph"
     },
     "flower:ref_068": {
       "query": "Dendrobium orchid flower"
@@ -216,13 +216,13 @@
       "query": "Vanda orchid flower"
     },
     "flower:ref_070": {
-      "query": "Oncidium orchid flower"
+      "query": "Oncidium orchid yellow flower close up"
     },
     "flower:ref_071": {
       "query": "Cattleya orchid flower"
     },
     "flower:ref_072": {
-      "query": "Lycoris radiata flower"
+      "query": "Lycoris radiata red spider lily flower"
     },
     "flower:ref_073": {
       "query": "Agapanthus africanus flower"
@@ -240,13 +240,13 @@
       "query": "Asparagus setaceus foliage"
     },
     "flower:ref_078": {
-      "query": "Hedera helix ivy foliage"
+      "query": "Hedera helix ivy leaves close up"
     },
     "flower:ref_079": {
       "query": "Fatsia japonica leaf"
     },
     "flower:ref_080": {
-      "query": "Equisetum hyemale horsetail stems"
+      "query": "Equisetum hyemale horsetail stems photograph"
     },
     "flower:ref_081": {
       "query": "Asplenium nidus bird's nest fern leaf"
@@ -276,7 +276,7 @@
       "query": "Lavandula angustifolia lavender flower"
     },
     "flower:ref_090": {
-      "query": "Salvia leaves foliage"
+      "query": "Salvia officinalis sage leaves plant"
     },
     "flower:ref_091": {
       "query": "Olea europaea olive branch leaves"
@@ -300,7 +300,7 @@
       "query": "Prunus mume plum blossom branch"
     },
     "flower:ref_098": {
-      "query": "Prunus serrulata cherry blossom branch"
+      "query": "Prunus serrulata cherry blossom flowers branch"
     },
     "flower:ref_099": {
       "query": "Pennisetum setaceum fountain grass"
@@ -321,7 +321,7 @@
       "query": "Xerochrysum bracteatum strawflower"
     },
     "flower:ref_105": {
-      "query": "Sorbaria sorbifolia flower"
+      "query": "Sorbaria sorbifolia white flowers"
     },
     "flower:ref_106": {
       "query": "Hypericum berries branch"
@@ -339,7 +339,7 @@
       "query": "Leucadendron salignum flower"
     },
     "flower:ref_111": {
-      "query": "Banksia flower"
+      "query": "Banksia flower close up"
     },
     "flower:ref_112": {
       "query": "Chrysanthemum morifolium incurve flower"
@@ -354,7 +354,7 @@
       "query": "Yucca gloriosa leaf"
     },
     "flower:ref_116": {
-      "query": "palm leaf foliage"
+      "query": "palm frond leaf close up"
     },
     "flower:ref_117": {
       "query": "fern frond foliage"
@@ -366,19 +366,19 @@
       "query": "strawberry fruit close up"
     },
     "creative:chocolate": {
-      "query": "chocolate wrapped candy"
+      "query": "wrapped chocolate candy close up"
     },
     "creative:snack": {
-      "query": "packaged snack bag"
+      "query": "packaged snack bag close up"
     },
     "creative:can": {
       "query": "beverage soda can"
     },
     "creative:photo": {
-      "query": "instant photo card polaroid"
+      "query": "instant camera photo polaroid print"
     },
     "creative:acrylic": {
-      "query": "acrylic sign display"
+      "query": "acrylic wedding sign display"
     },
     "creative:light": {
       "query": "fairy lights"
