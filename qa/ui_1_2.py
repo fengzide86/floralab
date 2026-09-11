@@ -219,6 +219,8 @@ with sync_playwright() as p:
     ck(overflow_ok(mob),'M11 no overflow');shot(mob,'1.2-M11-core-detail.png')
     # M12 safety
     mob.click('[data-library-back]');mob.wait_for_selector('.library-shell')
+    if mob.locator('#resetLibrary').count():
+        mob.click('#resetLibrary');mob.wait_for_timeout(80)
     mob.fill('#materialSearch','百合');mob.wait_for_timeout(120)
     mob.click('[data-material-detail="flower:lily"]');mob.wait_for_selector('.material-detail-layout')
     ck(mob.locator('.material-trust.safety').count()==1,'M12 pet safety warning')
