@@ -60,7 +60,7 @@
       "query": "Scabiosa atropurpurea flower"
     },
     "flower:statice": {
-      "query": "Limonium sinuatum statice flower"
+      "query": "Limonium sinuatum purple statice flowers close up"
     },
     "flower:dahlia": {
       "query": "Dahlia flower"
@@ -93,10 +93,10 @@
       "query": "Astilbe flower"
     },
     "flower:sweetpea": {
-      "query": "Lathyrus odoratus sweet pea flowers bloom"
+      "query": "Lathyrus odoratus sweet pea flower bloom pink"
     },
     "flower:ammi": {
-      "query": "Ammi majus white umbel flowers close up"
+      "query": "Ammi majus white lace flower umbels close up"
     },
     "flower:ruscus": {
       "query": "Ruscus aculeatus foliage"
@@ -177,7 +177,7 @@
       "query": "Forsythia suspensa flower branch"
     },
     "flower:ref_057": {
-      "query": "Salix caprea pussy willow catkins branch"
+      "query": "Salix caprea pussy willow catkins branch close up"
     },
     "flower:ref_058": {
       "query": "Viburnum macrocephalum snowball flower"
@@ -222,7 +222,7 @@
       "query": "Cattleya orchid flower"
     },
     "flower:ref_072": {
-      "query": "Lycoris radiata red spider lily flower"
+      "query": "Lycoris radiata red spider lily flowers cluster close up"
     },
     "flower:ref_073": {
       "query": "Agapanthus africanus flower"
@@ -240,13 +240,13 @@
       "query": "Asparagus setaceus foliage"
     },
     "flower:ref_078": {
-      "query": "Hedera helix ivy leaves close up"
+      "query": "Hedera helix green ivy leaves vine close up"
     },
     "flower:ref_079": {
       "query": "Fatsia japonica leaf"
     },
     "flower:ref_080": {
-      "query": "Equisetum hyemale horsetail stems photograph"
+      "query": "Equisetum hyemale green horsetail stems growing photograph"
     },
     "flower:ref_081": {
       "query": "Asplenium nidus bird's nest fern leaf"
@@ -267,7 +267,7 @@
       "query": "Gypsophila paniculata baby breath flowers close up"
     },
     "flower:ref_087": {
-      "query": "Salvia flower spike"
+      "query": "Salvia pratensis sage flower spike close up photograph"
     },
     "flower:ref_088": {
       "query": "Rosmarinus officinalis rosemary leaves photograph"
@@ -276,7 +276,7 @@
       "query": "Lavandula angustifolia lavender flower"
     },
     "flower:ref_090": {
-      "query": "Salvia officinalis sage leaves plant"
+      "query": "Salvia officinalis sage leaves close up photograph"
     },
     "flower:ref_091": {
       "query": "Olea europaea olive branch leaves"
@@ -321,7 +321,7 @@
       "query": "Xerochrysum bracteatum strawflower"
     },
     "flower:ref_105": {
-      "query": "Sorbaria sorbifolia white flowers"
+      "query": "Sorbaria sorbifolia white flower panicle close up"
     },
     "flower:ref_106": {
       "query": "Hypericum berries branch"
@@ -339,7 +339,7 @@
       "query": "Leucadendron salignum flower"
     },
     "flower:ref_111": {
-      "query": "Banksia flower close up"
+      "query": "Banksia integrifolia flower spike close up"
     },
     "flower:ref_112": {
       "query": "Chrysanthemum morifolium incurve flower"
@@ -354,7 +354,7 @@
       "query": "Yucca gloriosa leaf"
     },
     "flower:ref_116": {
-      "query": "palm frond leaf close up"
+      "query": "green palm frond leaves tropical close up photograph"
     },
     "flower:ref_117": {
       "query": "fern frond foliage"
@@ -381,7 +381,7 @@
       "query": "clear acrylic sign display stand"
     },
     "creative:light": {
-      "query": "fairy lights"
+      "query": "warm fairy light string LEDs close up"
     },
     "creative:building": {
       "query": "building blocks toy"
