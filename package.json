@@ -1,6 +1,6 @@
 {
   "name": "floralab-studio",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "private": true,
   "description": "FloraLab Studio 1.1 Anywhere - Zero API PWA",
   "scripts": {
