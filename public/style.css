@@ -468,3 +468,9 @@ body{font-size:var(--text);line-height:1.52}
 
 /* FloraLab 1.2 visual acceptance refinements */
 .visual-inner b{max-width:100%;text-wrap:balance;word-break:keep-all;line-height:1.18}
+
+/* FloraLab 1.2 final cross-page visual refinements */
+@media(max-width:640px){
+  .history-panel .panel-head{display:grid;grid-template-columns:1fr;gap:18px;align-items:start}
+  .history-panel .panel-head .secondary{justify-self:start;min-height:44px}
+}
