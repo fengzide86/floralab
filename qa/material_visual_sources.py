@@ -44,7 +44,7 @@ MANUAL_OPEN={
    'ok':True,'provider':'Wikimedia Commons','query':'potato chips snack bag package','search_query':'curated','confidence':100,
    'title':'Chips - Best before seal; forever.jpg',
    'asset':'https://upload.wikimedia.org/wikipedia/commons/3/37/Chips_-_Best_before_seal%3B_forever.jpg',
-   'preview':'','source':'https://commons.wikimedia.org/wiki/File:Chips_-_Best_before_12.01.20201.jpg',
+   'preview':'','source':'https://commons.wikimedia.org/wiki/File:Chips_-_Best_before_seal%3B_forever.jpg',
    'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Silverije'
  },
  'creative:chocolate':{
@@ -246,7 +246,7 @@ def wikimedia_thumbnail(url,width=960):
         if not re.search(r'\.(?:jpe?g|png|webp)$',base,re.I):
             return None
         thumb_path=path.replace(marker,'/wikipedia/commons/thumb/',1)+f'/{width}px-{base}'
-        return urllib.parse.urlunsplit(('https','upload.wikimedia.org',thumb_path,'',''))
+        return urllib.parse.urlunsplit(('https','thumb.wikimedia.org',thumb_path,'',''))
     except Exception:
         return None
 
