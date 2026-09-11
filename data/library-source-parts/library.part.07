@@ -1,0 +1,18 @@
+  return `<section class="material-detail-layout creative-detail"><div>${materialVisual(ctx,'creative',m,true)}</div><article class="material-detail-copy"><div class="material-detail-title"><div><div class="kicker">Creative Material</div><h1>${esc(m.name)}</h1><p>${esc(m.category||'创意物料')}</p></div><button class="material-back" data-library-back>← 材料库</button></div>${usePanel(ctx,'creative',m)}<section class="material-section"><div class="material-section-head"><span>01</span><h2>现实属性</h2></div><dl class="material-spec-grid"><div><dt>类别</dt><dd>${esc(m.category||'—')}</dd></div><div><dt>重量</dt><dd>${rangeLabel(m.weight_g,'g')}</dd></div><div><dt>湿区</dt><dd>${m.wet_safe?'可接近湿区，仍需视包装判断':'避免花水 / 湿花泥'}</dd></div><div><dt>食品</dt><dd>${m.food?'是 · 与花水和花泥隔离':'否'}</dd></div></dl></section><section class="material-section"><div class="material-section-head"><span>02</span><h2>固定方式</h2></div><div class="creative-fix-list">${(m.fix||[]).map((x,i)=>`<div><span>${String(i+1).padStart(2,'0')}</span><p>${esc(x)}</p></div>`).join('')||'<p>暂无可靠固定资料。</p>'}</div></section><section class="material-section"><div class="material-section-head"><span>03</span><h2>制作提醒</h2></div>${m.food?'<div class="material-trust safety"><b>食品隔离</b><p>保持原包装或独立食品级包装，避免与花材污水、花泥和处理液直接接触。</p></div>':''}<p class="material-notes">${esc(m.notes||'暂无补充说明。')}</p><div class="material-price-note"><b>静态参考价 ${priceLabel(m.price)}</b><span>只用于方案内相对估算，不代表实时采购价格。</span></div></section></article></section>`;
+}
+function detailPage(ctx,key){
+  const {S,shell}=ctx,[kind,id]=String(key||'').split(':'),list=kind==='creative'?(S.catalog?.creative||[]):(S.catalog?.flowers||[]),m=list.find(x=>x.id===id);
+  if(!m){S.materialQuery='';libraryPage(ctx);return;}
+  S.libraryKind=kind==='creative'?'creative':'flower';S.materialId=key;
+  shell(`<main class="wrap workspace material-detail-workspace">${kind==='creative'?creativeDetail(ctx,m):flowerDetail(ctx,m)}</main>`,'materials');
+  qa('[data-library-back]').forEach(b=>b.onclick=()=>libraryPage(ctx));
+  qa('[data-substitute-id]').forEach(b=>b.onclick=()=>detailPage(ctx,`flower:${b.dataset.substituteId}`));
+  const rr=q('#returnRecipe');if(rr)rr.onclick=()=>ctx.openRecipe();
+}
+function render(ctx,detailKey=null){
+  ctx.S.materialFilters={role:'',color:'',season:'',making:'',...(ctx.S.materialFilters||{})};
+  if(detailKey)return detailPage(ctx,detailKey);
+  return libraryPage(ctx);
+}
+window.FloraLabLibrary={render,detail:detailPage};
+})();

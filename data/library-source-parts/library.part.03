@@ -1,0 +1,6 @@
+  const {S,MONTH,esc}=ctx,flowers=S.catalog?.flowers||[],roles=roleOptions(S).slice(0,7),seasonal=flowers.filter(f=>currentSeasonMatch(f,MONTH)).slice(0,6);
+  return `<section class="library-discovery"><div class="library-discovery-head"><div><div class="kicker">Browse</div><h2>从角色和当季材料开始。</h2></div><span>${monthLabel(MONTH)}</span></div><div class="library-role-links">${roles.map(r=>`<button data-quick-filter="role:${escAttr(r)}">${esc(r)}</button>`).join('')}</div>${seasonal.length?`<div class="library-seasonal"><div class="library-subhead"><b>这个月可以先看</b><button data-quick-filter="season:current">查看全部当季 →</button></div><div class="material-grid compact">${seasonal.map(m=>materialCard(ctx,'flower',m)).join('')}</div></div>`:''}</section>`;
+}
+function libraryPage(ctx){
+  const {S,shell,esc}=ctx,kind=S.libraryKind||'flower',filters=S.materialFilters||{},items=filteredItems(ctx),filterCount=activeFilterCount(S),query=S.materialQuery||'';
+  const count=kind==='flower'?(S.catalog?.flowers||[]).length:(S.catalog?.creative||[]).length;
