@@ -145,7 +145,7 @@ Material Library 的现实边界：
 - 除首页、新建、作品总览、Recipe、Structure、Build、Library 外，还覆盖 Feedback、History、移动菜单、安装弹窗、创作空间弹窗、搜索/筛选/Empty State、核心与参考材料详情，以及长页下半段的生成按钮、Composition、Structure Inspector、Build Actions、Feedback 保存按钮、宠物安全与食品隔离。
 - 额外逐一渲染全部 **117 花材 + 13 创意物料 = 130 个详情页**，扫描内部枚举、undefined、null、NaN、字面量转义等开发痕迹；最终无泄漏。
 - 逐页人工检查中实际发现并修复：Recipe 材料详情绑定空值回归、筛选状态误导、详情页进入位置、内部枚举直出、reference-only 新手状态被布尔化、宠物风险等级混用、HTML 字面量转义、CJK QA 字体、作品标题孤字换行、移动 History 标题被按钮挤压、安装弹窗后菜单未收起，以及安全警告/长页关键控制未进入原验收视口等问题。
-- 正式 Pages deploy 后使用线上 URL 重跑同一套 67 项 / 44 页。构建态与线上态逐页像素比较：**40 页完全 0 差异，4 页仅历史时间字符有极小预期差异**，未发现布局、资源、字体、颜色或交互状态漂移。
+- 正式 Pages deploy 后使用线上 URL 重跑同一套 67 项 / 44 页。以 Run #90 为基准，构建态与线上态逐页像素比较：**39 页完全 0 差异，5 页仅历史时间字符区域有极小预期差异**；这 5 页每页仅 57 个像素点变化，未发现布局、资源、字体、颜色或交互状态漂移。
 - 发布只有在 **build → release gate → build visual gate → Pages deploy → online visual verify** 全部成功后才成立。
 
 

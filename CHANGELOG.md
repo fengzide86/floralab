@@ -12,7 +12,7 @@
 - Runtime / Package / Service Worker 统一升级到 1.2.0；Library 模块与视觉来源注册表进入 PWA 核心资源。
 - library-1.2 release gate 最终为 57 项；完整非视觉 release gate 为 409 项。新增 130 个材料详情逐一渲染的 surface audit，阻止 block_cat、unknown、very_high、undefined、字面量转义等内部值进入可见 UI。
 - 1.2 Page-by-page Visual Gate 最终扩展为 21 个 Desktop + 23 个 Mobile 状态、67 项浏览器检查、44 张独立截图；覆盖 Feedback、History、安装/创作空间弹窗与长页关键滚动位置。逐页验收优先于 Contact Sheet。
-- GitHub Pages deploy 后新增 online verify job：直接访问正式 Pages URL，再跑同一套 67 项 / 44 页；最终线上与构建态逐页像素对比中，40 页完全一致，4 页仅历史时间字符发生预期差异。
+- GitHub Pages deploy 后新增 online verify job：直接访问正式 Pages URL，再跑同一套 67 项 / 44 页；Run #90 的线上与构建态逐页像素对比中，39 页完全一致，5 页仅历史时间字符区域发生预期差异；每页差异仅 57 个像素点。
 
 
 ## 1.1.2 — Workspace UI
