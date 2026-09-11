@@ -14,6 +14,7 @@ fs.writeFileSync(path.join(ROOT,'public','runtime.js'),runtime);
 fs.mkdirSync(path.join(ROOT,'public','data'),{recursive:true});
 fs.copyFileSync(path.join(ROOT,'data','catalog.json'),path.join(ROOT,'public','data','catalog.json'));
 fs.copyFileSync(path.join(ROOT,'data','material-visuals.json'),path.join(ROOT,'public','data','material-visuals.json'));
+fs.copyFileSync(path.join(ROOT,'data','material-visual-queries.json'),path.join(ROOT,'public','data','material-visual-queries.json'));
 const libraryPartDir=path.join(ROOT,'data','library-source-parts');
 const libraryParts=fs.readdirSync(libraryPartDir).filter(x=>x.startsWith('library.part.')).sort();
 if(!libraryParts.length)throw new Error('FloraLab 1.2 library source is missing');
