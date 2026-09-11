@@ -1,4 +1,4 @@
-# FloraLab Studio 1.1 — Anywhere
+# FloraLab Studio 1.1.2 — Workspace UI
 
 FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流。
 
@@ -8,6 +8,8 @@ FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流
 - **FloraLab Studio**：负责确定性的 Recipe、预算、制作检查、Composition、Stem Blueprint、五视图、制作消耗、损耗、反馈和项目文件。
 
 1.1 Anywhere 将 Studio 从本地 Node 服务迁移为 **纯前端 PWA**。正式使用时不需要运行 `server.js`、不需要电脑常开，也不需要同一 Wi‑Fi；GitHub Pages 可以直接在电脑、手机和平板访问。
+
+1.1.2 在不改变确定性数据与制作能力的前提下，重做工作区的信息尺度：桌面更像专业编辑工具，手机更像现场制作工具；Recipe、Structure、Build 与材料库优先保证可读性、触控和首屏效率。
 
 ## 1.1 核心能力
 
