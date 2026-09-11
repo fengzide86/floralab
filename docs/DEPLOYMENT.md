@@ -20,3 +20,14 @@ npm start
 ```
 
 `npm start` 只用于开发/验收，不是用户使用 Studio 的前提。正式用户使用 GitHub Pages/PWA。
+
+## 当前首次上线状态
+
+源码已提交，GitHub runner 的 `npm run test:release` 已全部通过。当前只差仓库所有者首次开启 Pages：
+
+1. 打开 `Settings`。
+2. 左侧进入 `Pages`。
+3. 在 `Build and deployment` 中将 `Source` 设为 **GitHub Actions**。
+4. 回到 `Actions → Deploy FloraLab Studio`，重新运行失败的 workflow，或在仓库产生一次新提交后等待自动运行。
+
+这一步完成后，后续 `main` 更新会自动测试并部署，不需要重复开启。
