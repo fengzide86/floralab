@@ -37,6 +37,11 @@ jobs:
       - name: Install Chromium for visual gate
         run: python -m playwright install chromium
 
+      - name: Install CJK font for visual gate
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+
       - name: Release tests
         shell: bash
         run: |
