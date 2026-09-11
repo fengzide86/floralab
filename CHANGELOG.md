@@ -1,5 +1,17 @@
 # FloraLab Changelog
 
+## 1.1.1 — Visual acceptance
+
+- 对照 Linear 2026、Figma UI3、Raycast 2.0、Apple WWDC26/HIG 与 Material 3 Expressive 做线上视觉验收。
+- 提高小号灰字、Tab、Kicker 的对比度；补充键盘 focus-visible。
+- 手机关键按钮/Tab/数量控件扩大到约 40–44px 触控目标。
+- 手机顶栏新增“菜单”，恢复材料库 / 新建 / 安装入口，不再为适配窄屏直接隐藏功能。
+- 作品页视觉参考区改用当前 Blueprint 生成 composition study，避免大块空占位。
+- 桌面导航保持静态，手机/窄屏使用轻量 sticky + 半透明层级，避免桌面长页工具条过度抢占内容。
+- 品牌图标重新简化为植物 F 字标，16/32px 仍可辨识，并重新生成 PWA/Windows 图标。
+- Service Worker 缓存版本升级到 `floralab-1.1.1`，确保线上视觉更新能替换旧缓存。
+- Browser UI QA 增至 44 项，完整本地 QA 为 392 / 392。
+
 ## 1.1.0 — Anywhere
 
 - Studio 从常驻 Node/API 架构迁移为浏览器内确定性 Runtime；正式使用不需要本地服务器。
