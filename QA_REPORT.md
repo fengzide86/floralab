@@ -1,23 +1,25 @@
-# FloraLab Studio 1.1.2 Workspace UI — QA Report
+# FloraLab Studio 1.2.0 Material Library — QA Report
 
 验收日期：2026-09-11
 
 ## 结论
 
-1.1.2 的目标是在保留 1.1 Anywhere 的纯前端 PWA、Recipe、Reality、Composition、Blueprint 2.0、Build、文件兼容和 Project 工作流的前提下，把 Studio 调整到真实可用的工作尺度。
+1.2.0 的目标是在保留 1.1.2 Workspace UI、1.1 Anywhere、Recipe、Reality、Composition、Blueprint 2.0、Build、文件兼容和 Project 工作流的前提下，把材料库从检索列表升级为真正可浏览、可理解、可核实的 Material Library / Botanical Archive，并把逐页视觉验收纳入正式发布门槛。
 
-当前本地 release gate 通过：**392 项检查全部通过**。
+当前 1.2 自动验收通过：**404 项非视觉 release checks + 56 项浏览器 UI checks = 460 项检查全部通过**。此外，最终视觉集包含 **27 张独立页面截图（13 Desktop + 14 Mobile）**，按页面逐张人工检查；Contact Sheet 不作为单页通过依据。
 
 | 套件 | 结果 |
 | --- | ---: |
 | Core / Reality / Recipe / Blueprint / Build | 126 / 126 |
 | 38 套真实场景 | 116 / 116 |
 | Project Kit 1.1 | 27 / 27 |
-| Static / GitHub Pages architecture | 37 / 37 |
-| PWA / Service Worker logic | 26 / 26 |
+| Static / GitHub Pages architecture | 39 / 39 |
+| PWA / Service Worker logic | 28 / 28 |
 | Icon / asset dimensions | 16 / 16 |
-| Desktop + Mobile browser UI | 44 / 44 |
-| **合计** | **392 / 392** |
+| Material Library 1.2 | 52 / 52 |
+| Desktop + Mobile browser UI | 56 / 56 |
+| **自动检查合计** | **460 / 460** |
+| 逐页视觉截图 | **27 页：13 Desktop + 14 Mobile** |
 
 ## 1. 浏览器化迁移
 
@@ -107,3 +109,37 @@ FloraLab 保留 Atelier 编辑感，不跟随“大量玻璃、漂浮卡片、�
 - Cache：Service Worker 升级为 `floralab-1.1.2`。
 
 GitHub Actions 对 1.1.2 UI 与图标提交的最新发布运行已完成：build 成功、release gate 成功、Pages deploy 成功。随后补齐 1.1.2 的 package / Runtime / static gate / README / Changelog / QA Report 版本一致性，并以新的 Actions 运行作为最终发布门禁。
+
+
+## 10. 1.2 Material Library 与逐页视觉门禁
+
+1.2 将 Material Library 作为独立前端模块接入，不重构 Recipe / Blueprint / Build 引擎。Catalog 仍是现实材料事实来源，前端新增公开枝长、花头、重量、茎强度、脆弱度、高峰月份和市场等级等已存在字段；创意物料公开重量、固定、防水与食品属性。
+
+Material Library 的现实边界：
+
+- `reference_only` 始终可见，不把资料不完整的条目包装成完整事实。
+- 宠物风险未知时显示“需核实”，不等同于安全。
+- 静态价格继续标为方案内参考，不冒充实时花市价。
+- verified 材料事实图必须在 `material-visuals.json` 记录来源与许可；当前没有可靠图时使用明确占位，禁止用生成图冒充植物识别事实。
+- 创意物料使用独立详情模板，食品、湿区、重量和固定方式优先于花材字段。
+
+### 1.2 自动发布门禁
+
+- engine-regression：126 / 126
+- project-kit-1.1：27 / 27
+- static-1.1：39 / 39
+- pwa-1.1：28 / 28
+- assets-1.1：16 / 16
+- library-1.2：52 / 52
+- scenarios-regression：116 / 116（38 套场景）
+- ui-1.2：56 / 56
+
+非视觉 release gate 合计 **404 / 404**；加浏览器 UI 检查后为 **460 / 460**。
+
+### 逐页视觉验收
+
+- Desktop：D01–D13，共 13 页。
+- Mobile：M01–M14，共 14 页。
+- 覆盖首页、新建、作品总览、Recipe、Structure、Build、移动菜单、Library 首页、搜索、筛选、核心花材详情、参考条目、宠物安全、创意物料与 Empty State。
+- 逐页人工检查中实际发现并修复：Recipe 材料详情绑定空值回归、筛选状态误导文案、详情页进入位置、内部枚举直出英文、CJK QA 字体、作品预览标题孤字换行，以及安全警告截图未真正进入视口等问题。
+- 每次修复后重新运行全部 release tests 和 27 页浏览器 Visual Gate；发布仅在 build / visual gate / Pages deploy 全部成功后成立。
