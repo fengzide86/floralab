@@ -6,6 +6,7 @@ function detailPage(ctx,key){
   S.libraryKind=kind==='creative'?'creative':'flower';S.materialId=key;
   shell(`<main class="wrap workspace material-detail-workspace">${kind==='creative'?creativeDetail(ctx,m):flowerDetail(ctx,m)}</main>`,'materials');
   window.scrollTo({top:0,behavior:'instant'});
+  hydrateMaterialVisuals(ctx);
   qa('[data-library-back]').forEach(b=>b.onclick=()=>libraryPage(ctx));
   qa('[data-substitute-id]').forEach(b=>b.onclick=()=>detailPage(ctx,`flower:${b.dataset.substituteId}`));
   const rr=q('#returnRecipe');if(rr)rr.onclick=()=>ctx.openRecipe();
