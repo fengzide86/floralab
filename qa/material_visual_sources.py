@@ -44,11 +44,15 @@ def resolve(pair):
               'license':(md.get('LicenseShortName') or md.get('UsageTerms') or {}).get('value','Wikimedia Commons')
             }
         except Exception as e:
-            last=str(e);time.sleep(.5*(attempt+1))
+            last=str(e)
+            if '429' in last:
+                time.sleep(2.0*(attempt+1))
+            else:
+                time.sleep(.7*(attempt+1))
     return key,{'ok':False,'query':query,'reason':last or 'request_failed'}
 
 results={}
-with ThreadPoolExecutor(max_workers=12) as pool:
+with ThreadPoolExecutor(max_workers=2) as pool:
     futs=[pool.submit(resolve,pair) for pair in queries.items()]
     for fut in as_completed(futs):
         key,res=fut.result();results[key]=res
