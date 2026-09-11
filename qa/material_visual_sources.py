@@ -13,7 +13,7 @@ queries=json.loads(QUERY_FILE.read_text(encoding='utf-8'))['items']
 catalog=json.loads((ROOT/'data'/'catalog.json').read_text(encoding='utf-8'))
 COMMONS='https://commons.wikimedia.org/w/api.php'
 OPENVERSE='https://api.openverse.org/v1/images/'
-BAD=('logo','icon','diagram','map','flag','stamp','drawing','illustration','painting','poster','herbarium','specimen','catalogue','price list','book page','botanical plate','engraving','plans','glider','aircraft')
+BAD=('logo','icon','diagram','map','flag','stamp','drawing','illustration','painting','poster','herbarium','specimen','catalogue','price list','book page','botanical plate','engraving','plans','glider','aircraft','fossil','rock','geology','spider','argiope','oak trunk','tree trunk')
 GENERIC={'flower','flowers','branch','leaves','leaf','foliage','close','up','cut','woody','dyed','form','photograph','photo','plant','plants'}
 ALLOWED_OPENVERSE={'cc0','pdm','by','by-sa'}
 CREATIVE_MUST={
@@ -36,7 +36,7 @@ MANUAL_OPEN={
  'creative:acrylic':{
    'ok':True,'provider':'Wikimedia Commons','query':'clear acrylic sign display stand','search_query':'curated','confidence':100,
    'title':'Printed acrylic display with informative graphics.jpg',
-   'asset':'https://upload.wikimedia.org/wikipedia/commons/3/38/Printed_acrylic_display_with_informative_graphics.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Printed_acrylic_display_with_informative_graphics.jpg/960px-Printed_acrylic_display_with_informative_graphics.jpg',
    'preview':'','source':'https://commons.wikimedia.org/wiki/File:Printed_acrylic_display_with_informative_graphics.jpg',
    'mime':'image/jpeg','license':'CC BY-SA 4.0','license_url':'https://creativecommons.org/licenses/by-sa/4.0/','creator':'Helene.3160'
  },
@@ -57,7 +57,7 @@ MANUAL_OPEN={
  'creative:photo':{
    'ok':True,'provider':'Wikimedia Commons','query':'instant photo card polaroid','search_query':'curated','confidence':100,
    'title':'Polaroid Time Zero SX-70 AutoFocus Special Edition With Photos.jpg',
-   'asset':'https://upload.wikimedia.org/wikipedia/commons/e/ea/Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
+   'asset':'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg/960px-Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
    'preview':'','source':'https://commons.wikimedia.org/wiki/File:Polaroid_Time_Zero_SX-70_AutoFocus_Special_Edition_With_Photos.jpg',
    'mime':'image/jpeg','license':'CC BY 4.0','license_url':'https://creativecommons.org/licenses/by/4.0/','creator':'Moki8'
  }
