@@ -243,7 +243,15 @@ def wikimedia_thumbnail(url,width=960):
         if p.netloc not in ('upload.wikimedia.org','thumb.wikimedia.org') or marker not in path or '/thumb/' in path:
             return None
         base=path.rsplit('/',1)[-1]
-        if not re.search(r'\.(?:jpe?g|png|webp)    query=queries[key]['query']
+        if not re.search(r'\.(?:jpe?g|png|webp)$',base,re.I):
+            return None
+        thumb_path=path.replace(marker,'/wikipedia/commons/thumb/',1)+f'/{width}px-{base}'
+        return urllib.parse.urlunsplit(('https','upload.wikimedia.org',thumb_path,'',''))
+    except Exception:
+        return None
+
+def alternative_resolution(key,current):
+    query=queries[key]['query']
     provider=str(current.get('provider') or '')
     resolvers=[resolve_commons,resolve_openverse] if provider=='Openverse' else [resolve_openverse,resolve_commons]
     for fn in resolvers:
