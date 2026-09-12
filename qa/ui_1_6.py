@@ -3,6 +3,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
 OUT=Path(os.environ.get('FLORALAB_QA_DIR',str(ROOT/'qa/acceptance-1.6')));OUT.mkdir(parents=True,exist_ok=True)
+VERSION=json.loads((ROOT/'package.json').read_text(encoding='utf-8'))['version']
 URL=os.environ.get('FLORALAB_BASE_URL','http://127.0.0.1:4173/floralab/')
 checks=[];errors=[];shots=[]
 def ck(value,label):
@@ -27,7 +28,7 @@ def upload(page,kind,name):
  page.locator('[data-add-media="'+kind+'"]').click();page.locator('#mediaFile').set_input_files(str(OUT/'qa-image.png'));page.locator('#mediaTitle').fill(name);confirm(page);page.wait_for_function("()=>[...document.querySelectorAll('img[data-asset]')].some(i=>i.complete&&i.naturalWidth>0)")
 def start(page):
  page.goto(URL,wait_until='networkidle');page.locator('#newDesign').wait_for()
- ck(page.evaluate("async()=> (await FloraLabRuntime.request('/api/status')).version")=='1.6.0','served 1.6.0')
+ ck(page.evaluate("async()=> (await FloraLabRuntime.request('/api/status')).version")==VERSION,'served '+VERSION)
 if not os.environ.get('FLORALAB_BASE_URL'):
  try:
   with socket.create_connection(('127.0.0.1',4173),timeout=1):pass
@@ -37,7 +38,7 @@ with sync_playwright() as pw:
  chrome=os.environ.get('FLORALAB_BROWSER') or shutil.which('google-chrome') or shutil.which('chromium') or r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
  browser=pw.chromium.launch(executable_path=chrome,headless=True,args=['--no-sandbox'])
  for label,width,height in [('D',1440,1000),('M',390,844)]:
-  ctx=browser.new_context(viewport={'width':width,'height':height},accept_downloads=True,permissions=['clipboard-read','clipboard-write']);page=ctx.new_page();page.set_default_timeout(10000);page.on('pageerror',lambda e:errors.append(str(e)));start(page);shot(page,label+'01-home')
+  ctx=browser.new_context(viewport={'width':width,'height':height},accept_downloads=True,permissions=['clipboard-read','clipboard-write']);page=ctx.new_page();page.set_default_timeout(10000);page.set_default_navigation_timeout(60000);page.on('pageerror',lambda e:errors.append(str(e)));start(page);shot(page,label+'01-home')
   data=page.evaluate("()=>{let c=document.createElement('canvas');c.width=600;c.height=800;let x=c.getContext('2d');x.fillStyle='#eff1e8';x.fillRect(0,0,600,800);x.fillStyle='#527247';x.fillRect(160,260,280,300);x.fillStyle='white';x.font='40px sans-serif';x.fillText('QA TEST',205,425);return c.toDataURL('image/png').split(',')[1]}")
   (OUT/'qa-image.png').write_bytes(base64.b64decode(data))
   page.locator('#newDesign').click();page.locator('#idea').fill('白绿桌花，不要玫瑰，自然有空隙');shot(page,label+'02-create');ck(page.locator('#generate').bounding_box()['y']<height,'create action first screen '+label);page.locator('#generate').click();page.locator('[data-select-making]').wait_for();shot(page,label+'03-overview');ck(not any(f['name']=='玫瑰' for f in plan(page)['flowers']),'negative material respected '+label)

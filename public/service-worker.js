@@ -1,9 +1,11 @@
-const CACHE='floralab-1.6.0-shell-refresh';
+const CACHE='floralab-1.6.1-shell-refresh';
+const VERSION='1.6.1';
 const CORE=['./','./index.html','./style.css','./runtime.js','./library.js','./core/storage.js','./core/shell.js','./views/home.js','./views/create.js','./views/direction-preview.js','./views/explore.js','./views/blueprint.js','./views/render.js','./views/work.js','./views/making.js','./core/dialog.js','./core/media.js','./views/media.js','./controllers/workflow.js','./product.css','./app.js','./manifest.webmanifest','./data/catalog.json','./data/material-visuals.json','./data/material-visual-queries.json','./data/material-visual-sources.json','./icons/icon-32.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-180.png','./assets/hero-sprout-identity.webp','./assets/illustrations/creative-acrylic.webp','./assets/illustrations/creative-photo.webp','./assets/illustrations/creative-card.webp','./assets/illustrations/creative-coffee.webp'];
 const NETWORK_FIRST=['/','/index.html','/style.css','/runtime.js','/library.js','/app.js','/manifest.webmanifest'];
-function isNetworkFirst(request){try{const u=new URL(request.url);return NETWORK_FIRST.some(x=>x==='/'?u.pathname.endsWith('/'):u.pathname.endsWith(x));}catch{return false;}}
+const VERSIONED_CORE=CORE.filter(url=>/\.(js|css|json)$/.test(url)).map(url=>`${url}?v=${VERSION}`);
+function isNetworkFirst(request){try{const u=new URL(request.url);return /\.(js|css)$/.test(u.pathname)||NETWORK_FIRST.some(x=>x==='/'?u.pathname.endsWith('/'):u.pathname.endsWith(x));}catch{return false;}}
 async function remember(request,response){if(response&&response.status===200&&response.type!=='opaque'){const c=await caches.open(CACHE);await c.put(request,response.clone());}return response;}
 // Revalidate the HTTP cache as well as replacing Cache Storage on upgrades.
-self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE.map(url=>new Request(url,{cache:'reload'})))).then(()=>self.skipWaiting()));});
+self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(c=>c.addAll([...CORE,...VERSIONED_CORE].map(url=>new Request(url,{cache:'reload'})))).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',event=>{if(event.request.method!=='GET')return;if(isNetworkFirst(event.request)){event.respondWith(fetch(event.request,{cache:'no-cache'}).then(res=>remember(event.request,res)).catch(()=>caches.match(event.request).then(hit=>hit||caches.match('./index.html'))));return;}event.respondWith(caches.match(event.request).then(hit=>hit||fetch(event.request,{cache:'no-cache'}).then(res=>remember(event.request,res)).catch(()=>caches.match('./index.html'))));});

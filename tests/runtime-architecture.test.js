@@ -20,7 +20,7 @@ async function main(){
   }
   let fetches=0;
   const runtime=createBrowserRuntime({version:'test',baseUrl:'https://example.com/floralab/',fetch:async url=>{
-    fetches++;assert.equal(url,'https://example.com/floralab/data/catalog.json');
+    fetches++;assert.equal(url,'https://example.com/floralab/data/catalog.json?v=test');
     if(fetches===1)return {ok:false};
     return {ok:true,json:async()=>catalog};
   }});
@@ -39,7 +39,7 @@ async function main(){
   const index=fs.readFileSync(path.join(root,'public/index.html'),'utf8');
   const sw=fs.readFileSync(path.join(root,'public/service-worker.js'),'utf8');
   for(const match of index.matchAll(/<script src="\.\/([^\"]+)"/g)){
-    ok(sw.includes(`'./${match[1]}'`),'offline shell includes '+match[1]);
+    ok(sw.includes(`'./${match[1].split('?')[0]}'`),'offline shell includes '+match[1]);
   }
   const browserRuntime=loadRuntime(source);
   const plan=await browserRuntime.request('/api/design/generate',{method:'POST',body:JSON.stringify(fixture.scenarios[0].input)});

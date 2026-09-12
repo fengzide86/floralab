@@ -62,17 +62,18 @@ jobs:
           fi
 
       - name: Page-by-page visual gate
-        run: npm run test:ui && npm run test:storage
+        run: npm run test:ui && npm run test:storage && npm run test:navigation
 
       - name: Upload visual acceptance pages
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: floralab-1.6.0-visual-pages
+          name: floralab-1.6.1-visual-pages
           path: |
             qa/acceptance-1.6/D*.png
             qa/acceptance-1.6/M*.png
             qa/acceptance-1.6/acceptance.json
+            qa/navigation-upgrade/
             qa/material-visual-sources.json
             qa/material-visual-sheet-*.jpg
 
@@ -126,7 +127,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: floralab-1.6.0-online-visual-pages
+          name: floralab-1.6.1-online-visual-pages
           path: |
             qa/acceptance-1.6/D*.png
             qa/acceptance-1.6/M*.png

@@ -61,7 +61,7 @@
         )
         .join(
           ''
-        )}${(p.build?.shortages || []).length ? `<div class="shortage-box"><b>出现缺口</b>${(p.build.substitutionAdvice || []).map((x) => `<p>${esc(x.name)} 缺 ${x.shortage}：${esc(x.detail)}</p>`).join('')}</div>` : ''}</div><div class="step-actions"><button class="secondary" id="prevStep" ${i === 0 ? 'disabled' : ''}>← 上一步</button><button class="primary" id="nextStep" ${i === p.steps.length - 1 ? 'disabled' : ''}>下一步 →</button></div></article></section>`;
+        )}${(p.build?.shortages || []).length ? `<div class="shortage-box"><b>出现缺口</b>${(p.build.substitutionAdvice || []).map((x) => `<p>${esc(x.name)} 缺 ${x.shortage}：${esc(x.detail)}</p>`).join('')}</div>` : ''}</div><div class="step-actions"><button class="secondary" id="prevStep" ${i === 0 ? 'disabled' : ''}>← 上一步</button><button class="primary" id="nextStep">${i === p.steps.length - 1 ? '完成检查，记录成品' : '下一步 →'}</button></div></article></section>`;
     }
 
     function feedbackTab(p) {

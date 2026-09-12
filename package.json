@@ -1,6 +1,6 @@
 {
   "name": "floralab-studio",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "private": true,
   "description": "FloraLab creator workflow: intent, versioned images, preparation, making and recovery",
   "scripts": {
@@ -28,7 +28,8 @@
     "test:handoff": "node tests/handoff-v2-1.4.test.js",
     "test:architecture": "node tests/runtime-architecture.test.js",
     "test:product": "node tests/product-1.6.test.js",
-    "test:storage": "python qa/storage_1_6.py"
+    "test:storage": "python qa/storage_1_6.py",
+    "test:navigation": "python qa/navigation_upgrade.py"
   },
   "engines": {
     "node": ">=18"

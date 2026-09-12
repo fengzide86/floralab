@@ -10,7 +10,7 @@ function createBrowserRuntime({ fetch, baseUrl, version }) {
   function getCatalog() {
     if (!catalogPromise) {
       catalogPromise = Promise.resolve()
-        .then(() => fetch(new URL('./data/catalog.json', baseUrl).href))
+        .then(() => fetch(new URL('./data/catalog.json?v='+encodeURIComponent(version), baseUrl).href))
         .then((response) => {
           if (!response.ok) throw new Error('catalog_load_failed');
           return response.json();

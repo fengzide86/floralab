@@ -17,6 +17,13 @@ let installPromise;installed({waitUntil(p){installPromise=p;}});Promise.resolve(
  const paths=added.map(req=>new URL(req.url).pathname.replace('/floralab/','./'));
  ok(paths.includes('./runtime.js'),'runtime precached');ok(paths.includes('./data/catalog.json'),'catalog precached');ok(paths.includes('./manifest.webmanifest'),'manifest precached');
  ok(added.every(req=>req.cache==='reload'),'upgrade precache bypasses stale browser HTTP cache');
+ const version=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8')).version;
+ const html=fs.readFileSync(path.join(pub,'index.html'),'utf8');
+ for(const match of html.matchAll(/(?:src|href)="(\.\/[^"\s]+\.(?:js|css)(?:\?[^"\s]+)?)"/g)){
+   const url=new URL(match[1],'https://example.com/floralab/');
+   ok(url.searchParams.get('v')===version,'entry uses matching release '+url.pathname);
+   ok(added.some(req=>req.url===url.href),'versioned entry is available offline '+url.pathname);
+ }
  for(const asset of ['runtime.js','assets/materials/flower-ammi.webp']){
    let response;fetchHandler({request:new Request('https://example.com/floralab/'+asset),respondWith(p){response=p;}});await response;
    ok(networkCalls.at(-1).options.cache==='no-cache',asset+' revalidates HTTP cache when fetching');
