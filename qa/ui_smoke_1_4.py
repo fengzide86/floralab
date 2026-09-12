@@ -69,11 +69,15 @@ def mount(page,errors):
     page.wait_for_selector('#newDesign')
     page.wait_for_timeout(250)
 
-def generate_project(page):
+def generate_project(page,label):
     page.click('#newDesign')
     page.wait_for_selector('#generate')
+    ck(page.locator('#idea').is_visible(),f'{label} idea field is visible first')
+    ck(not page.locator('#budget').is_visible(),f'{label} budget is deferred by default')
+    page.fill('#idea','想做一件紫白色、轻一点、有明显留白的作品')
     page.click('#generate')
     page.wait_for_selector('.project-title')
+    ck(page.locator('[data-tab="explore"].active').count()==1,f'{label} new work opens Direction first')
     page.wait_for_timeout(150)
 
 with sync_playwright() as p:
@@ -94,7 +98,7 @@ with sync_playwright() as p:
     page.wait_for_selector('#renderIntroCreate')
     ck(page.locator('text=效果图工作区在作品里面').count()==1,'desktop empty Render state explains dependency')
     page.click('#closeModal')
-    generate_project(page)
+    generate_project(page,'desktop')
     ck(page.locator('.project-title').count()==1,'desktop project generates')
     page.locator('.nav-links [data-go="render"]').click()
     page.wait_for_selector('.render-layout')
@@ -134,7 +138,7 @@ with sync_playwright() as p:
     mob.wait_for_selector('#renderIntroCreate')
     ck(mob.locator('text=效果图工作区在作品里面').count()==1,'mobile empty Render state explains dependency')
     mob.click('#closeModal')
-    generate_project(mob)
+    generate_project(mob,'mobile')
     mob.click('#navMore')
     mob.wait_for_timeout(80)
     mob.locator('#mobileMenu [data-go="render"]').click()
