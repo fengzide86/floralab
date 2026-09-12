@@ -19,4 +19,3 @@ Use case: product-mockup. Generate a realistic editorial product illustration fo
 ## card
 
 Use case: product-mockup. Generate a realistic editorial product illustration for FloraLab creative material library: one small ivory folded greeting card standing slightly open with a simple tiny pressed-leaf-inspired green printed botanical sprig on its front, accompanied by one matching small envelope laying flat. No writing, no lettering. Entire stationery set visible with generous margins. Warm ivory tabletop, subtle sage-green background, soft natural daylight, clear cotton-paper texture and folded edges, elegant minimal still life, 4:3 landscape. No shop shelves, no piles of cards, no flowers, no pens, no hands, no labels, no text, no logos, no watermark. An AI shape illustration for a generic bouquet message card.
-
