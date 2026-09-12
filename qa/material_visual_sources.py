@@ -365,11 +365,11 @@ for fp in font_paths:
         except Exception:pass
 keys=sorted(persisted)
 for sheet_i in range(0,len(keys),26):
-    subset=keys[sheet_i:sheet_i+26];canvas=Image.new('RGB',(1300,5*230),(246,243,238));draw=ImageDraw.Draw(canvas)
+    subset=keys[sheet_i:sheet_i+26];canvas=Image.new('RGB',(1300,((len(subset)+4)//5)*230),(246,243,238));draw=ImageDraw.Draw(canvas)
     for idx,key in enumerate(subset):
         col=idx%5;row=idx//5;x=col*260;y=row*230
         res=persisted[key];im=None
-        path=ASSET_DIR/safe_name(key)
+        path=PUB/res['local_asset'].removeprefix('./') if res.get('local_asset') else ASSET_DIR/safe_name(key)
         if path.exists():
             try:im=Image.open(path).convert('RGB')
             except Exception:im=None
