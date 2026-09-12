@@ -1,4 +1,4 @@
-import html, io, json, re, time, urllib.parse, urllib.request
+import hashlib, html, io, json, re, time, urllib.parse, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from PIL import Image, ImageOps, ImageDraw, ImageFont
@@ -10,6 +10,9 @@ PUB_OUT=PUB/'data'/'material-visual-sources.json'
 ASSET_DIR=PUB/'assets'/'materials'
 QUERY_FILE=ROOT/'data'/'material-visual-queries.json'
 queries=json.loads(QUERY_FILE.read_text(encoding='utf-8'))['items']
+illustrations={k:v for k,v in json.loads((ROOT/'data'/'material-visuals.json').read_text(encoding='utf-8'))['items'].items() if v.get('image_type')=='ai_illustration'}
+pinned_file=ROOT/'data'/'material-photo-sources.json'
+pinned=json.loads(pinned_file.read_text(encoding='utf-8'))['items'] if pinned_file.exists() else {}
 catalog=json.loads((ROOT/'data'/'catalog.json').read_text(encoding='utf-8'))
 COMMONS='https://commons.wikimedia.org/w/api.php'
 OPENVERSE='https://api.openverse.org/v1/images/'
@@ -205,6 +208,8 @@ def resolve_commons(key,query):
 
 def resolve(pair):
     key,item=pair;query=item['query'];last=None
+    if key in illustrations:return key,{**illustrations[key],'ok':True,'query':query}
+    if key in pinned:return key,dict(pinned[key])
     if key in MANUAL_OPEN:return key,dict(MANUAL_OPEN[key])
     try:
         out=resolve_openverse(key,query)
@@ -266,6 +271,25 @@ def alternative_resolution(key,current):
 
 def persist_asset(key,res):
     if not res.get('ok'):return key,res
+    if res.get('sha256'):
+        local=(PUB/res['local_asset'].removeprefix('./')).resolve()
+        if not local.is_relative_to(PUB.resolve()) or not local.is_file():
+            raise RuntimeError('Missing pinned photograph: '+key)
+        if not all(res.get(field) for field in ['source','license','creator']):
+            raise RuntimeError('Missing photograph attribution: '+key)
+        if hashlib.sha256(local.read_bytes()).hexdigest()!=res['sha256']:
+            raise RuntimeError('Pinned photograph changed without review: '+key)
+        with Image.open(local) as im:im.verify()
+        return key,res
+    if res.get('image_type')=='ai_illustration':
+        local=(PUB/res['local_asset'].removeprefix('./')).resolve()
+        if not local.is_relative_to(PUB.resolve()) or not local.is_file():
+            raise RuntimeError('Missing packaged illustration: '+key)
+        with Image.open(local) as im:
+            im.verify()
+        with Image.open(local) as im:
+            res={**res,'width':im.width,'height':im.height,'bytes':local.stat().st_size}
+        return key,res
     try:
         raw=None;last=None
         candidates=[]
@@ -318,13 +342,14 @@ for key in repair_keys:
             persisted[key]=retry_alt
 
 missing=sorted(k for k,v in persisted.items() if not v.get('ok') or not v.get('asset'))
-low_conf=sorted(k for k,v in persisted.items() if v.get('ok') and float(v.get('confidence',0))<10)
+low_conf=sorted(k for k,v in persisted.items() if v.get('ok') and v.get('image_type')!='ai_illustration' and float(v.get('confidence',0))<10)
 remote_fallback=sorted(k for k,v in persisted.items() if v.get('ok') and v.get('asset') and not v.get('local_asset'))
 report={
   'version':'1.2.1','total':len(queries),'resolved':len(queries)-len(missing),'missing':missing,'low_confidence':low_conf,
   'mirrored':sum(1 for v in persisted.values() if v.get('local_asset')),
   'remote_fallback':len(remote_fallback),
-  'policy':'Open reusable photographs only. Search results must contain a material-specific botanical/object keyword in title or metadata; source, creator and license are retained.',
+  'illustrations':sum(1 for v in persisted.values() if v.get('image_type')=='ai_illustration'),
+  'policy':'Reference photographs retain source, creator and license. Packaged AI shape illustrations are explicitly marked ai_illustration and must never be labelled identification photographs.',
   'items':dict(sorted(persisted.items()))
 }
 OUT.write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')

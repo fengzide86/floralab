@@ -8,6 +8,7 @@ QA=ROOT/'qa'
 QA.mkdir(exist_ok=True)
 LIVE_URL=os.getenv('FLORALAB_BASE_URL','').strip()
 checks=[]
+screenshots=[]
 
 def ck(cond,name):
     if not cond:
@@ -21,6 +22,7 @@ def shot(page,name):
         except Exception:
             pass
     page.screenshot(path=str(QA/name),full_page=False)
+    screenshots.append(name)
 
 def overflow_ok(page):
     return page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 2')
@@ -47,6 +49,9 @@ def set_app(page,network,errors):
             try:
                 page.goto(LIVE_URL,wait_until='networkidle',timeout=25000)
                 page.wait_for_selector('#newDesign',timeout=12000)
+                expected=json.loads((ROOT/'package.json').read_text())['version']
+                actual=page.evaluate("async()=> (await FloraLabRuntime.request('/api/status')).version")
+                ck(actual==expected,'served version matches release '+expected)
                 return
             except Exception as e:
                 last=e
@@ -86,7 +91,10 @@ def wait_detail_visual(page):
     page.wait_for_function("""()=>{const img=document.querySelector('.material-detail-workspace .material-visual img');return !!(img&&img.complete&&img.naturalWidth>0&&img.naturalHeight>0)}""",timeout=5000)
 
 with sync_playwright() as p:
-    chrome=shutil.which('google-chrome') or shutil.which('google-chrome-stable') or shutil.which('chromium') or shutil.which('chromium-browser')
+    chrome=os.getenv('FLORALAB_BROWSER') or shutil.which('google-chrome') or shutil.which('google-chrome-stable') or shutil.which('chromium') or shutil.which('chromium-browser')
+    if not chrome and os.name=='nt':
+        candidates=[Path(os.getenv('PROGRAMFILES','C:/Program Files'))/'Google/Chrome/Application/chrome.exe',Path(os.getenv('PROGRAMFILES(X86)','C:/Program Files (x86)'))/'Microsoft/Edge/Application/msedge.exe']
+        chrome=next((str(path) for path in candidates if path.exists()),None)
     if not chrome:
         raise RuntimeError('System Chrome/Chromium is required for FloraLab visual QA')
     browser=p.chromium.launch(headless=True,executable_path=chrome,args=['--no-sandbox'])
@@ -129,6 +137,14 @@ with sync_playwright() as p:
     ck(page.locator('[data-variation]').count()==6,'D23 six controlled variations')
     ck(overflow_ok(page),'D23 Direction no overflow')
     shot(page,'1.4.1-D23-direction.png')
+    ck(page.locator('.variation-card .direction-preview').count()==6,'D26 six data-based direction previews')
+    original_state=page.evaluate("localStorage.getItem('floralab-studio-state')")
+    page.click('[data-explore-view="top"]')
+    ck(page.locator('[data-explore-view="top"][aria-pressed="true"]').count()==1,'D26 top preview selected')
+    ck(page.evaluate("localStorage.getItem('floralab-studio-state')")==original_state,'D26 preview does not save a project')
+    ck(page.locator('.direction-preview').evaluate_all("els=>new Set(els.map(e=>e.dataset.previewScale)).size===1"),'D26 every preview uses one scale')
+    shot(page,'1.4.1-D26-direction-top.png')
+    page.click('[data-explore-view="front"]')
     page.locator('.explore-variations').scroll_into_view_if_needed();page.wait_for_timeout(100)
     ck(page.locator('[data-variation="rightRise"]').is_enabled(),'D24 right-rise variation available')
     shot(page,'1.4.1-D24-variations.png')
@@ -146,6 +162,7 @@ with sync_playwright() as p:
     page.locator('.branch-family').scroll_into_view_if_needed();page.wait_for_timeout(100)
     ck(overflow_ok(page),'D25 branch compare no overflow')
     shot(page,'1.4.1-D25-branch-compare.png')
+    ck(page.locator('.compare-grid .direction-preview').count()==2,'D25 both branches have structural previews')
     if page.locator('#closeBranchCompare').count():
         page.click('#closeBranchCompare');page.wait_for_timeout(80)
 
@@ -329,9 +346,19 @@ with sync_playwright() as p:
     ck(mob.locator('[data-variation]').count()==6,'M25 six controlled variations')
     ck(overflow_ok(mob),'M25 Direction no overflow')
     shot(mob,'1.4.1-M25-direction.png')
+    mob.locator('.direction-current').scroll_into_view_if_needed()
+    shot(mob,'1.4.1-M28-current-preview.png')
+    mob.click('[data-explore-view="top"]')
+    ck(mob.locator('[data-explore-view="top"][aria-pressed="true"]').count()==1,'M29 top preview works')
+    mob.locator('.direction-current').scroll_into_view_if_needed()
+    shot(mob,'1.4.1-M29-direction-top.png')
+    mob.click('[data-explore-view="front"]')
     mob.locator('.explore-variations').scroll_into_view_if_needed();mob.wait_for_timeout(100)
     ck(mob.locator('[data-variation="rightRise"]').is_enabled(),'M26 right-rise variation available')
     shot(mob,'1.4.1-M26-variations.png')
+    for index in range(6):
+        mob.locator('.variation-card').nth(index).scroll_into_view_if_needed()
+        shot(mob,f'1.4.1-M33-variation-{index+1}.png')
     mob.click('[data-explore-lock="quantities"]');mob.wait_for_timeout(100)
     ck(mob.locator('[data-explore-lock="quantities"].active').count()==1,'M27 quantity lock persists')
     initial_branches=mob.locator('.branch-card').count()
@@ -345,6 +372,10 @@ with sync_playwright() as p:
     mob.locator('.branch-family').scroll_into_view_if_needed();mob.wait_for_timeout(100)
     ck(overflow_ok(mob),'M27 branch compare no overflow')
     shot(mob,'1.4.1-M27-branch-compare.png')
+    mob.locator('.compare-grid article').first.scroll_into_view_if_needed()
+    shot(mob,'1.4.1-M30-compare-current.png')
+    mob.locator('.compare-grid article').last.scroll_into_view_if_needed()
+    shot(mob,'1.4.1-M31-compare-target.png')
     if mob.locator('#closeBranchCompare').count():
         mob.click('#closeBranchCompare');mob.wait_for_timeout(80)
 
@@ -458,11 +489,29 @@ with sync_playwright() as p:
     ck(mob.locator('.library-empty').count()==1,'M14 empty')
     ck(overflow_ok(mob),'M14 no overflow');shot(mob,'1.4.1-M14-empty.png')
 
+    for target,prefix in [(page,'D'),(mob,'M')]:
+        if prefix=='D':target.click('.nav-links [data-go="materials"]')
+        else:
+            target.click('#navMore')
+            target.click('#mobileMenu [data-go="materials"]')
+        target.click('[data-library-kind="creative"]')
+        target.fill('#materialSearch','')
+        for key in ['acrylic','photo','card']:
+            target.click(f'[data-material-detail="creative:{key}"]')
+            target.wait_for_selector('.creative-detail')
+            wait_detail_visual(target)
+            ck(target.locator('[data-image-type="ai_illustration"]').count()==1,f'{prefix} {key} marked as illustration')
+            ck('非实物照片' in target.locator('.material-visual figcaption').inner_text(),f'{prefix} {key} visible factual boundary')
+            ck('AI 形态示意' in target.locator('.material-visual img').get_attribute('alt'),f'{prefix} {key} accessible factual boundary')
+            ck(overflow_ok(target),f'{prefix} {key} no overflow')
+            ck(target.locator('.material-visual img').evaluate("e=>getComputedStyle(e).objectFit==='contain'"),f'{prefix} {key} full object visible')
+            shot(target,f'1.4.1-{prefix}32-{key}.png')
+            target.click('[data-library-back]')
     ck(not any('/api/' in x for x in network+mnet),'no HTTP API requests')
     ck(len(errors)==0,'desktop console errors: '+str(errors))
     ck(len(merrors)==0,'mobile console errors: '+str(merrors))
     browser.close()
 
-report={'version':'1.4.1','mode':'online' if LIVE_URL else 'build','base_url':LIVE_URL or 'in-memory-build','checks':len(checks),'items':checks,'screenshots':54,'desktop':26,'mobile':28,'note':'Screenshots are primary page-by-page visual acceptance inputs. Contact sheet is intentionally not generated by this gate.'}
+report={'version':json.loads((ROOT/'package.json').read_text())['version'],'mode':'online' if LIVE_URL else 'build','base_url':LIVE_URL or 'in-memory-build','checks':len(checks),'items':checks,'screenshots':len(screenshots),'desktop':sum('-D' in x for x in screenshots),'mobile':sum('-M' in x for x in screenshots),'files':screenshots,'note':'Screenshots are primary page-by-page visual acceptance inputs. Contact sheet is intentionally not generated by this gate.'}
 (QA/'ui-1.4.1.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
-print("ui-1.4.1 (%s): %d checks passed; 54 page screenshots written" % ("online" if LIVE_URL else "build",len(checks)))
+print("ui (%s): %d checks passed; %d page screenshots written" % ("online" if LIVE_URL else "build",len(checks),len(screenshots)))

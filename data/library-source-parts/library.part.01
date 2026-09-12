@@ -160,10 +160,11 @@ function materialVisual(ctx,kind,m,large=false){
   const {S,esc}=ctx,entry=visualEntry(S,kind,m);
   if(entry?.asset||entry?.local_asset){
     const asset=entry.local_asset||entry.asset;
-    const provider=entry.provider||'已核实材料图',license=entry.license||'',creditRaw=String(entry.creator||entry.credit||'').trim(),credit=/\bunknown\b/i.test(creditRaw)?'':creditRaw;
+    const illustrated=entry.image_type==='ai_illustration';
+    const provider=illustrated?'AI 形态示意':entry.provider||'已核实材料图',license=illustrated?'非实物照片':entry.license||'',creditRaw=String(entry.creator||entry.credit||'').trim(),credit=illustrated||/\bunknown\b/i.test(creditRaw)?'':creditRaw;
     const label=[provider,license].filter(Boolean).join(' · ');
     const source=entry.source?`<a href="${esc(entry.source)}" target="_blank" rel="noopener noreferrer">${esc(label||'材料参考图')}</a>`:esc(label||'材料参考图');
-    return `<figure class="material-visual resolved ${large?'large':''}"><img src="${esc(asset)}" alt="${esc(m.name)}真实材料参考图" loading="lazy" decoding="async"><figcaption>${source}${credit?`<span> · ${esc(credit)}</span>`:''}</figcaption></figure>`;
+    return `<figure class="material-visual resolved ${large?'large':''}" data-image-type="${illustrated?'ai_illustration':'reference_photo'}"><img src="${esc(asset)}" alt="${esc(m.name)}${illustrated?' AI 形态示意，非实物照片':'真实材料参考图'}" loading="lazy" decoding="async"><figcaption>${source}${credit?`<span> · ${esc(credit)}</span>`:''}</figcaption></figure>`;
   }
   const key=visualKey(kind,m),query=visualQuery(S,kind,m);
   const swatches=kind==='flower'?palette(m).map(c=>`<i style="--material-swatch:${COLOR_HEX[c]||'#b9b0a5'}"></i>`).join(''):'<i style="--material-swatch:#bbaea2"></i><i style="--material-swatch:#817388"></i>';

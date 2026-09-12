@@ -1,8 +1,8 @@
 {
   "name": "floralab-studio",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "private": true,
-  "description": "FloraLab Studio 1.4.1 Sprout Identity - green brand system, approved sprout icon and Blueprint-to-reality home",
+  "description": "FloraLab Studio 1.5.0 - live direction previews, shared-scale branch comparison and reviewed creative imagery",
   "scripts": {
     "build": "node scripts/build-runtime.js && node scripts/build-service-worker.js && python scripts/build-icons.py",
     "start": "node scripts/static-server.js",
@@ -23,7 +23,7 @@
     "test:ui:smoke": "python qa/ui_smoke_1_4.py",
     "test:creative": "node tests/creative-1.4.test.js",
     "check:generated": "node --check public/runtime.js && node --check public/service-worker.js",
-    "test:variation": "node tests/variation-1.4.test.js",
+    "test:variation": "node tests/variation-1.4.test.js && node tests/direction-preview.test.js",
     "test:flow": "node tests/creative-flow-1.4.test.js",
     "test:handoff": "node tests/handoff-v2-1.4.test.js"
   },

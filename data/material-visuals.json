@@ -5,5 +5,36 @@
     "rule": "Only verified material-identification images with a recorded source and license may be rendered as factual material photos. Missing visuals must use the built-in non-factual placeholder.",
     "fallback_label": "暂无可靠图片"
   },
-  "items": {}
+  "items": {
+    "creative:acrylic": {
+      "image_type": "ai_illustration",
+      "verified": false,
+      "provider": "AI 形态示意",
+      "asset": "./assets/illustrations/creative-acrylic.webp",
+      "local_asset": "./assets/illustrations/creative-acrylic.webp",
+      "source": "./assets/illustrations/creative-acrylic.webp",
+      "creator": "FloraLab · image_gen",
+      "note": "AI 生成的通用物件形态示意，非实物照片；不用于材料鉴定或商品承诺。"
+    },
+    "creative:photo": {
+      "image_type": "ai_illustration",
+      "verified": false,
+      "provider": "AI 形态示意",
+      "asset": "./assets/illustrations/creative-photo.webp",
+      "local_asset": "./assets/illustrations/creative-photo.webp",
+      "source": "./assets/illustrations/creative-photo.webp",
+      "creator": "FloraLab · image_gen",
+      "note": "AI 生成的通用物件形态示意，非实物照片；不用于材料鉴定或商品承诺。"
+    },
+    "creative:card": {
+      "image_type": "ai_illustration",
+      "verified": false,
+      "provider": "AI 形态示意",
+      "asset": "./assets/illustrations/creative-card.webp",
+      "local_asset": "./assets/illustrations/creative-card.webp",
+      "source": "./assets/illustrations/creative-card.webp",
+      "creator": "FloraLab · image_gen",
+      "note": "AI 生成的通用物件形态示意，非实物照片；不用于材料鉴定或商品承诺。"
+    }
+  }
 }

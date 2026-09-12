@@ -83,9 +83,10 @@ function branchDiff(a,b){
   return changes.slice(0,10);
 }
 function exploreTab(p){
-  const options=variationOptionsFor(p),branches=familyBranches(p);let compare=null;
+  const options=variationOptionsFor(p).map(option=>({...option,plan:option.enabled&&S.designCatalog?window.FloraLabRuntime.Studio.previewVariation(S.designCatalog,p,option.key):null})),branches=familyBranches(p).map(branch=>({...branch,plan:branchPlanById(branch.project_id)}));let compare=null;
   if(S.compareBranchId){const target=branchPlanById(S.compareBranchId);if(target&&target.id!==p.id)compare={current:branchSummary(p),target:branchSummary(target),changes:branchDiff(p,target)};}
-  return window.FloraLabExploreView.render({plan:p,options,branches,compare,esc});
+  if(compare){compare.current.plan=p;compare.target.plan=branchPlanById(S.compareBranchId);}
+  return window.FloraLabExploreView.render({plan:p,options,branches,compare,view:S.exploreView||'front',esc});
 }
 function recipeTab(p){return `<section class="panel"><div class="panel-head"><div><div class="kicker">Material Recipe</div><h2 class="section-title">把每一种材料落实下来。</h2><p>需要 − 已有 = 还需购买。自己的单价会覆盖参考单价。</p></div><div class="total-box"><strong>${money(p.cost.total)}</strong><span>当前需购</span></div></div><div class="recipe"><div class="recipe-head"><span>材料</span><span>需要</span><span>已有</span><span>我的单价</span><span>还需买</span><span>小计</span></div>${p.recipe.map(r=>`<div class="recipe-row" data-key="${esc(r.key)}"><div class="recipe-name">${['flower','creative'].includes(r.kind)?`<button class="recipe-material-link" data-material-detail="${esc(r.kind)}:${esc(r.id)}">${esc(r.name)}</button>`:`<b>${esc(r.name)}</b>`}<span>${esc(r.variant||r.role||'')}</span></div><div class="qty-control rcell" data-label="需要"><button data-minus>−</button><input data-qty type="number" min="0" value="${r.quantity}"><button data-plus>＋</button><em>${esc(r.unit)}</em></div><div class="rcell" data-label="已有"><input class="mini" data-owned type="number" min="0" max="${r.quantity}" value="${r.owned}"></div><div class="price-control rcell" data-label="我的单价"><span>¥</span><input class="mini" data-price type="number" min="0" step="0.5" value="${r.unit_price}"></div><div class="buy rcell" data-label="还需买"><strong>${r.to_buy}${esc(r.unit)}</strong></div><div class="subtotal rcell" data-label="小计"><strong>${money(r.subtotal)}</strong></div></div>`).join('')}</div><div class="recipe-foot"><p>${esc(p.cost.note||'价格为参考估算，可替换为自己的采购单价。')}</p><button class="text-action" data-tabjump="structure">看施工结构 →</button></div></section>`;}
 function projection(node,view){if(view==='front')return [node.x,node.z];if(view==='back')return [-node.x,node.z];if(view==='left')return [node.y,node.z];if(view==='right')return [-node.y,node.z];return [node.x,-node.y];}
@@ -126,7 +127,8 @@ function bindTab(){
     $$('[data-explore-lock]').forEach(b=>b.onclick=()=>updateExplorationLock(b.dataset.exploreLock,b.getAttribute('aria-pressed')!=='true'));
     $$('[data-variation]').forEach(b=>b.onclick=()=>createVariation(b.dataset.variation));
     $$('[data-open-branch]').forEach(b=>b.onclick=()=>openBranch(b.dataset.openBranch));
-    $$('[data-compare-branch]').forEach(b=>b.onclick=()=>{S.compareBranchId=b.dataset.compareBranch;renderTab();});
+    $$('[data-compare-branch]').forEach(b=>b.onclick=()=>{S.compareBranchId=b.dataset.compareBranch;renderTab();$('.branch-compare')?.scrollIntoView({block:'start'});});
+    $$('[data-explore-view]').forEach(b=>b.onclick=()=>{S.exploreView=b.dataset.exploreView;renderTab();});
     const close=$('#closeBranchCompare');if(close)close.onclick=()=>{S.compareBranchId=null;renderTab();};
   }
   if(S.tab==='recipe'){$$('.recipe-row').forEach(row=>{const key=row.dataset.key,q=$('[data-qty]',row),o=$('[data-owned]',row),pr=$('[data-price]',row);$('[data-minus]',row).onclick=()=>{q.value=Math.max(0,Number(q.value)-1);patchRow(key,row)};$('[data-plus]',row).onclick=()=>{q.value=Number(q.value)+1;patchRow(key,row)};[q,o,pr].forEach(e=>e.onchange=()=>patchRow(key,row));});}
@@ -188,7 +190,7 @@ if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serv
 
 async function init(){
   await load();
-  try{S.status=await api('/api/status');S.catalog=await api('/api/catalog');}
+  try{S.status=await api('/api/status');S.catalog=await api('/api/catalog');S.designCatalog=await window.FloraLabRuntime.getCatalog();}
   catch{S.status={version:'dev',mode:'zero-api-pwa',catalog:{flowers:117,creative:13}};}
   try{
     const [vr,vq]=await Promise.all([
