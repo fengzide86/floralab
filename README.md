@@ -25,7 +25,7 @@ Studio 现在是 **纯前端 PWA**。正式使用时不需要运行 `server.js`�
 - Vessel + Mechanics：花器几何与固定结构锚点进入 Blueprint。
 - Build Mode 2.0：分阶段制作、已用、剩余、损耗、缺口和替代建议。
 - 成品文字记录、版本历史与上一版本地备份恢复。
-- `.floralab` 导入/导出；兼容 V5 `floralab/0.5` 并验证重复 Stem ID、负数配方、非法坐标等错误。
+- `.floralab` 2.0 导入/导出：`plan` 是唯一权威事实源，顶层 Render 仅为派生快照；兼容 `floralab/1.0` 与 V5 `floralab/0.5`，并验证重复 Stem ID、负数配方、非法坐标等错误。
 - A4 打印制作单。
 - IndexedDB 设备内项目保存。
 - Material Detail：形态、制作、季节时间轴、宠物/食品等现实提醒、替代关系与当前作品用量。
