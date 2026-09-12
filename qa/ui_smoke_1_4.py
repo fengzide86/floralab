@@ -108,7 +108,7 @@ with sync_playwright() as p:
     ck(page.locator('[data-explore-lock="quantities"].active').count()==1,'desktop quantity lock persists')
     initial_branches=page.locator('.branch-card').count()
     page.click('[data-variation="rightRise"]')
-    page.wait_for_function("(n)=>document.querySelectorAll('.branch-card').length>n",initial_branches)
+    page.wait_for_function("(n)=>document.querySelectorAll('.branch-card').length>n",arg=initial_branches)
     ck(page.locator('.branch-card').count()>=2,'desktop variation creates branch without overwriting root')
     ck(page.locator('.branch-card.active').get_by_text('右上延伸').count()>=1,'desktop new direction is labeled')
     ck(overflow_ok(page),'desktop Direction workspace has no overflow')
