@@ -10,10 +10,11 @@ FloraLab 是一套 **0 OpenAI API、0 本地 AI** 的现实创意花艺工作流
 
 Studio 现在是 **纯前端 PWA**。正式使用时不需要运行 `server.js`、不需要电脑常开，也不需要同一 Wi‑Fi；GitHub Pages 可以直接在电脑、手机和平板访问。
 
-当前版本 **1.5.3**：拆分施工图、效果图交接、作品清单和制作记录视图，独立 Recipe 与应用内 API 模块，构建按真实依赖打包。目录加载失败可重试；旧作品格式与行为由发布基线回归保护。完整产品界面优化仍按后续路线推进。
+当前版本 **1.6.0**：四个任务区串起想法、方案比较、材料准备、制作与成品记录。新建首屏即可开始，明确排除材料、配色与数字数量可核对；图片归属作品并标记旧设计版本，支持含图片导出、材料替换、采购、实耗撤销与快照恢复。IndexedDB v2 原位升级保留旧作品，图片和作品原子提交；继续保留既有模块化与格式兼容能力。
 
 - [产品优化方案](docs/PRODUCT_OPTIMIZATION.md)：竞品取舍、逐页设计、分期与验收。
 - [代码结构与维护入口](docs/ARCHITECTURE.md)：模块边界、源文件与兼容测试。
+- [1.6.0 发布记录](docs/release-1.6.0.md)：本次已实现范围、验收与使用边界。
 - [1.5.3 发布记录](docs/release-1.5.3.md)。
 - [1.5.2 视觉更新记录](docs/release-1.5.2.md)。
 
@@ -61,7 +62,13 @@ iPhone 使用 Safari 的“添加到主屏幕”；Android 使用浏览器“安
 
 ## 开发与验收
 
-Node.js 18+：
+Node.js 18+ 与 Python 3.12+。先安装构建和完整验收依赖：
+
+```bash
+python -m pip install pillow cairosvg playwright
+```
+
+浏览器验收可使用已安装的 Chrome、Chromium 或 Windows Edge；必要时用 `FLORALAB_BROWSER` 指定浏览器可执行文件。然后执行：
 
 ```bash
 npm run test:release
@@ -72,6 +79,7 @@ npm start
 
 ```bash
 npm run test:qa
+npm run test:storage
 ```
 
 `npm start` 只是开发/验收静态站点，不是正式用户运行 Studio 的要求。正式仓库的 GitHub Actions 会执行 release gate、48 页构建态 Visual Gate、Pages 部署，再对正式 Pages URL 重跑同一套线上 Visual Gate。
