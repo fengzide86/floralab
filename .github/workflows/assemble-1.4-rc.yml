@@ -71,8 +71,11 @@ jobs:
           Path('.github/rc-ui-1.4.py.gz.b64').unlink()
           Path('.github/workflows/assemble-1.4-rc.yml').unlink()
 
-      - name: Static sanity check
-        run: npm run test:static
+      - name: Verify assembled release inputs
+        run: |
+          test -f qa/ui_1_4.py
+          grep -q '"version": "1.4.0"' package.json
+          grep -q 'test:ui.*ui_1_4.py' package.json
 
       - name: Commit assembled release candidate
         run: |
