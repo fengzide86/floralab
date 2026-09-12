@@ -39,7 +39,8 @@ const Shell=window.FloraLabShell.create({
     window.scrollTo(0,0);
   },
   onCreativeSpace:()=>openCreativeSpace(),
-  onInstall:()=>installApp()
+  onInstall:()=>installApp(),
+  onHelp:()=>window.FloraLabGuide.open()
 });
 function shell(body,active=''){Shell.render(body,active);}
 function openRenderWorkspaceIntro(){document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><section class="modal"><div class="kicker">Render Handoff</div><h2>效果图工作区在作品里面。</h2><p>它会读取当前 Recipe、Mechanics 和 Blueprint，锁定材料、颜色、数量与主要结构。先新建或导入一件作品，之后顶部“效果图”和作品内“效果图”标签都可以直接进入。</p><div class="modal-actions"><button class="secondary" id="closeModal">关闭</button><button class="primary" id="renderIntroCreate">开始一个作品</button></div></section></div>`); $('#closeModal').onclick=()=>$('#modal').remove();$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').remove();};$('#renderIntroCreate').onclick=()=>{$('#modal').remove();create();};}
@@ -157,12 +158,16 @@ function bindTab(){
 function svgWorldPoint(svg,e){const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const m=svg.getScreenCTM();return m?pt.matrixTransform(m.inverse()):pt;}
 function screenToWorld(plan,view,pt,node){const {scale,cx,baseY}=projectionConfig(plan,view);const a=(pt.x-cx)/scale,b=view==='top'?(pt.y-280)/scale:(baseY-pt.y)/scale;const out={x:node.x,y:node.y,z:node.z};if(view==='front'){out.x=a;out.z=b;}if(view==='back'){out.x=-a;out.z=b;}if(view==='left'){out.y=a;out.z=b;}if(view==='right'){out.y=-a;out.z=b;}if(view==='top'){out.x=a;out.y=-b;}return out;}
 function bindStructure(){
-  const picker=$('#nodePicker');if(picker)picker.onchange=()=>{S.selectedNode=picker.value;renderTab();};
-  $$('[data-node]').forEach(g=>g.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();S.selectedNode=g.dataset.node;renderTab();}});
-  $$('[data-view]').forEach(b=>b.onclick=()=>{S.view=b.dataset.view;renderTab();});
-  $$('[data-node]').forEach(g=>{g.onclick=()=>{S.selectedNode=g.dataset.node;renderTab();};g.onpointerdown=e=>{const id=g.dataset.node,node=S.plan.blueprint.nodes.find(n=>n.id===id);if(!node||node.locked)return;S.selectedNode=id;const svg=g.closest('svg'),start={x:e.clientX,y:e.clientY};g.setPointerCapture?.(e.pointerId);const move=ev=>{const pt=svgWorldPoint(svg,ev),w=screenToWorld(S.plan,S.view,pt,node);const circle=$('circle:not(.bp-hit)',g);if(circle){const cfg=projectionConfig(S.plan,S.view);const pseudo={...node,...w},pr=projection(pseudo,S.view),x=cfg.cx+pr[0]*cfg.scale,y=S.view==='top'?280+pr[1]*cfg.scale:cfg.baseY-pr[1]*cfg.scale;circle.setAttribute('cx',x);circle.setAttribute('cy',y);}};const up=async ev=>{g.removeEventListener('pointermove',move);g.removeEventListener('pointerup',up);if(Math.hypot(ev.clientX-start.x,ev.clientY-start.y)<5){renderTab();return;}const pt=svgWorldPoint(svg,ev),w=screenToWorld(S.plan,S.view,pt,node);await updateBlueprint({type:'move',id,x:w.x,y:w.y,z:w.z});};g.addEventListener('pointermove',move);g.addEventListener('pointerup',up);};});
-  $$('[data-node-field]').forEach(inp=>inp.onchange=async()=>{const n=S.plan.blueprint.nodes.find(x=>x.id===S.selectedNode);if(!n)return;const field=inp.dataset.nodeField;await updateBlueprint({type:'set',id:n.id,[field]:Number(inp.value)});});
-  $$('[data-node-action]').forEach(b=>b.onclick=()=>updateBlueprint({type:b.dataset.nodeAction,id:S.selectedNode}));
+  window.FloraLabStructure.bind({root:$('#tabBody'),state:S,
+    select:id=>{S.selectedNode=id;renderStructure();},render:renderStructure,update:updateBlueprint,
+    worldPoint:svgWorldPoint,toWorld:screenToWorld,config:projectionConfig,project:projection,toast});
+  $('#structureHelp').onclick=()=>window.FloraLabGuide.open('structure');
+}
+function renderStructure(){
+  const scroll=window.scrollY,opened=$('.precise-controls')?.open,step=$('#moveStep')?.value;
+  renderTab();if($('.precise-controls'))$('.precise-controls').open=Boolean(opened);
+  if(step&&$('#moveStep'))$('#moveStep').value=step;
+  window.scrollTo(0,scroll);
 }
 
 async function updateExplorationLock(key,value){
@@ -184,7 +189,23 @@ async function openBranch(id){
   }catch(e){toast(`没有打开这个方向：${e.message}`);}
 }
 async function patchRow(key,row){if(S.mutating)return;S.mutating=true;const patch={key,quantity:Number($('[data-qty]',row).value),owned:Number($('[data-owned]',row).value),unit_price:$('[data-price]',row).value.trim()===''?null:Number($('[data-price]',row).value)};try{const old=S.plan.recipe.find(r=>r.key===key);if(old.unit_price===patch.unit_price)delete patch.unit_price;S.plan=await api('/api/design/update-recipe',{method:'POST',body:JSON.stringify({plan:S.plan,patches:[patch]})});await save();S.tab='recipe';result();}catch(e){toast(`没有更新成功：${e.message}`);}finally{S.mutating=false;}}
-async function updateBlueprint(action){try{S.plan=await api('/api/design/update-blueprint',{method:'POST',body:JSON.stringify({plan:S.plan,action})});if(!S.plan.blueprint.nodes.some(n=>n.id===S.selectedNode))S.selectedNode=S.plan.blueprint.nodes[0]?.id||null;await save();S.tab='structure';result();}catch(e){toast(e.message==='node_locked'?'这枝已经锁定，先解锁再调整。':`结构没有更新：${e.message}`);}}
+async function updateBlueprint(action){
+  if(S.mutating)return;
+  if(['duplicate','delete'].includes(action.type)&&!action.confirmed){
+    const n=S.plan.blueprint.nodes.find(x=>x.id===action.id);
+    if(!n)return;
+    window.FloraLabDialog.open({title:action.type==='duplicate'?'复制点位并增加材料？':'删除点位并减少材料？',body:`<p>${esc(n.id+' · '+n.name)}：材料清单数量会${action.type==='duplicate'?'增加':'减少'} 1。其他点位保持不变。</p>`,confirm:action.type==='duplicate'?'确认复制':'确认删除',onConfirm:()=>updateBlueprint({...action,confirmed:true})});return;
+  }
+  S.mutating=true;
+  try{
+    const next=await api('/api/design/update-blueprint',{method:'POST',body:JSON.stringify({plan:S.plan,action})});
+    await Storage.commitPlan(next);
+    if(!S.plan.blueprint.nodes.some(n=>n.id===S.selectedNode))S.selectedNode=S.plan.blueprint.nodes[0]?.id||null;
+    S.tab='structure';renderStructure();
+    toast(action.type==='lock'?(S.plan.blueprint.nodes.find(n=>n.id===action.id)?.locked?'点位已锁定':'点位已解锁'):'摆放已保存在本机');
+  }catch(e){renderStructure();toast(e.message==='node_locked'?'这枝已经锁定，先解锁再调整。':`结构没有更新：${e.message}`);if(action.confirmed)throw e;}
+  finally{S.mutating=false;}
+}
 async function updateBuild(patch,rerender=true){if(S.mutating)return;S.mutating=true;try{S.plan=await api('/api/design/update-build',{method:'POST',body:JSON.stringify({plan:S.plan,patch})});S.buildStep=S.plan.build.currentStep||0;await save();if(rerender){S.tab='build';result();}else renderTab();}catch(e){toast(`制作记录没有更新：${e.message}`);}finally{S.mutating=false;}}
 async function saveFeedback(){try{const feedback={actual_difficulty:$('#actualDifficulty').value,minutes:Number($('#actualMinutes').value||0),issues:$('#actualIssues').value,notes:$('#actualNotes').value};S.plan=await api('/api/design/feedback',{method:'POST',body:JSON.stringify({plan:S.plan,feedback})});await save();result();toast('成品记录已保存');}catch(e){toast(`没有保存：${e.message}`);}}
 function handoffObject(){return window.FloraLabRuntime.Studio.handoffObject(S.plan);}

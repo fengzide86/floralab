@@ -1,4 +1,8 @@
-# FloraLab 1.6.0 当前结构
+# FloraLab 1.6.2 当前结构
+
+1.6.2 将施工图鼠标/触摸生命周期、最近花头选择及空间按钮绑定拆到 `public/controllers/structure.js`；投影和 SVG 渲染继续由 `public/views/blueprint.js` 负责。结构修改先完成原子持久化再替换当前作品。`public/views/guide.js` 提供整个项目的原生帮助对话框，独立阅读版在 `docs/USER_GUIDE.md`。
+
+`npm run test:structure` 验证真实鼠标/触摸的五视图移动、取消、锁定、材料数量保护、精细输入与刷新后保留，并检查说明入口和未提交表单保留。`npm run test:navigation` 继续验证旧缓存升级。两者加入发布门禁，结构专项也对正式线上运行。
 
 浏览器仍在本机运行，不需要后端账号或 API 密钥。产品主流程按“想法与方案 / 材料与准备 / 动手制作 / 成品与记录”组织；视图负责显示，领域函数负责材料和结构事实，控制器负责用户动作与持久化。
 

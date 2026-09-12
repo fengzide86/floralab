@@ -66,7 +66,7 @@
               (n.color || '').includes('色') ? n.color : `${n.color}色`,
               0
             ),
-            r = Math.max(4, Math.min(11, n.head_cm * 0.55)),
+            r = Math.max(interactive ? (selected ? 12 : 8) : 4, Math.min(11, n.head_cm * 0.55)),
             anchor = (bp.mechanics?.anchors || []).find(
               (q) => q.id === n.anchor_id
             ) || { x: 0, y: 0, z: 0 },
@@ -86,13 +86,18 @@
 
     function editorControls(n) {
       if (!n) return '';
-      return `<details class="precise-controls"><summary>精细调整：坐标、长度与角度</summary><p class="measurement-note">原点在花器底部中心；x 向右、y 向前、z 向上。长度从固定点量到花头点位，水平角由 x 正向起算，抬升角由水平面起算。图示不代表毫米级施工精度。</p><div class="editor-controls"><div class="editor-grid"><label>x<input data-node-field="x" type="number" step="1" value="${n.x}"></label><label>y<input data-node-field="y" type="number" step="1" value="${n.y}"></label><label>z<input data-node-field="z" type="number" step="1" value="${n.z}"></label><label>长度<input data-node-field="length_cm" type="number" step="1" value="${n.length_cm}"></label><label>水平角<input data-node-field="yaw_deg" type="number" step="1" value="${n.yaw_deg}"></label><label>抬升角<input data-node-field="pitch_deg" type="number" step="1" value="${n.pitch_deg}"></label></div><div class="node-actions"><button data-node-action="lock">${n.locked ? '解锁' : '锁定'}</button><button data-node-action="mirror">镜像</button><button data-node-action="duplicate">复制</button><button data-node-action="delete" class="danger">删除</button></div></div></details>`;
+      return `<details class="precise-controls"><summary>精细调整：坐标、长度与角度</summary><p class="measurement-note">原点在花器底部中心；x 向右、y 向前、z 向上。长度从固定点量到花头点位，水平角由 x 正向起算，抬升角由水平面起算。图示不代表毫米级施工精度。</p><div class="editor-controls"><div class="editor-grid"><label>左右 x（cm）<input data-node-field="x" type="number" step="0.1" value="${n.x}"></label><label>前后 y（cm）<input data-node-field="y" type="number" step="0.1" value="${n.y}"></label><label>高度 z（cm）<input data-node-field="z" type="number" step="0.1" value="${n.z}"></label><label>长度<input data-node-field="length_cm" type="number" step="0.1" value="${n.length_cm}"></label><label>水平角<input data-node-field="yaw_deg" type="number" step="0.1" value="${n.yaw_deg}"></label><label>抬升角<input data-node-field="pitch_deg" type="number" step="0.1" value="${n.pitch_deg}"></label></div><div class="node-actions"><button data-node-action="mirror">镜像</button><button data-node-action="duplicate">复制</button><button data-node-action="delete" class="danger">删除</button></div></div></details>`;
+    }
+
+    function spatialControls(n) {
+      if (!n) return '';
+      return `<section class="spatial-controls" aria-label="空间调整"><div class="spatial-heading"><b>${n.locked?'已锁定 · 先解锁再移动':'移动当前点位'}</b><button data-node-action="lock">${n.locked?'解锁点位':'锁定点位'}</button></div><label>每次移动 <select id="moveStep"><option value="1">1 cm</option><option value="5">5 cm</option></select></label><div class="nudge-grid">${[['x:-1','向左'],['x:1','向右'],['y:-1','靠后'],['y:1','靠前'],['z:1','升高'],['z:-1','降低']].map(([v,t])=>`<button data-nudge="${v}" ${n.locked?'disabled':''}>${t}</button>`).join('')}</div><p>方向按作品本身计算，不随视角改变。正面看左右与高度，俯视看前后；到达尺寸边界会停止。</p></section>`;
     }
 
     function structureTab(p) {
       const nodes = p.blueprint?.nodes || [];
       const sel = nodes.find((x) => x.id === S.selectedNode) || nodes[0];
-      return `<section class="panel structure-layout"><div class="structure-main"><div class="view-switch">${Object.entries(
+      return `<section class="panel structure-layout"><div class="structure-main"><div class="structure-instruction"><span>选点位 → 拖圆点，或用空间按钮</span><button id="structureHelp">怎么调整？</button></div><div class="view-switch">${Object.entries(
         VIEW_NAMES
       )
         .map(
@@ -101,7 +106,7 @@
         )
         .join(
           ''
-        )}</div><div class="blueprint-frame editor-frame">${renderBlueprint(p, S.view)}<span class="blueprint-caption">拖动枝条，五个视图同步 · ${p.blueprint?.nodes?.length || 0} 个主体点位</span></div></div><aside class="structure-side"><div class="kicker">Construction</div><h3>每个编号在五个视图里保持不变。</h3><label class="node-picker-label">选择材料点位<select id="nodePicker">${nodes.map(n=>`<option value="${esc(n.id)}" ${n.id===sel?.id?'selected':''}>${esc(n.id+' · '+n.name+' · '+(n.color||''))}</option>`).join('')}</select></label><div class="node-info" id="nodeInfo">${nodeInfo(sel)}</div>${editorControls(sel)}<div class="mechanics-note"><b>${esc(p.mechanics.type)}</b><p>${esc(p.mechanics.why || '')} ${esc((p.mechanics.items || []).join('、'))}</p><small>锚点：${esc((p.blueprint?.mechanics?.anchors || []).map((x) => x.type).join('、'))}</small></div></aside></section>`;
+        )}</div><div class="blueprint-frame editor-frame">${renderBlueprint(p, S.view)}<span class="blueprint-caption">拖花头圆点调整 · 图外滑动页面 · ${p.blueprint?.nodes?.length || 0} 个主体点位</span></div></div><aside class="structure-side"><div class="kicker">Construction</div><h3>每个编号在五个视图里保持不变。</h3><label class="node-picker-label">选择材料点位<select id="nodePicker">${nodes.map(n=>`<option value="${esc(n.id)}" ${n.id===sel?.id?'selected':''}>${esc(n.id+' · '+n.name+' · '+(n.color||''))}</option>`).join('')}</select></label>${spatialControls(sel)}<div class="node-info" id="nodeInfo">${nodeInfo(sel)}</div>${editorControls(sel)}<div class="mechanics-note"><b>${esc(p.mechanics.type)}</b><p>${esc(p.mechanics.why || '')} ${esc((p.mechanics.items || []).join('、'))}</p><small>锚点：${esc((p.blueprint?.mechanics?.anchors || []).map((x) => x.type).join('、'))}</small></div></aside></section>`;
     }
 
     return {
