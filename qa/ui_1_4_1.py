@@ -99,6 +99,8 @@ with sync_playwright() as p:
     ck(page.locator('text=从一个想法').count()>0,'D01 home loaded')
     ck(page.locator('.hero-cover').get_attribute('src').endswith('assets/hero-sprout-identity.webp'),'D01 approved hero cover')
     ck(page.locator('.hero-cover').evaluate("e=>e.complete&&e.naturalWidth>=300&&e.naturalHeight>=380"),'D01 hero cover decodes')
+    hero_box=page.locator('.hero-cover').bounding_box()
+    ck(bool(hero_box) and 1.47<=hero_box['width']/hero_box['height']<=1.53,'D01 hero cover rendered 3:2')
     ck(page.locator('[data-go="render"]').count()>=1,'D01 Render workspace entry visible')
     page.locator('.nav-links [data-go="render"]').click();page.wait_for_selector('#renderIntroCreate')
     ck(page.locator('text=效果图工作区在作品里面').count()==1,'D01 Render entry explains project requirement')
@@ -309,6 +311,8 @@ with sync_playwright() as p:
     # M01
     ck(mob.locator('.hero-cover').get_attribute('src').endswith('assets/hero-sprout-identity.webp'),'M01 approved hero cover')
     ck(mob.locator('.hero-cover').evaluate("e=>e.complete&&e.naturalWidth>=300&&e.naturalHeight>=380"),'M01 hero cover decodes')
+    hero_box=mob.locator('.hero-cover').bounding_box()
+    ck(bool(hero_box) and 1.47<=hero_box['width']/hero_box['height']<=1.53,'M01 hero cover rendered 3:2')
     mob.click('#navMore');mob.wait_for_timeout(80)
     ck(mob.locator('#mobileMenu [data-go="render"]').count()==1,'M01 mobile Render entry visible')
     mob.click('#navMore');mob.wait_for_timeout(80)

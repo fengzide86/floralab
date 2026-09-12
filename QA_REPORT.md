@@ -27,3 +27,9 @@
 ## 发布边界
 
 本报告记录本地 1.4.1 RC。正式交付仍需：GitHub release branch Gate → main 单一提交 → Pages → 线上同一套 54 页 Gate → build / online 逐页比对。最终 SHA 与 Actions run 写回 FloraLab 长期进度文档。
+
+## Hero 比例热修
+
+2026-09-12 正式上线后人工查看首页，发现用户确认的 3:2 横向 Hero 被旧 CSS 的固定高度（Desktop 590px / Mobile 390–410px）配合 object-fit: cover 裁成接近竖向视窗，左右内容明显丢失。问题属于视觉验收缺口，而不是素材本身错误。
+
+已改为：桌面与移动端均按素材原始 3:2 比例渲染，移除固定 Hero 高度；并在 D01 / M01 UI Gate 增加实际 rendered bounding-box 比例断言（1.47–1.53），防止同类回归。

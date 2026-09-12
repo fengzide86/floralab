@@ -514,3 +514,20 @@ body{font-size:var(--text);line-height:1.52}
 /* FloraLab 1.4 · idea-first creative flow */
 .creative-page-head .page-sub{max-width:720px}.creative-idea-row .form-label b{font-size:24px}.creative-idea-row .idea-input{min-height:150px;font-family:var(--serif);font-size:25px;line-height:1.55;padding:4px 0 14px}.idea-hint{display:block;margin-top:11px;color:var(--muted);font-size:12px;line-height:1.65}.reality-constraints summary{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline}.reality-constraints summary span{font-family:var(--serif);font-size:18px;color:var(--ink)}.reality-constraints summary small{font-size:12px;color:var(--muted)}.creative-form-end{display:flex;align-items:center;justify-content:space-between;gap:24px}.creative-form-end small{max-width:560px;color:var(--muted);line-height:1.6}.creative-form-end .primary{min-width:180px}
 @media(max-width:640px){.creative-page-head .page-sub{font-size:15px}.creative-idea-row .idea-input{font-size:21px;min-height:132px}.reality-constraints summary{grid-template-columns:1fr;gap:4px;min-height:58px}.reality-constraints summary small{line-height:1.45}.creative-form-end{display:grid;gap:14px}.creative-form-end .primary{width:100%;min-height:48px}.creative-form-end small{font-size:13px}}
+
+/* 1.4.1 hotfix · Home hero keeps approved 3:2 artwork */
+.hero{grid-template-columns:.88fr 1.12fr;gap:64px;min-height:620px;padding:48px 0 64px}
+.hero-figure{padding:0 0 34px 32px}
+.hero-figure::before{width:68%;height:72%}
+.hero-figure img,.hero-figure img.hero-cover{display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 50%;filter:none}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:32px;min-height:0;padding:52px 0}
+  .hero-figure{padding:0 0 30px 22px}
+  .hero-figure img,.hero-figure img.hero-cover{height:auto;aspect-ratio:3/2}
+}
+@media(max-width:640px){
+  .hero{padding:34px 0 46px;gap:26px}
+  .hero-figure{padding:0 0 20px}
+  .hero-figure::before{display:none}
+  .hero-figure img,.hero-figure img.hero-cover{height:auto;aspect-ratio:3/2}
+}
