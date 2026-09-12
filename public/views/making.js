@@ -2,7 +2,7 @@
   'use strict';
 
   // Rendering only. Dependencies are supplied by the app composition root.
-  function create({ state: S, esc, renderBlueprint }) {
+  function create({ state: S, esc, renderBlueprint, mediaViews }) {
     function stepTitle(i) {
       return (
         [
@@ -46,18 +46,18 @@
       const i = Math.min(S.buildStep, (p.steps || []).length - 1),
         stage = Math.min(5, Math.max(2, i + 2)),
         materials = p.build?.materials || [];
-      return `<section class="panel build-layout"><aside class="build-nav"><div class="build-count">${String(i + 1).padStart(2, '0')} / ${String(p.steps.length).padStart(2, '0')}</div><div class="build-progress"><i style="width:${((i + 1) / p.steps.length) * 100}%"></i></div>${p.steps.map((_, n) => `<button data-step="${n}" class="${n === i ? 'active' : ''}">${String(n + 1).padStart(2, '0')} · ${stepTitle(n)}</button>`).join('')}</aside><article class="build-step"><div class="step-no">${String(i + 1).padStart(2, '0')}</div><h2>${stepTitle(i)}</h2><p>${esc(p.steps[i])}</p><div class="build-preview">${i === 0 ? '<div class="prep-visual"><span>01</span><b>先让花材恢复状态。</b><small>结构点位从下一步开始出现。</small></div>' : renderBlueprint(p, 'front', stage, false)}</div><div class="needed"><b>本步需要</b><div>${stepMaterials(
+      return `<section class="panel build-layout"><aside class="build-nav"><div class="build-count">${String(i + 1).padStart(2, '0')} / ${String(p.steps.length).padStart(2, '0')}</div><div class="build-progress"><i style="width:${((i + 1) / p.steps.length) * 100}%"></i></div>${p.steps.map((_, n) => `<button data-step="${n}" class="${n === i ? 'active' : ''}">${String(n + 1).padStart(2, '0')} · ${stepTitle(n)}</button>`).join('')}</aside><article class="build-step"><div class="step-no">${String(i + 1).padStart(2, '0')}</div><h2>${stepTitle(i)}</h2><div class="step-top-actions"><button class="secondary" data-step-back ${i===0?'disabled':''}>上一步</button><button class="primary" data-step-next>${i===p.steps.length-1?'完成检查，记录成品':'完成本步 →'}</button></div><p>${esc(p.steps[i])}</p><div class="build-preview">${i === 0 ? `<div class="prep-visual prep-checklist"><b>动手前，先确认三件事</b>${[['tools','花器和工具已清洁'],['materials','已核对本次材料与数量'],['water','已按花材需要准备供水，食品与湿区分开']].map(([key,label])=>`<label><input type="checkbox" data-prepared="${key}" ${p.build?.preparation?.[key]?'checked':''}>${label}</label>`).join('')}</div>` : renderBlueprint(p, 'front', stage, false)}</div><div class="needed"><b>本步需要</b><div>${stepMaterials(
         p,
         i
       )
         .map((x) => `<span>${esc(x)}</span>`)
         .join(
           ''
-        )}</div></div><div class="inventory-mini"><div class="kicker">Material Use</div>${materials
-        .slice(0, 10)
+        )}</div></div><div class="inventory-mini"><div class="panel-head"><h3>实际用料</h3><button id="undoBuild" class="secondary" ${p.build?.undo?'':'disabled'}>撤销上次用料记录</button></div>${materials
+        .slice(0)
         .map(
           (x) =>
-            `<div class="use-row" data-build-key="${esc(x.key)}"><div><b>${esc(x.name)}</b><small>剩余 ${x.remaining}${esc(x.unit)}${x.loss ? ` · 损耗 ${x.loss}` : ''}</small></div><div><button data-use="1">使用 +1</button><button data-loss="1">损耗 +1</button></div></div>`
+            `<div class="use-row" data-build-key="${esc(x.key)}"><div><b>${esc(x.name)}</b><small>剩余 ${x.remaining}${esc(x.unit)}${x.loss ? ` · 损耗 ${x.loss}` : ''}</small></div><div class="usage-controls"><label>已用<input data-used-input type="number" min="0" value="${x.used}" aria-label="${esc(x.name)}已用数量"></label><button data-use="-1" aria-label="减少${esc(x.name)}用量">−</button><button data-use="1" aria-label="增加${esc(x.name)}用量">＋</button><label>损耗<input data-loss-input type="number" min="0" value="${x.loss}" aria-label="${esc(x.name)}损耗数量"></label><button data-loss="-1" aria-label="减少${esc(x.name)}损耗">−</button><button data-loss="1" aria-label="增加${esc(x.name)}损耗">＋</button></div></div>`
         )
         .join(
           ''
@@ -66,11 +66,11 @@
 
     function feedbackTab(p) {
       const f = p.resultFeedback || {};
-      return `<section class="panel feedback-layout"><div><div class="kicker">Finished Work</div><h2 class="section-title">记录现实里真正发生的事。</h2><p>这里不打“还原百分比”。只记录实际难度、耗时和问题，用来帮助下一次设计更可靠。</p></div><form id="feedbackForm" class="feedback-form" onsubmit="return false"><label><span>实际难度</span><select id="actualDifficulty">${['未填写', '简单', '中等', '困难'].map((x) => `<option ${f.actual_difficulty === x ? 'selected' : ''}>${x}</option>`).join('')}</select></label><label><span>制作耗时（分钟）</span><input id="actualMinutes" type="number" min="0" value="${f.minutes || ''}"></label><label class="wide"><span>实际遇到的问题</span><textarea id="actualIssues" placeholder="例如：右侧容易下坠、绣球补水慢">${esc((f.issues || []).join('、'))}</textarea></label><label class="wide"><span>备注</span><textarea id="actualNotes" placeholder="哪些地方好做，哪些地方下次要改">${esc(f.notes || '')}</textarea></label><button class="primary" id="saveFeedback">保存成品记录</button></form>${f.completed_at ? `<div class="feedback-summary"><b>已记录</b><p>${esc(f.actual_difficulty)} · ${f.minutes || 0} 分钟</p>${(f.issues || []).map((x) => `<span>${esc(x)}</span>`).join('')}</div>` : ''}</section>`;
+      return `${mediaViews?.comparison(p)||''}${mediaViews?.gallery(p,'finished')||''}<section class="panel feedback-layout"><div><div class="kicker">Finished Work</div><h2 class="section-title">留下这次作品。</h2><p>先添加照片，难度、耗时和体会都可以稍后补。对照效果图时，关注轮廓、颜色、层次和材料的真实变化。</p></div><form id="feedbackForm" class="feedback-form" onsubmit="return false"><label><span>实际难度</span><select id="actualDifficulty">${['未填写', '简单', '中等', '困难'].map((x) => `<option ${f.actual_difficulty === x ? 'selected' : ''}>${x}</option>`).join('')}</select></label><label><span>制作耗时（分钟）</span><input id="actualMinutes" type="number" min="0" value="${f.minutes || ''}"></label><label class="wide"><span>实际遇到的问题</span><textarea id="actualIssues" placeholder="例如：右侧容易下坠、绣球补水慢">${esc((f.issues || []).join('、'))}</textarea></label><label class="wide"><span>备注</span><textarea id="actualNotes" placeholder="哪些地方好做，哪些地方下次要改">${esc(f.notes || '')}</textarea></label><div class="feedback-actions"><button class="primary" id="saveFeedback">保存成品记录</button><button class="secondary" type="button" data-workflow-stage="finished">标记作品已完成</button></div></form>${f.completed_at ? `<div class="feedback-summary"><b>已记录</b><p>${esc(f.actual_difficulty)} · ${f.minutes || 0} 分钟</p>${(f.issues || []).map((x) => `<span>${esc(x)}</span>`).join('')}</div>` : ''}</section>`;
     }
 
     function historyTab(p) {
-      return `<section class="panel history-panel"><div class="panel-head"><div><div class="kicker">Versions</div><h2 class="section-title">作品的每次关键变化都会留下记录。</h2></div><button class="secondary" id="restoreBackup">恢复浏览器上一版</button></div><div class="history-list">${
+      return `<section class="panel history-panel"><div class="panel-head"><div><div class="kicker">Versions</div><h2 class="section-title">修改记录与恢复快照</h2></div><button class="secondary" id="restoreBackup">查看上一份备份</button></div><section class="snapshots"><h3>可恢复的快照</h3><div id="snapshotList"><p>正在读取本机快照…</p></div></section><details class="history-details"><summary>查看修改记录</summary><div class="history-list">${
         (p.history || [])
           .slice()
           .reverse()
@@ -79,7 +79,7 @@
               `<article><span>${String((p.history || []).length - i).padStart(2, '0')}</span><div><b>${esc(h.summary || h.type)}</b><small>${new Date(h.at).toLocaleString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false })}</small></div></article>`
           )
           .join('') || '<p>暂无版本记录。</p>'
-      }</div></section>`;
+      }</div></details></section>`;
     }
 
     return { stepTitle, stepMaterials, buildTab, feedbackTab, historyTab };

@@ -16,7 +16,8 @@ function loadRuntime(source,fetchOverride){
   vm.runInNewContext(source,context,{filename:'runtime.js'});
   return context.FloraLabRuntime;
 }
-function digest(value){return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');}
+// The 1.5.2 fixture predates price provenance; product tests verify that new field separately.
+function digest(value){return crypto.createHash('sha256').update(JSON.stringify(value,(key,value)=>key==='price_source'?undefined:value)).digest('hex');}
 async function transcript(runtime,input){
   const call=(route,body)=>runtime.request('/api/design/'+route,{method:'POST',body:JSON.stringify(body)});
   const records={};
