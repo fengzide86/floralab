@@ -1,6 +1,6 @@
 # FloraLab Changelog
 
-## 1.4.0 — Foundation & Creative Flow (development)
+## 1.4.0 — Foundation & Creative Flow
 
 - Reworked new-project creation into an idea-first flow: idea / feeling / form / color clues / confirmed objects first, with budget and production constraints deferred.
 - Added Creative State with branch families, eight lock dimensions and controlled Composition Intent.

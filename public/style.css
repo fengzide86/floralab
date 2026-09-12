@@ -495,7 +495,7 @@ body{font-size:var(--text);line-height:1.52}
 @media(max-width:980px){.render-layout{grid-template-columns:1fr}.render-toolbar{flex-direction:column}.render-actions{justify-content:flex-start}.render-materials{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.render-layout{gap:18px}.render-frame{min-height:340px}.render-view-svg{min-height:330px}.render-caption{position:static;display:block;background:#f4f0ea}.render-actions{width:100%}.render-actions button{min-height:44px;flex:1}.render-materials{grid-template-columns:1fr}.render-freedom{grid-template-columns:1fr}.render-inline{grid-template-columns:1fr;gap:6px}.render-mini-grid>div{padding:14px}.render-spec-panel .panel-head{align-items:flex-start}.render-source{display:block;margin-top:8px}}
 
-/* FloraLab 1.3.1 · approved landing cover */
+/* FloraLab · approved landing cover */
 .hero-figure img.hero-cover{object-position:50% 50%;filter:none;background:#ebe6df}
 
 

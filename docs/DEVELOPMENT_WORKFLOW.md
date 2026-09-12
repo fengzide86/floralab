@@ -2,7 +2,7 @@
 
 ## 目标
 
-从 1.4 开始，FloraLab 不再把 GitHub `main` 当试验台，也不再把每一次小改动都送进完整 48 页发布 Gate。
+从 1.4 开始，FloraLab 不再把 GitHub `main` 当试验台，也不再把每一次小改动都送进完整发布 Gate。
 
 开发目标同时满足两件事：
 
@@ -70,7 +70,7 @@
 - Render 修改 → Desktop Render + Mobile Render
 - Blueprint 修改 → Blueprint 相关视图
 
-1.4 会把现在单个 `ui_1_3.py` 继续拆成互相独立的页面/功能测试，避免一个流程的状态污染另一个流程。
+1.4 已新增 `ui_1_4.py` 作为 54 页完整发布 Gate，并继续用 FAST / TARGETED 做日常增量验证。后续再把完整 Gate 按页面族进一步拆分，避免一个长流程的状态污染另一个流程。
 
 ### RELEASE GATE
 
