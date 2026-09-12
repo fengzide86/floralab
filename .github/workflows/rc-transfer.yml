@@ -1,0 +1,54 @@
+name: Restore FloraLab 1.4 RC Transfer
+
+on:
+  push:
+    branches:
+      - staging/1.4-rc-transfer
+    paths:
+      - '.rc-transfer/READY'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    if: github.event.head_commit.message == 'Trigger FloraLab 1.4 RC restore'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging transfer branch
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Reassemble and verify exact local RC archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .rc-transfer/rc.[0-9][0-9][0-9].b64 > /tmp/floralab-1.4-rc.b64
+          base64 -d /tmp/floralab-1.4-rc.b64 > /tmp/floralab-1.4-rc.tgz
+          echo "1faeb153edb0cfc8f8dcd066a8b2c2d2462e1bd58a6636f4d93cfbf4c47bd3e8  /tmp/floralab-1.4-rc.tgz" | sha256sum -c -
+          tar -tzf /tmp/floralab-1.4-rc.tgz > /tmp/entries.txt
+          if grep -Eq '(^/|(^|/)\.\.(/|$))' /tmp/entries.txt; then
+            echo "Unsafe archive path detected"
+            exit 1
+          fi
+
+      - name: Replace staging tree with exact validated RC source
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          tar -xzf /tmp/floralab-1.4-rc.tgz -C .
+          test "$(node -p "require('./package.json').version")" = "1.4.0"
+          test "$(node -p "require('./project-kit/HANDOFF_SCHEMA.json').schema")" = "floralab/2.0"
+
+      - name: Commit restored RC tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git status --short
+          git commit -m "Restore FloraLab 1.4 RC transfer tree"
+          git push origin HEAD:staging/1.4-rc-transfer
