@@ -89,6 +89,7 @@ def goto_tab(page,tab):
 
 def wait_detail_visual(page):
     page.wait_for_function("""()=>{const img=document.querySelector('.material-detail-workspace .material-visual img');return !!(img&&img.complete&&img.naturalWidth>0&&img.naturalHeight>0)}""",timeout=5000)
+    page.locator('.material-detail-workspace .material-visual img').evaluate("async img=>{await img.decode();await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));}")
 
 with sync_playwright() as p:
     chrome=os.getenv('FLORALAB_BROWSER') or shutil.which('google-chrome') or shutil.which('google-chrome-stable') or shutil.which('chromium') or shutil.which('chromium-browser')
@@ -496,7 +497,7 @@ with sync_playwright() as p:
             target.click('#mobileMenu [data-go="materials"]')
         target.click('[data-library-kind="creative"]')
         target.fill('#materialSearch','')
-        for key in ['acrylic','photo','card']:
+        for key in ['acrylic','photo','card','coffee']:
             target.click(f'[data-material-detail="creative:{key}"]')
             target.wait_for_selector('.creative-detail')
             wait_detail_visual(target)
@@ -506,6 +507,16 @@ with sync_playwright() as p:
             ck(overflow_ok(target),f'{prefix} {key} no overflow')
             ck(target.locator('.material-visual img').evaluate("e=>getComputedStyle(e).objectFit==='contain'"),f'{prefix} {key} full object visible')
             shot(target,f'1.4.1-{prefix}32-{key}.png')
+            target.click('[data-library-back]')
+        target.click('[data-library-kind="flower"]')
+        for key in ['ammi','astilbe','monstera','sweetpea','ref_057','ref_078','ref_080','ref_090','ref_111','ref_116']:
+            target.fill('#materialSearch','')
+            target.locator(f'[data-material-detail="flower:{key}"]').click()
+            target.wait_for_selector('.material-detail-layout');wait_detail_visual(target)
+            ck('Wikimedia Commons' in target.locator('.material-visual figcaption').inner_text(),f'{prefix} {key} curated photograph attribution')
+            ck(target.locator('.material-visual img').get_attribute('src').endswith('flower-'+key+'.webp'),f'{prefix} {key} correct packaged reference')
+            ck(overflow_ok(target),f'{prefix} {key} reference detail no overflow')
+            shot(target,f'1.4.1-{prefix}34-{key}.png')
             target.click('[data-library-back]')
     ck(not any('/api/' in x for x in network+mnet),'no HTTP API requests')
     ck(len(errors)==0,'desktop console errors: '+str(errors))

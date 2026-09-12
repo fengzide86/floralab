@@ -357,7 +357,7 @@ PUB_OUT.parent.mkdir(parents=True,exist_ok=True);PUB_OUT.write_text(json.dumps(r
 
 # Material-image audit sheets are supplemental QA, not a substitute for page-by-page UI review.
 names={**{'flower:'+x['id']:x['name'] for x in catalog['flowers']},**{'creative:'+x['id']:x['name'] for x in catalog['creative']}}
-font_paths=['/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.otf']
+font_paths=['/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc','/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.otf','C:/Windows/Fonts/msyh.ttc']
 font=ImageFont.load_default()
 for fp in font_paths:
     if Path(fp).exists():

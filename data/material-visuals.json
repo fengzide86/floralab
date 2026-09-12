@@ -35,6 +35,17 @@
       "source": "./assets/illustrations/creative-card.webp",
       "creator": "FloraLab · image_gen",
       "note": "AI 生成的通用物件形态示意，非实物照片；不用于材料鉴定或商品承诺。"
+    },
+    "creative:coffee": {
+      "image_type": "ai_illustration",
+      "verified": false,
+      "provider": "AI 形态示意",
+      "asset": "./assets/illustrations/creative-coffee.webp",
+      "local_asset": "./assets/illustrations/creative-coffee.webp",
+      "source": "./assets/illustrations/creative-coffee.webp",
+      "creator": "FloraLab · image_gen",
+      "note": "AI 生成的通用物件形态示意，非实物照片；不用于材料鉴定或商品承诺。",
+      "query": "drip coffee filter bag"
     }
   }
 }
