@@ -79,7 +79,7 @@ function branchPlanById(id){if(S.plan?.id===id)return S.plan;return (S.projects|
 function branchDiff(a,b){
   const map=x=>new Map((x.recipe||[]).filter(r=>['flower','creative'].includes(r.kind)).map(r=>[r.key,r]));
   const A=map(a),B=map(b),keys=new Set([...A.keys(),...B.keys()]),changes=[];
-  for(const key of keys){const x=A.get(key),y=B.get(key),name=y?.name||x?.name||key;if(!x)changes.push(\`\${name}：新增 \${y.quantity}\${y.unit||''}\`);else if(!y)changes.push(\`\${name}：移除\`);else if(Number(x.quantity)!==Number(y.quantity))changes.push(\`\${name}：\${x.quantity} → \${y.quantity}\${y.unit||''}\`);else if(String(x.variant||'')!==String(y.variant||''))changes.push(\`\${name}：\${x.variant||'—'} → \${y.variant||'—'}\`);}
+  for(const key of keys){const x=A.get(key),y=B.get(key),name=y?.name||x?.name||key;if(!x)changes.push(`${name}：新增 ${y.quantity}${y.unit||''}`);else if(!y)changes.push(`${name}：移除`);else if(Number(x.quantity)!==Number(y.quantity))changes.push(`${name}：${x.quantity} → ${y.quantity}${y.unit||''}`);else if(String(x.variant||'')!==String(y.variant||''))changes.push(`${name}：${x.variant||'—'} → ${y.variant||'—'}`);}
   return changes.slice(0,10);
 }
 function exploreTab(p){
@@ -146,20 +146,20 @@ function bindStructure(){
 }
 
 async function updateExplorationLock(key,value){
-  try{S.plan=await api('/api/design/update-exploration',{method:'POST',body:JSON.stringify({plan:S.plan,patch:{locks:{[key]:value}}})});save();S.tab='explore';renderTab();}catch(e){toast(\`锁定没有更新：\${e.message}\`);}
+  try{S.plan=await api('/api/design/update-exploration',{method:'POST',body:JSON.stringify({plan:S.plan,patch:{locks:{[key]:value}}})});save();S.tab='explore';renderTab();}catch(e){toast(`锁定没有更新：${e.message}`);}
 }
 async function createVariation(preset){
   try{
     S.plan=await api('/api/design/variation',{method:'POST',body:JSON.stringify({plan:S.plan,preset})});
-    S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.compareBranchId=null;save();S.tab='explore';result();toast(\`已创建新方向：\${S.plan.exploration?.branch?.label||'新分支'}\`);
-  }catch(e){toast(e.message==='variation_locked'?'这个方向要改变的部分已经全部锁定。':\`没有生成新方向：\${e.message}\`);}
+    S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.compareBranchId=null;save();S.tab='explore';result();toast(`已创建新方向：${S.plan.exploration?.branch?.label||'新分支'}`);
+  }catch(e){toast(e.message==='variation_locked'?'这个方向要改变的部分已经全部锁定。':`没有生成新方向：${e.message}`);}
 }
 async function openBranch(id){
   try{
     const row=(S.projects||[]).find(x=>x.id===id)||await idbGet('projects',id);
     if(!row?.state?.plan)return toast('没有找到这个方向');
     S.plan=row.state.plan;S.form={...S.form,...(row.state.form||{})};S.mode=row.state.mode||S.mode;S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.compareBranchId=null;S.tab='explore';save();result();
-  }catch(e){toast(\`没有打开这个方向：\${e.message}\`);}
+  }catch(e){toast(`没有打开这个方向：${e.message}`);}
 }
 async function patchRow(key,row){const patch={key,quantity:Number($('[data-qty]',row).value),owned:Number($('[data-owned]',row).value),unit_price:Number($('[data-price]',row).value)};try{S.plan=await api('/api/design/update-recipe',{method:'POST',body:JSON.stringify({plan:S.plan,patches:[patch]})});save();S.tab='recipe';result();}catch(e){toast(`没有更新成功：${e.message}`);}}
 async function updateBlueprint(action){try{S.plan=await api('/api/design/update-blueprint',{method:'POST',body:JSON.stringify({plan:S.plan,action})});if(!S.plan.blueprint.nodes.some(n=>n.id===S.selectedNode))S.selectedNode=S.plan.blueprint.nodes[0]?.id||null;save();S.tab='structure';result();}catch(e){toast(e.message==='node_locked'?'这枝已经锁定，先解锁再调整。':`结构没有更新：${e.message}`);}}
