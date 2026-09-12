@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-v13-render-handoff
+  group: pages-v14-foundation-creative-flow
   cancel-in-progress: true
 
 jobs:
@@ -68,11 +68,11 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: floralab-1.3-visual-pages
+          name: floralab-1.4-visual-pages
           path: |
-            qa/1.3-D*.png
-            qa/1.3-M*.png
-            qa/ui-1.3.json
+            qa/1.4-D*.png
+            qa/1.4-M*.png
+            qa/ui-1.4.json
             qa/material-visual-sources.json
             qa/material-visual-sheet-*.jpg
 
@@ -126,8 +126,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: floralab-1.3-online-visual-pages
+          name: floralab-1.4-online-visual-pages
           path: |
-            qa/1.3-D*.png
-            qa/1.3-M*.png
-            qa/ui-1.3.json
+            qa/1.4-D*.png
+            qa/1.4-M*.png
+            qa/ui-1.4.json
