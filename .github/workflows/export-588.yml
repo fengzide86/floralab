@@ -1,0 +1,31 @@
+name: Export FloraLab 588 Source Snapshot
+
+on:
+  push:
+    branches:
+      - staging/1.4-rc-transfer
+    paths:
+      - '.rc-transfer/SNAPSHOT'
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact 588 baseline
+        uses: actions/checkout@v6
+        with:
+          ref: 588b82958d08a830ae5d7d2eb059bf475bb2cacd
+          fetch-depth: 1
+      - name: Verify baseline SHA
+        run: test "$(git rev-parse HEAD)" = "588b82958d08a830ae5d7d2eb059bf475bb2cacd"
+      - name: Archive tracked source
+        run: git archive --format=zip --output=/tmp/floralab-588-source.zip HEAD
+      - name: Upload source snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: floralab-588-source
+          path: /tmp/floralab-588-source.zip
+          if-no-files-found: error
