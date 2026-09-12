@@ -6,7 +6,7 @@ const eq=(a,b,msg)=>{assert.deepStrictEqual(a,b,msg);checks++};
 function plan(extra={}){return S.createStudioPlan(catalog,{mode:'floral',type:'桌花',budget:300,colors:['紫色','白色'],style:'自然',size:'medium',...extra});}
 
 ok(catalog.flowers.length===117,'117 flowers');ok(catalog.creative.length===13,'13 creative');ok(catalog.flowers.some(x=>x.reference_only),'reference entries');
-let p=plan(); eq(p.engineVersion,'1.0.0');eq(p.handoff.schema,'floralab/1.0');eq(p.blueprint.version,'2.0');eq(p.blueprint.views,['front','left','back','right','top']);ok(p.blueprint.nodes.length>0);ok(p.blueprint.mechanics.anchors.length>0);ok(p.blueprint.vessel.height_cm>0);ok(new Set(p.blueprint.nodes.map(n=>n.id)).size===p.blueprint.nodes.length);
+let p=plan(); eq(p.engineVersion,'1.0.0');eq(p.handoff.schema,'floralab/2.0');eq(p.blueprint.version,'2.0');eq(p.blueprint.views,['front','left','back','right','top']);ok(p.blueprint.nodes.length>0);ok(p.blueprint.mechanics.anchors.length>0);ok(p.blueprint.vessel.height_cm>0);ok(new Set(p.blueprint.nodes.map(n=>n.id)).size===p.blueprint.nodes.length);
 for(const n of p.blueprint.nodes){ok(Number.isFinite(n.x)&&Number.isFinite(n.y)&&Number.isFinite(n.z));ok(Number.isFinite(n.length_cm));ok(Boolean(n.anchor_id));}
 for(const r of p.recipe){eq(r.to_buy,Math.max(0,r.quantity-r.owned));eq(r.subtotal,Number((r.to_buy*r.unit_price).toFixed(2)));}
 ok(p.assessment.buildability);ok(Array.isArray(p.composition.advice));ok(Array.isArray(p.history)&&p.history.length===1);ok(p.build&&Array.isArray(p.build.materials));
@@ -28,6 +28,6 @@ const br=p.recipe.find(x=>x.kind==='flower');p=S.updateBuild(catalog,p,{key:br.k
 p=S.recordFeedback(catalog,p,{actual_difficulty:'困难',minutes:75,issues:'右侧下坠、绣球补水慢',notes:'下次减轻右侧'});eq(p.resultFeedback.actual_difficulty,'困难');eq(p.resultFeedback.minutes,75);ok(p.resultFeedback.issues.length===2);ok(p.history.some(x=>x.type==='feedback'));
 
 let hand=S.handoffObject(p);let v=S.validateImportObject(hand,catalog);ok(v.ok,'valid handoff');let bad=JSON.parse(JSON.stringify(hand));bad.plan.recipe[0].quantity=-2;v=S.validateImportObject(bad,catalog);ok(!v.ok&&v.errors.some(x=>x.includes('quantity')),'negative rejected');bad=JSON.parse(JSON.stringify(hand));bad.plan.blueprint.nodes[1].id=bad.plan.blueprint.nodes[0].id;v=S.validateImportObject(bad,catalog);ok(!v.ok&&v.errors.some(x=>x.includes('重复')),'duplicate stem rejected');bad=JSON.parse(JSON.stringify(hand));bad.schema='floralab/9.9';v=S.validateImportObject(bad,catalog);ok(v.ok&&v.warnings.length>0,'unknown schema warning');
-const v5={schema:'floralab/0.5',plan:{...plan(),engineVersion:'0.5.0',handoff:{schema:'floralab/0.5',version:3},blueprint:{version:'1.0',nodes:[]}}};const migrated=S.migratePlan(catalog,v5);eq(migrated.handoff.schema,'floralab/1.0');eq(migrated.blueprint.version,'2.0');ok(migrated.history.some(x=>x.type==='migration'));
+const v5={schema:'floralab/0.5',plan:{...plan(),engineVersion:'0.5.0',handoff:{schema:'floralab/0.5',version:3},blueprint:{version:'1.0',nodes:[]}}};const migrated=S.migratePlan(catalog,v5);eq(migrated.handoff.schema,'floralab/2.0');eq(migrated.blueprint.version,'2.0');ok(migrated.history.some(x=>x.type==='migration'));
 const pub=S.publicCatalog(catalog);eq(pub.flowers.length,117);ok(pub.flowers.some(x=>x.reference_only));
 console.log(`engine-regression: ${checks} checks passed`);

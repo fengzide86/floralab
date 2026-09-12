@@ -1,18 +1,33 @@
 {
-  "schema": "floralab/1.0",
+  "schema": "floralab/2.0",
   "purpose": "creative-space-studio-handoff",
-  "preferred_sections": [
+  "authoritative_root": "plan",
+  "top_level_sections": [
+    "schema",
     "project",
-    "intent",
-    "recipe",
-    "dimensions",
-    "mechanics",
-    "blueprint",
     "render",
-    "build",
-    "resultFeedback",
-    "history"
+    "plan"
   ],
+  "compatibility": [
+    "floralab/1.0",
+    "floralab/0.5"
+  ],
+  "plan": {
+    "authoritative": true,
+    "preferred_sections": [
+      "creativeBrief",
+      "exploration",
+      "request",
+      "recipe",
+      "dimensions",
+      "vessel",
+      "mechanics",
+      "blueprint",
+      "build",
+      "resultFeedback",
+      "history"
+    ]
+  },
   "blueprint": {
     "version": "2.0",
     "views": [
@@ -27,11 +42,11 @@
     "version": "1.0",
     "purpose": "effect-render-handoff",
     "derived_from": [
-      "recipe",
-      "mechanics",
-      "blueprint"
+      "plan.recipe",
+      "plan.mechanics",
+      "plan.blueprint"
     ],
     "authoritative": false,
-    "conflict_rule": "recipe/mechanics/blueprint win and render is regenerated"
+    "conflict_rule": "plan.recipe / plan.mechanics / plan.blueprint win and render is regenerated"
   }
 }
