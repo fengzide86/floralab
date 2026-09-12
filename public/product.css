@@ -1268,4 +1268,6 @@ button:disabled {
   }
 }
 
-.variation-card button{width:calc(100% - 36px);box-sizing:border-box}@media(max-width:700px){.variation-card button{width:calc(100% - 32px)}}
+.variation-card button{width:calc(100% - 36px);box-sizing:border-box}
+.branch-compare{scroll-margin-top:200px}
+@media(max-width:700px){.variation-card button{width:calc(100% - 32px)}.branch-compare{scroll-margin-top:180px}}
