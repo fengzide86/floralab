@@ -45,10 +45,10 @@ ok(forked.exploration.locks.materials===true&&forked.exploration.locks.quantitie
 ok(forked.history.at(-1)?.type==='exploration-fork','fork is recorded in history');
 
 const exported=Studio.handoffObject(forked);
-ok(exported.exploration?.branch?.id===forked.exploration.branch.id,'handoff exports exploration metadata');
-ok(exported.recipe===forked.recipe,'handoff Recipe remains authoritative');
+ok(exported.plan.exploration?.branch?.id===forked.exploration.branch.id,'handoff canonical plan exports exploration metadata');
+ok(JSON.stringify(exported.plan.recipe)===JSON.stringify(forked.recipe),'handoff canonical Recipe remains authoritative');
 
-const old=Studio.handoffObject(plan);delete old.exploration;delete old.plan.exploration;
+const old=Studio.handoffObject(plan);delete old.plan.exploration;
 const migrated=Studio.migratePlan(catalog,old);
 ok(Boolean(migrated.exploration?.branch?.id),'old file gains exploration metadata on migration');
 ok(JSON.stringify(migrated.recipe)===recipeBefore,'migration does not alter Recipe while adding exploration');

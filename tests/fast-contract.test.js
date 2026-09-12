@@ -43,7 +43,8 @@ const engineSource=fs.readFileSync(path.join(root,'lib','engine.js'),'utf8');
 ok(engineSource.includes('if(!cost.hasBudget){}'),'missing budget is not silently treated as a fixed budget');
 const studioSource=fs.readFileSync(path.join(root,'lib','studio.js'),'utf8');
 const versions=require(path.join(root,'lib','versions.js'));
-ok(versions.HANDOFF_SCHEMA==='floralab/1.0','handoff schema constant');
+ok(versions.HANDOFF_SCHEMA==='floralab/2.0','handoff schema constant');
+ok(versions.PREVIOUS_HANDOFF_SCHEMA==='floralab/1.0','previous handoff schema remains supported');
 ok(versions.BLUEPRINT_VERSION==='2.0','Blueprint version constant');
 ok(versions.RENDER_SPEC_VERSION==='1.0','Render Spec version constant');
 ok(!studioSource.includes("schema:'floralab/1.0'"),'Studio uses shared schema constant');
@@ -63,5 +64,6 @@ ok(sw.includes(`floralab-${pkg.version}-shell-refresh`),'service worker cache fo
 ok(pkg.scripts['check:fast'].includes('check:generated'),'generated browser bundle syntax is gated');
 ok(pkg.scripts['check:fast'].includes('test:fast-contract'),'fast contract wired');
 ok(pkg.scripts['test:flow'],'creative flow regression is wired');
+ok(pkg.scripts['test:handoff'],'v2 handoff regression is wired');
 ok(pkg.scripts['test:release'],'release gate remains separate');
 console.log(`fast-contract: ${n} checks passed`);

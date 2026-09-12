@@ -76,7 +76,7 @@ for(const key of Object.keys(Grammar.PRESETS)){
 }
 
 const handoff=Studio.handoffObject(right);
-ok(handoff.compositionIntent?.preset==='rightRise','handoff exports composition intent');
-ok(handoff.exploration.branch.family_id===rootFamily,'handoff exports branch family');
+ok(handoff.plan.compositionIntent?.preset==='rightRise','handoff canonical plan exports composition intent');
+ok(handoff.plan.exploration.branch.family_id===rootFamily,'handoff canonical plan exports branch family');
 
 console.log(`variation-1.4: ${n} checks passed`);

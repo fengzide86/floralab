@@ -14,8 +14,8 @@ ok(Number(plan.cost?.budget||0)===0,'missing budget is not replaced by 300');
 ok(!(plan.checks||[]).some(x=>x.id==='budget'),'missing budget does not create a fake budget check');
 
 const handoff=Studio.handoffObject(plan);
-ok(handoff.intent?.idea===idea,'handoff intent exports idea');
-ok(handoff.creativeBrief?.idea===idea,'handoff exports creative brief');
+ok(handoff.plan.creativeBrief?.idea===idea,'handoff canonical plan exports idea');
+ok(!Object.prototype.hasOwnProperty.call(handoff,'creativeBrief'),'v2 avoids duplicate top-level creative brief');
 
 const varied=Studio.createVariation(catalog,plan,'rightRise');
 ok(varied.creativeBrief?.idea===idea,'variation preserves creative brief');
@@ -25,7 +25,7 @@ const forked=Studio.forkCreativePlan(plan,{label:'手动分支'});
 ok(forked.creativeBrief?.idea===idea,'manual branch preserves creative brief');
 
 const legacy=Studio.handoffObject(plan);
-delete legacy.creativeBrief;delete legacy.plan.creativeBrief;
+delete legacy.plan.creativeBrief;
 const migrated=Studio.migratePlan(catalog,legacy);
 ok(typeof migrated.creativeBrief?.idea==='string','old file receives creative brief metadata');
 
