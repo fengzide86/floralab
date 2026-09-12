@@ -1,0 +1,86 @@
+{
+  "baselineCommit": "137f282a7bae45d8f7bec069237f28ff16ecbffb",
+  "baselineVersion": "1.5.2",
+  "description": "Golden hashes from the released browser runtime, with fixed clock and UUID sequence. These protect behavior, including known product limitations, during structural refactoring.",
+  "scenarios": [
+    {
+      "name": "floral bouquet",
+      "input": {
+        "mode": "floral",
+        "type": "花束",
+        "colors": [
+          "紫色",
+          "白色"
+        ],
+        "style": "温柔、自然",
+        "size": "medium",
+        "designMonth": 9
+      },
+      "expected": {
+        "generated": "1d766878f74914455611a4aca123257b225c187028107eac0b07011379ddea6b",
+        "renderSpec": "a241256409f523065340bc2b05585a9fe59d6cc4103315b9d4ebe64fb97b13b5",
+        "handoff": "de07b3d274a4f26d080cdc61a85cc090472efb589e134175ce242b7d1e7bb809",
+        "purchase-edit": "70a3de3225fb291bf9b17c5fd64f4bde6c90033ed0201f7a68086c74bc0830d9",
+        "locked": "2d6bdf9331d75fb73d49e4011de690639c5a130dd69639d5292d86ea58295e87",
+        "variation": "744b0495ef35c86694e2e02facee73951f2cd886bbddd15ebcd4af14083b5c48",
+        "blueprint": "dcedb13b610fbc361697b62a7ac1036a523955fcc05cbfa238ea747e77ae6859",
+        "build": "5e05a402df40f8399008a4a2034736769a05d1779b50bb014b82000d6219c48d",
+        "feedback": "c7c0c705919d9b7242794fec0faa6240fe0eb0a20a11f3e8e7a98feae0d21ef9",
+        "imported": "a87f896ca1fb604934a7d7b12b291f00a5f4566a99c5f2f7cd826fdd7d5e0160"
+      }
+    },
+    {
+      "name": "minimal vase",
+      "input": {
+        "mode": "floral",
+        "type": "瓶插",
+        "colors": [
+          "白色",
+          "绿色"
+        ],
+        "style": "日式极简",
+        "size": "small",
+        "designMonth": 9
+      },
+      "expected": {
+        "generated": "91de060b9908240857605af73d55c5965a5311cacaeeb2e0c2cc169fbf127b02",
+        "renderSpec": "88715e91352c808e5d70e19a3e521705bcdffe0aaf74885780f75889d66dfaf7",
+        "handoff": "6adf0ddffb70f66d035e1e441f646b0ba13fea0970ebdf057391b48eebf86bf2",
+        "purchase-edit": "4cf318297f9e9e24cc9dbc1b18c0491c7e2eb2523d1eb54fe2defd5a91acdcc8",
+        "locked": "c6c1c182aa4d06f1e5d2a6886573c9f524d8731f152c9e3c26bf8b81de8f2c88",
+        "variation": "6f67e2a2194cb7109e2bf3fda8cba69c8e1156ece34fe12a19c140cdbd306039",
+        "blueprint": "eb547328703082b9a56e0d5ca62912eed83a415163286483c605fbe37fef3e39",
+        "build": "d3bf4df53c117ec70ca9b371e109157c3edd99da332ab3efed8c0d59787be7a2",
+        "feedback": "6fbc52784f5430a3da528bfe5dd028756a2e1993c9d1889a0d8551242269f2ac",
+        "imported": "202dd3578b4b08bd7edb2485ec91f9b8a9cfaaa03ca32c68f15ded82b3319610"
+      }
+    },
+    {
+      "name": "creative gift",
+      "input": {
+        "mode": "creative",
+        "type": "创意花束",
+        "colors": [
+          "粉色",
+          "白色"
+        ],
+        "style": "自然",
+        "existing": "1个小熊",
+        "size": "medium",
+        "designMonth": 9
+      },
+      "expected": {
+        "generated": "09c73da0ad1e70f138b7e9860c11fcee1fa7f2e9f07c5ede291c8bf80d8897e9",
+        "renderSpec": "2c6a994c2431d610f2546c978759a76c7b73703f5e73eac0010c9b332b09b2b2",
+        "handoff": "ce33f93a43baf9a280f86e5080281b181f2111f20ed263eaa80f7fc4b4d11c39",
+        "purchase-edit": "be736982961628a0fbd69dfeca5a5cb124abdadaca1c4cd54c4e40bf68a96196",
+        "locked": "008e31ecac01d367de839d0ac86cd0042bd20f089946bab77ef73ce39abfd159",
+        "variation": "387680f8c2148db868d13b576c2ae2c1d0f203e4a366cee51297157351289751",
+        "blueprint": "1cd26df353def9f2623fa878d499666cd16359e1cafd62ea6b03c8192add0665",
+        "build": "6d812792d729dfbb619c4587a6c29bc73445cc300151f65d5b390f77738f9b3c",
+        "feedback": "f2152a6cf9a435908d7ccf8f400255caa5ff2a66a878319af0c787a3908cb2d9",
+        "imported": "a53f37b023e31405033cae058ec9eaef2be87297485a110de5f7ff847e2e2502"
+      }
+    }
+  ]
+}

@@ -51,7 +51,7 @@ ok(!studioSource.includes("schema:'floralab/1.0'"),'Studio uses shared schema co
 const runtime=fs.readFileSync(path.join(pub,'runtime.js'),'utf8');
 const pkg=JSON.parse(fs.readFileSync(path.join(root,'package.json'),'utf8'));
 ok(runtime.includes(`version:${JSON.stringify(pkg.version)}`),'runtime version follows package');
-ok(runtime.includes("mode:'zero-api-pwa'"),'zero API runtime preserved');
+ok(/mode:\s*'zero-api-pwa'/.test(runtime),'zero API runtime preserved');
 ok(runtime.includes('buildRenderSpec'),'Render Spec bundled');
 ok(runtime.includes('/api/design/update-blueprint'),'Blueprint update route bundled');
 ok(runtime.includes('/api/design/update-exploration'),'creative lock route bundled');

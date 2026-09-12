@@ -1,5 +1,14 @@
 # FloraLab Changelog
 
+## 1.5.3 — Product foundation
+
+- Extracted Blueprint, Render, work/Recipe/print and making/feedback/history views from app.js, with explicit dependencies and read-only rendering contracts.
+- Extracted Recipe calculations and the in-process API adapter into domain modules. Replaced variable-name rewriting in the browser build with static CommonJS dependency bundling.
+- Catalog loading now retries after failure and coalesces concurrent requests.
+- Added released-browser golden regression scenarios, runtime failure checks, frozen-state view checks and automatic JavaScript syntax discovery.
+- Added the complete product optimization roadmap and architecture maintenance guide. Roadmap UI changes are planned, not part of this refactor.
+- Preserved storage keys, .floralab schema, material/structure semantics and existing visual behavior.
+
 ## 1.4.1 — Sprout Identity
 
 - Replaced the previous purple brand identity with a fresh Sprout Green system while preserving factual material and project colors.

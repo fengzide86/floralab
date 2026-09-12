@@ -41,7 +41,7 @@ ok(library.includes('宠物信息需核实'),'unknown pet risk user-facing label
 ok(library.includes("food?'食品'"),'creative food search');
 const app=fs.readFileSync(path.join(pub,'app.js'),'utf8');
 ok(app.includes('FloraLabLibrary.render'),'app loads library module');
-ok(app.includes('recipe-material-link'),'Recipe links to detail');
+ok(fs.readFileSync(path.join(pub,'views','work.js'),'utf8').includes('recipe-material-link'),'Recipe view links to detail');
 ok(app.includes("fetch('./data/material-visuals.json'"),'visual provenance registry loaded');
 const index=fs.readFileSync(path.join(pub,'index.html'),'utf8');
 ok(index.includes('./library.js'),'library script linked');
