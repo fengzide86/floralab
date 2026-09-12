@@ -35,7 +35,7 @@ ok(shell.includes("$('[data-go]').forEach"),'shell binds every navigation action
 ok(app.includes("$$('[data-tab]').forEach"),'all workspace tabs are bound');
 ok(app.includes("['render','效果图']"),'Render workspace remains present');
 ok(shell.includes('data-go="render"'),'Render has a discoverable top-level entry');
-ok(homeView.includes('assets/hero-render-study.webp'),'approved landing cover remains wired in Home view');
+ok(homeView.includes('assets/hero-sprout-identity.webp'),'approved landing cover remains wired in Home view');
 ok(!app.includes("version:'1.3.1'"),'app does not hard-code a release version');
 const serverSource=fs.readFileSync(path.join(root,'scripts','static-server.js'),'utf8');
 ok(serverSource.includes('PKG.version'),'dev server version follows package metadata');

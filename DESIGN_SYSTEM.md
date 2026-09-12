@@ -1,4 +1,4 @@
-# FloraLab 1.1 Design System — Atelier
+# FloraLab Design System — Atelier / Sprout Identity
 
 ## 产品气质
 
@@ -8,14 +8,14 @@ FloraLab 的视觉目标是：**现代花艺工作室 + 编辑杂志 + 专业制
 
 ## 颜色
 
-- Canvas：`#F4F1EA` 暖象牙白
-- Paper：`#FCFBF8`
+- Canvas：`#F7F7F0` 发芽期暖白
+- Paper：`#FCFCF7`
 - Ink：`#24211E` 墨黑褐
-- Sage：`#747B68` 植物灰绿
-- Plum：`#4B3545` 深梅紫
+- Sage：`#6F8664` 植物灰绿
+- Sprout：`#416B38` 发芽绿（品牌主强调）
 - Hairline：低对比暖灰
 
-避免高饱和 AI 紫蓝渐变、霓虹强调、大面积品牌色铺底和 Badge 彩虹化。
+避免高饱和 AI 紫蓝渐变、霓虹强调、大面积品牌色铺底和 Badge 彩虹化。品牌绿只承担导航、主操作、锁定/选中与结构引导；花材和作品自身颜色保持事实颜色。
 
 ## 字体
 

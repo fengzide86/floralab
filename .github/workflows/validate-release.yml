@@ -50,13 +50,14 @@ jobs:
       - name: Page-by-page visual gate
         run: npm run test:ui
 
-      - name: Upload 1.4 visual acceptance pages
+      - name: Upload 1.4.1 visual acceptance pages
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: floralab-1.4-rc-visual-pages
+          name: floralab-1.4.1-rc-visual-pages
           path: |
-            qa/*.png
-            qa/ui-*.json
+            qa/1.4.1-D*.png
+            qa/1.4.1-M*.png
+            qa/ui-1.4.1.json
             qa/material-visual-sources.json
             qa/material-visual-sheet-*.jpg

@@ -1,5 +1,15 @@
 # FloraLab Changelog
 
+## 1.4.1 — Sprout Identity
+
+- Replaced the previous purple brand identity with a fresh Sprout Green system while preserving factual material and project colors.
+- Adopted the user-approved sprout icon master for favicon, PWA, maskable and Windows desktop assets.
+- Replaced the landing cover with the user-approved Blueprint-to-reality white-and-green hero and refreshed Home copy around idea → direction → reality.
+- Added a returning-project continuation cue on Home without changing project data or branch semantics.
+- Rethemed navigation, actions, focus states, Direction/branch selection, Render structural guides and supporting surfaces to the new green system.
+- Kept material palette colors factual: purple flowers and user-selected purple palettes remain purple instead of being recolored by the brand theme.
+- Bumped runtime/package/service-worker to 1.4.1 and moved the 54-page visual gate to `qa/ui_1_4_1.py`.
+
 ## 1.4.0 — Foundation & Creative Flow
 
 - Reworked new-project creation into an idea-first flow: idea / feeling / form / color clues / confirmed objects first, with budget and production constraints deferred.
