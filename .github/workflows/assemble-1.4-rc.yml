@@ -1,0 +1,84 @@
+name: Assemble FloraLab 1.4 RC
+
+on:
+  push:
+    branches:
+      - 'release/1.4.0'
+    paths:
+      - '.github/rc-ui-1.4.py.gz.b64'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release/1.4.0
+          fetch-depth: 0
+
+      - name: Assemble exact locally accepted release sources
+        shell: python
+        run: |
+          from pathlib import Path
+          import base64, gzip, json
+
+          def replace(path, old, new):
+              p = Path(path)
+              s = p.read_text(encoding='utf-8')
+              if old not in s:
+                  raise SystemExit(f'Expected text not found in {path}: {old!r}')
+              p.write_text(s.replace(old, new), encoding='utf-8')
+
+          payload = Path('.github/rc-ui-1.4.py.gz.b64').read_text(encoding='utf-8').strip()
+          Path('qa/ui_1_4.py').write_bytes(gzip.decompress(base64.b64decode(payload)))
+
+          package = json.loads(Path('package.json').read_text(encoding='utf-8'))
+          package['version'] = '1.4.0'
+          package['description'] = 'FloraLab Studio 1.4.0 Foundation & Creative Flow - idea-first directions, lock-aware variations, branch compare, floralab v2'
+          package['scripts']['test:ui'] = 'python qa/ui_1_4.py'
+          Path('package.json').write_text(json.dumps(package, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+
+          replace('.github/workflows/deploy-pages.yml', 'pages-v13-render-handoff', 'pages-v14-foundation-creative-flow')
+          replace('.github/workflows/deploy-pages.yml', 'floralab-1.3-visual-pages', 'floralab-1.4-visual-pages')
+          replace('.github/workflows/deploy-pages.yml', 'qa/1.3-D*.png', 'qa/1.4-D*.png')
+          replace('.github/workflows/deploy-pages.yml', 'qa/1.3-M*.png', 'qa/1.4-M*.png')
+          replace('.github/workflows/deploy-pages.yml', 'qa/ui-1.3.json', 'qa/ui-1.4.json')
+          replace('.github/workflows/deploy-pages.yml', 'floralab-1.3-online-visual-pages', 'floralab-1.4-online-visual-pages')
+
+          old_validate = Path('.github/workflows/validate-1.3.yml')
+          validate = old_validate.read_text(encoding='utf-8')
+          validate = validate.replace('name: Validate FloraLab Development', 'name: Validate FloraLab Release Candidate')
+          validate = validate.replace("      - '!dev/1.4-*'", "      - '!dev/1.4-*'\n      - 'release/**'")
+          validate = validate.replace('Upload 1.3 visual acceptance pages', 'Upload 1.4 visual acceptance pages')
+          validate = validate.replace('floralab-dev-visual-pages', 'floralab-1.4-rc-visual-pages')
+          Path('.github/workflows/validate-release.yml').write_text(validate, encoding='utf-8')
+          old_validate.unlink()
+
+          replace('docs/DEVELOPMENT_WORKFLOW.md', '完整 48 页发布 Gate', '完整发布 Gate')
+          replace('docs/DEVELOPMENT_WORKFLOW.md', '1.4 会把现在单个 `ui_1_3.py` 继续拆成互相独立的页面/功能测试，避免一个流程的状态污染另一个流程。', '1.4 已新增 `ui_1_4.py` 作为 54 页完整发布 Gate，并继续用 FAST / TARGETED 做日常增量验证。后续再把完整 Gate 按页面族进一步拆分，避免一个长流程的状态污染另一个流程。')
+          replace('CHANGELOG.md', '## 1.4.0 — Foundation & Creative Flow (development)', '## 1.4.0 — Foundation & Creative Flow')
+          replace('public/service-worker.js', "const CACHE='floralab-1.3.1-shell-refresh';", "const CACHE='floralab-1.4.0-shell-refresh';")
+          replace('public/service-worker.js', "'./library.js','./app.js'", "'./library.js','./core/storage.js','./core/shell.js','./views/home.js','./views/create.js','./views/explore.js','./app.js'")
+          replace('public/style.css', '/* FloraLab 1.3.1 · approved landing cover */', '/* FloraLab · approved landing cover */')
+
+          qa_report = base64.b64decode('IyBGbG9yYUxhYiBTdHVkaW8gMS40LjAg4oCUIFJlbGVhc2UgQ2FuZGlkYXRlIFFBIFJlcG9ydAoK6aqM5pS25pel5pyf77yaMjAyNi0wOS0xMgoKIyMg57uT6K66CgoxLjQuMCDnmoTmnKzlnLAgUmVsZWFzZSBDYW5kaWRhdGUg5bey5a6M5oiQ5q2j5byP5Y+R5biD5YmN6aqM5pS244CC5b2T5YmN5Z+657q/5LulIGBmbG9yYWxhYi8yLjBgIOS9nOS4uuS9nOWTgeS6pOaOpee7k+aehO+8jOaWsOWiniBpZGVhLWZpcnN0IOWIm+W7uuOAgURpcmVjdGlvbiDlt6XkvZzljLrjgIE4IOexu+mUgeWumuOAgTYg5Liq5Y+X5o6n5p6E5Zu+5Y+Y5YyW44CB6Z2e56C05Z2P5byP5YiG5pSv5LiO5pa55ZCR5a+55q+U77yM5ZCM5pe25L+d55WZIDEuMyBSZW5kZXIgSGFuZG9mZuOAgUJsdWVwcmludOOAgUJ1aWxk44CBTWF0ZXJpYWwgTGlicmFyeSDkuI7ml6LmnInlr7zlhaXlhbzlrrnjgIIKCuacrOWcsOiHquWKqCBSZWxlYXNlIEdhdGXvvJoqKjc0NSAvIDc0NSoq44CC5a6M5pW05rWP6KeI5ZmoIFVJIEdhdGXvvJoqKjEwMyAvIDEwMyoq77yM55Sf5oiQICoqNTQg5byg6YCQ6aG15oiq5Zu+77yIMjYgRGVza3RvcCArIDI4IE1vYmlsZe+8iSoq44CCNTQg6aG15bey5oyJ5a6e6ZmF6aG16Z2i5bC65bqm5Lq65bel6YCQ6aG15qOA5p+l77yb55+t5pqCIFRvYXN0IOS4jei/m+WFpeacgOe7iOmqjOaUtuaIquWbvu+8jOadkOaWmeivpuaDheaIquWbvuetieW+heecn+WunuWbvueJh+aIkOWKn+ino+eggeWQjuWGjeS/neWtmOOAggoKfCDlpZfku7YgfCDnu5PmnpwgfAp8IC0tLSB8IC0tLTogfAp8IEVuZ2luZSByZWdyZXNzaW9uIHwgMTI2IC8gMTI2IHwKfCBSZW5kZXIgcmVncmVzc2lvbiB8IDM3IC8gMzcgfAp8IENyZWF0aXZlIFN0YXRlIDEuNCB8IDMzIC8gMzMgfAp8IFZhcmlhdGlvbiAxLjQgfCA0NiAvIDQ2IHwKfCBDcmVhdGl2ZSBGbG93IDEuNCB8IDE0IC8gMTQgfAp8IGAuZmxvcmFsYWJgIHYyIGhhbmRvZmYgfCAyNSAvIDI1IHwKfCBQcm9qZWN0IEtpdCB8IDQwIC8gNDAgfAp8IFN0YXRpYyBjb250cmFjdHMgfCA2NiAvIDY2IHwKfCBQV0EgbG9naWMgfCAzNSAvIDM1IHwKfCBJY29uIC8gYXNzZXQgZGltZW5zaW9ucyB8IDE2IC8gMTYgfAp8IE1hdGVyaWFsIExpYnJhcnkgfCAxOTEgLyAxOTEgfAp8IDM4IOS4quecn+WunuWcuuaZryB8IDExNiAvIDExNiB8CnwgKipSZWxlYXNlIEdhdGUg5ZCI6K6hKiogfCAqKjc0NSAvIDc0NSoqIHwKfCBCcm93c2VyIFVJIHwgKioxMDMgLyAxMDMqKiB8CnwgVmlzdWFsIHBhZ2VzIHwgKio1NO+8mjI2IERlc2t0b3AgKyAyOCBNb2JpbGUqKiB8CgojIyAxLiAxLjQgQ3JlYXRpdmUgRmxvdwoKLSDmlrDlu7rkvZzlk4HlhYjooajovr7mg7Pms5XjgIHmhJ/op4njgIHlvaLlvI/jgIHpopzoibLlkozlt7Lnoa7lrprnianku7bvvJvpooTnrpfjgIHlsLrlr7jjgIHmnIjku73jgIHlrqDniankuI4gTWVjaGFuaWNzIOaUtui/m+eOsOWunuWItuS9nOe6puadn+OAggotIOaWsOS9nOWTgeeUn+aIkOWQjuWFiOi/m+WFpeOAjOaWueWQkeOAje+8jOiAjOS4jeaYr+iiq+S4k+S4muihqOWNlei/h+aXqeaJk+aWreOAggotIENyZWF0aXZlIFN0YXRlIOS/neWtmCBicmFuY2ggLyBmYW1pbHkgLyBsb2NrcyAvIGxhc3RWYXJpYXRpb27jgIIKLSDplIHlrprnu7TluqbvvJptYXRlcmlhbHMgLyBjb2xvcnMgLyBxdWFudGl0aWVzIC8gdmVzc2VsIC8gc3BlY2lhbF9vYmplY3RzIC8gcGFja2FnaW5nIC8gbWVjaGFuaWNzIC8gc3RydWN0dXJl44CCCi0g5YWt5Liq5Y+X5o6n5pa55ZCR77ya6L2755uI55WZ55m944CB5Y+z5LiK5bu25Ly444CB5bem5L6n6IiS5bGV44CB5L2O5L2N5qiq5ZCR44CB6ZuV5aGR5oSf44CB5pS25p2f6IGa54Sm44CCCi0gVmFyaWF0aW9uIOmHh+eUqOmdnuegtOWdj+W8jyBGb3Jr77yb5Y6f5pa55ZCR5L+d55WZ77yM5bm25Y+v5Zyo5ZCM5LiA5L2c5ZOB5a625peP5Lit5YiH5o2i5ZKM5a+55q+U44CCCgojIyAyLiBgLmZsb3JhbGFiYCAyLjAKCmBmbG9yYWxhYi8yLjBgIOS9v+eUqOS4gOS4qiBjYW5vbmljYWwgYXV0aG9yaXRhdGl2ZSBwbGFuIOS9nOS4uuWNleS4gOS6i+Wunua6kOOAglJlY2lwZSAvIE1lY2hhbmljcyAvIEJsdWVwcmludCDku43mmK/noa7lrprmgKfkuovlrp7vvJtSZW5kZXIgU3BlYyDkuLrnlLHov5nkupvkuovlrp7mjqjlr7znmoTpnZ7mnYPlqIHlv6vnhafvvIzkuI3lu7rnq4vnrKzkuozku73lj6/nvJbovpEgUmVjaXBl44CC5penIGBmbG9yYWxhYi8xLjBgIOS4jiBgMC41YCDmlofku7bkv53mjIHlj6/lr7zlhaXlubbov4Hnp7vjgIIKCiMjIDMuIEZvdW5kYXRpb24KCi0gYHBhY2thZ2UuanNvbmAg5pivIFN0dWRpbyDlupTnlKjniYjmnKzllK/kuIDkuovlrp7mupDvvJsxLjQuMCDnmoQgcnVudGltZSAvIHNlcnZpY2Ugd29ya2VyIOaehOW7uuS7jui/memHjOa0vueUn+eJiOacrOOAggotIFN0dWRpbyBzY2hlbWEgLyBCbHVlcHJpbnQgLyBSZW5kZXIgLyBFbmdpbmUg54mI5pys6ZuG5Lit5ZyoIGBsaWIvdmVyc2lvbnMuanNg44CCCi0g5rWP6KeI5Zmo5a2Y5YKo5L2/55So56iz5a6a44CB54mI5pys5peg5YWz55qEIGtlee+8jOW5tui/geenu+aXouaciSAxLjEgLyAxLjAgLyBWNSAvIFY0IOaVsOaNruOAggotIFN0b3JhZ2XjgIFTaGVsbOOAgUhvbWXjgIFDcmVhdGXjgIFEaXJlY3Rpb24g5bey5LuO5pen5Y2V5L2T5YmN56uv5Lit5ouG5YiG77yM5bm257qz5YWl6K+t5rOVIC8gRmFzdCBHYXRl44CCCgojIyA0LiBNYXRlcmlhbCBMaWJyYXJ5IOS4jueOsOWunuS/oeaBrwoK5Y+R5biD5YmN5p2Q5paZ5Zu+5a6h6K6h5L+d5oyBIDEzMCDkuKrlj6/op4bmnaHnm67lhajpg6jlj6/op6PmnpDvvIzlj5HluIPljIXnu6fnu63nlLEgYHFhL21hdGVyaWFsX3Zpc3VhbF9zb3VyY2VzLnB5YCDnlJ/miJDmnKzlnLDplZzlg4/otYTmupDjgILkurrlt6XpgJDpobXnibnliKvlpI3mn6XvvJoKCi0g54yr546v5aKD6auY6aOO6Zmp5LiN5rOE6Zyy5YaF6YOo5YC8IGBibG9ja19jYXRg44CCCi0g5Yib5oSP54mp5paZ6K+m5oOF5LiN5Ye6546w5a2X6Z2i6YePIGBcbmDjgIFgdW5kZWZpbmVkYOOAgWBudWxsYOOAgWBbb2JqZWN0IE9iamVjdF1gIOetieWGhemDqCB0b2tlbuOAggotIOWPguiAg+adoeebruaYjuehruagh+iusOmcgOaguOWunu+8jOS4jeaKiuacquefpeWuoOeJqemjjumZqeOAgeWto+iKguaIlue7k+aehOmAgumFjeWGmeaIkOehruWumuS6i+WunuOAggotIOmjn+WTgeeJqeaWmeS/neeVmeS4juiKseawtCAvIOa5v+iKseazpemalOemu+aPkOmGkuOAggoKIyMgNS4gVmlzdWFsIEdhdGUKCjEuNCDlrozmlbTop4bop4kgR2F0ZSDkuLogYHFhL3VpXzFfNC5weWDvvJoKCi0gRGVza3RvcCAyNiDpobXjgIIKLSBNb2JpbGUgMjgg6aG144CCCi0g5L+d55WZIDEuMyDnmoTpppbpobXjgIHliJvlu7rjgIFPdmVydmlld+OAgVJlY2lwZeOAgVN0cnVjdHVyZeOAgVJlbmRlcuOAgUJ1aWxk44CBRmVlZGJhY2vjgIFIaXN0b3J544CB5p2Q5paZ5bqT44CB5a6J6KOF5LiOIENyZWF0aXZlIFNwYWNlIOimhuebluOAggotIOaWsOWiniBEaXJlY3Rpb24g5Yid5aeL54q25oCB44CBVmFyaWF0aW9uIOWIl+ihqOOAgUJyYW5jaCBDb21wYXJlIOeahCBEZXNrdG9wIC8gTW9iaWxlIOmhtemdouOAggotIOaIquWbvuWJjeetieW+hSB0cmFuc2llbnQgdG9hc3Qg5raI5aSx77yb5p2Q5paZ6K+m5oOF562J5b6FIGA8aW1nPmAg5a6M5oiQ6Kej56CB5bm25YW35pyJ5pyJ5pWIIG5hdHVyYWxXaWR0aCAvIG5hdHVyYWxIZWlnaHTjgIIKCiMjIDYuIOWPkeW4g+i+ueeVjAoK5pys5oql5ZGK6K6w5b2VICoqMS40LjAg5pys5ZywIFJDKiog55qE5pyA57uI5Y+R5biD5YmN5LqL5a6e44CC5q2j5byP5Lqk5LuY6L+Y5b+F6aG757uP6L+HIEdpdEh1YiByZWxlYXNlIGJyYW5jaCBydW5uZXLjgIHlkIjlhaUgYG1haW5g44CBUGFnZXMg6YOo572y5Lul5Y+K57q/5LiK5ZCM5LiA5aWXIDU0IOmhtSBHYXRl77yb5pyA57uIIGNvbW1pdCBTSEHjgIFBY3Rpb25zIHJ1biDlkoznur/kuIrnu5PmnpzorrDlvZXlnKggRmxvcmFMYWIg55qEIEdvb2dsZSBEcml2ZSDplb/mnJ/ov5vluqbmlofmoaPkuK3jgIIK').decode('utf-8')
+          Path('QA_REPORT.md').write_text(qa_report, encoding='utf-8')
+
+          Path('.github/rc-ui-1.4.py.gz.b64').unlink()
+          Path('.github/workflows/assemble-1.4-rc.yml').unlink()
+
+      - name: Static sanity check
+        run: npm run test:static
+
+      - name: Commit assembled release candidate
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --check
+          git commit -m "Prepare FloraLab Studio 1.4.0 release candidate [assembled]"
+          git push origin HEAD:release/1.4.0
