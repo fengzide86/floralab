@@ -1,5 +1,14 @@
 # FloraLab Changelog
 
+## 1.4.0 — Foundation & Creative Flow
+
+- Reworked new-project creation into an idea-first flow: idea / feeling / form / color clues / confirmed objects first, with budget and production constraints deferred.
+- Added Creative State with branch families, eight lock dimensions and controlled Composition Intent.
+- Added six deterministic composition variations and a Direction workspace for locking, forking, switching and comparing branches.
+- Added Fast / Targeted / Release validation layers and extracted browser Storage, Shell, Home, Create and Direction modules from the monolithic app.
+- Introduced `floralab/2.0`: one canonical authoritative `plan`, lightweight top-level project metadata, and a derived non-authoritative Render Spec snapshot. Existing `floralab/1.0` and `0.5` files remain importable.
+
+
 ## 1.3.1 — Cover & Render Workspace Discovery
 
 - Replaced the landing-page placeholder illustration with the user-approved floral study artwork, cropped from the supplied reference rather than regenerated.

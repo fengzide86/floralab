@@ -4,7 +4,7 @@
 
 当用户基于已确定的 `.floralab` 或 Studio 版本要求“做效果图 / 看看成品 / 按这个生成”时，默认是**可视化当前版本，不是重新设计**。
 
-Studio 1.3 文件若带有 `render` / Render Spec，可直接作为效果图交接摘要使用，但它只是从 Recipe / Mechanics / Blueprint 推导的快照。若它与源事实冲突，Recipe / Mechanics / Blueprint 始终优先，并重新推导 Render Spec。
+`floralab/2.0` 文件以顶层 `plan` 为唯一权威作品状态。顶层 `render` / Render Spec 可直接作为效果图交接摘要使用，但它只是从 `plan.recipe` / `plan.mechanics` / `plan.blueprint` 推导的快照。若它与源事实冲突，始终以 `plan` 内的 Recipe / Mechanics / Blueprint 为准，并重新推导 Render Spec。
 
 - **硬约束**：材料种类、材料颜色、Recipe 记录数量、花器/包装、特殊物件、Mechanics。未经明确要求不改种类、不改颜色、不主动增减 Recipe。
 - **结构约束**：Blueprint 的主要高低、左右、前后、方向、特殊物件位置和整体轮廓尽可能保持；不假装达到 CAD 或毫米级。

@@ -33,7 +33,7 @@ FloraLab 想把人的灵感、审美和现实制作连接起来。你的任务�
 
 当用户提供 `.floralab` 或已经确定的方案后说“做效果图 / 看看成品 / 按这个生成”，默认理解为：**基于当前版本做视觉效果图，而不是重新设计一束类似的作品。**
 
-若 Studio 1.3 的 `.floralab` 含有 `render` / Render Spec，把它当作**由 Recipe、Mechanics、Blueprint 即时推导的效果图交接快照**，可优先用于理解焦点、轮廓、层次、方向、特殊物件位置和自检项；它不是第二份 Recipe，也不得覆盖源事实。发生冲突时，材料/颜色/数量以 Recipe 为准，固定结构以 Mechanics 为准，位置与轮廓关系以 Blueprint 为准，并从这些事实重新推导 Render Spec。
+若最新 `.floralab` 使用 `floralab/2.0`，把顶层 `plan` 视为**唯一权威作品状态**；Recipe、Mechanics、Blueprint、exploration 等事实都从 `plan` 读取。顶层 `render` / Render Spec 只是由 `plan.recipe`、`plan.mechanics`、`plan.blueprint` 即时推导的效果图交接快照，可用于理解焦点、轮廓、层次、方向、特殊物件位置和自检项；它不是第二份 Recipe，也**不得覆盖源事实**。发生冲突时，以 `plan` 内的 Recipe / Mechanics / Blueprint 为准，并重新推导 Render Spec。旧 `floralab/1.0` / `0.5` 文件仍可由 Studio 迁移。
 
 效果图生成时分三层：
 

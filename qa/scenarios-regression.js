@@ -13,7 +13,7 @@ const bases=[
  ['无植物创意',{mode:'creative',type:'创意装置',budget:200,colors:['蓝色','白色'],style:'极简',avoid:'完全不要植物',existing:'1个小熊、3张照片'}],
  ['已有花材',{mode:'floral',type:'花束',budget:200,colors:['白色','紫色'],existing:'8枝白玫瑰、2张包装纸'}]
 ];
-for(const [name,input] of bases)run(name,input,p=>{ok(p.handoff.schema==='floralab/1.0',name+' schema');ok(p.blueprint.views.length===5,name+' views');ok(new Set(p.blueprint.nodes.map(n=>n.id)).size===p.blueprint.nodes.length,name+' ids');ok(p.recipe.every(r=>r.to_buy===Math.max(0,r.quantity-r.owned)),name+' recipe');});
+for(const [name,input] of bases)run(name,input,p=>{ok(p.handoff.schema==='floralab/2.0',name+' schema');ok(p.blueprint.views.length===5,name+' views');ok(new Set(p.blueprint.nodes.map(n=>n.id)).size===p.blueprint.nodes.length,name+' ids');ok(p.recipe.every(r=>r.to_buy===Math.max(0,r.quantity-r.owned)),name+' recipe');});
 run('猫与百合',{mode:'floral',type:'花束',budget:300,colors:['白色'],preferred:'百合',petContext:'家里有猫'},p=>ok(p.checks.some(c=>c.id==='pet-lily'&&c.status==='block')));
 run('大尺寸低预算',{mode:'floral',type:'桌花',budget:60,colors:['紫色','白色'],size:'large'},p=>ok(p.checks.some(c=>c.id==='budget'&&c.status==='block')));
 run('效果优先超预算',{mode:'floral',type:'桌花',budget:60,budgetPriority:'effect',colors:['紫色','白色'],size:'large'},p=>ok(p.checks.some(c=>c.id==='budget'&&c.status==='warn')));

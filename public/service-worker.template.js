@@ -1,4 +1,4 @@
-const CACHE='floralab-1.4.0-shell-refresh';
+const CACHE='floralab-__FLORALAB_VERSION__-shell-refresh';
 const CORE=['./','./index.html','./style.css','./runtime.js','./library.js','./core/storage.js','./core/shell.js','./views/home.js','./views/create.js','./views/explore.js','./app.js','./manifest.webmanifest','./data/catalog.json','./data/material-visuals.json','./data/material-visual-queries.json','./data/material-visual-sources.json','./icons/icon-32.png','./icons/icon-192.png','./icons/icon-512.png','./icons/icon-180.png','./assets/hero-render-study.webp'];
 const NETWORK_FIRST=['/','/index.html','/style.css','/runtime.js','/library.js','/app.js','/manifest.webmanifest'];
 function isNetworkFirst(request){try{const u=new URL(request.url);return NETWORK_FIRST.some(x=>x==='/'?u.pathname.endsWith('/'):u.pathname.endsWith(x));}catch{return false;}}

@@ -16,8 +16,8 @@ ok(Array.isArray(spec.self_check)&&spec.self_check.length>=6,'self check exists'
 ok(!JSON.stringify(spec).includes('还原率'),'no fake fidelity percentage');
 const handoff=Studio.handoffObject(plan);
 ok(handoff.render&&handoff.render.version==='1.0','handoff exports Render Spec');
-ok(handoff.recipe===plan.recipe,'handoff keeps original Recipe');
-ok(!Object.prototype.hasOwnProperty.call(handoff.plan,'render'),'nested plan remains source-only');
+ok(JSON.stringify(handoff.plan.recipe)===JSON.stringify(plan.recipe),'handoff canonical plan keeps original Recipe');
+ok(!Object.prototype.hasOwnProperty.call(handoff,'recipe'),'v2 removes duplicated top-level Recipe');ok(!Object.prototype.hasOwnProperty.call(handoff.plan,'render'),'canonical plan remains source-only');
 const row=plan.recipe.find(x=>['flower','creative'].includes(x.kind)&&x.quantity>0);
 const changed=Studio.updateRecipe(catalog,plan,[{key:row.key,quantity:row.quantity+1,owned:row.owned,unit_price:row.unit_price}]);
 const changedSpec=Studio.buildRenderSpec(changed),changedMat=changedSpec.materials.find(x=>x.key===row.key);
@@ -37,7 +37,7 @@ ok(validation.ok,'stale Render does not block source-compatible import');
 ok(validation.warnings.some(x=>x.includes('Render Spec 与 Recipe 数量不一致')),'stale Render mismatch is warned');
 const old=Studio.handoffObject(plan);delete old.render;
 const oldV=Studio.validateImportObject(old,catalog),migrated=Studio.migratePlan(catalog,old),regen=Studio.handoffObject(migrated);
-ok(oldV.ok,'old 1.0 file without Render remains valid');
+ok(oldV.ok,'v2 file without Render remains valid');
 ok(regen.render&&regen.render.materials.length>0,'old file regenerates Render on export');
 
 // Regression fixture from the real failures that motivated 1.3: white flowers must not

@@ -1,0 +1,30 @@
+{
+  "name": "FloraLab Studio Dev",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    }
+  },
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "4gb"
+  },
+  "forwardPorts": [4173],
+  "portsAttributes": {
+    "4173": {
+      "label": "FloraLab Studio",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "postCreateCommand": "npm run check:syntax",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.formatOnSave": false,
+        "files.trimTrailingWhitespace": true,
+        "javascript.validate.enable": true
+      }
+    }
+  }
+}
