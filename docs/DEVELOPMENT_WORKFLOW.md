@@ -99,3 +99,9 @@ Codespaces 使用个人账户每月包含额度；当前 GitHub Free 为 120 cor
 - 自动测试应该尽量测行为，不只测源码字符串。
 - 真实图片必须验证成功解码，不只验证路径。
 - 导航和交互必须实际点击验证，不只检查文字存在。
+
+## 1.4.1 Sprout Identity patch
+
+1.4.1 继续使用同一发布边界：独立本地工作目录 → 完整自动 Gate → Desktop / Mobile 逐页人工检查 → release branch RC → 同一已验证 tree 进入 main → Pages → 正式线上逐页复验。
+
+1.4.1 的完整 UI Gate 为 `qa/ui_1_4_1.py`，输出 54 张以 `1.4.1-` 开头的逐页截图。

@@ -1,8 +1,8 @@
 {
   "name": "floralab-studio",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
-  "description": "FloraLab Studio 1.4.0 Foundation & Creative Flow - idea-first directions, lock-aware variations, branch compare, floralab v2",
+  "description": "FloraLab Studio 1.4.1 Sprout Identity - green brand system, approved sprout icon and Blueprint-to-reality home",
   "scripts": {
     "build": "node scripts/build-runtime.js && node scripts/build-service-worker.js && python scripts/build-icons.py",
     "start": "node scripts/static-server.js",
@@ -10,7 +10,7 @@
     "test:project": "node tests/project-kit-1.1.test.js",
     "test:static": "node tests/static-1.1.test.js",
     "test:scenarios": "node qa/scenarios-regression.js",
-    "test:ui": "python qa/ui_1_4.py",
+    "test:ui": "python qa/ui_1_4_1.py",
     "test:qa": "npm run test:release && npm run test:ui",
     "test:pwa": "node tests/pwa-1.1.test.js && python qa/assets_1_1.py",
     "test:release": "npm run build && npm run test:core && npm run test:render && npm run test:creative && npm run test:variation && npm run test:flow && npm run test:handoff && npm run test:project && npm run test:static && npm run test:pwa && npm run test:library && npm run test:scenarios",
