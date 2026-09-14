@@ -26,19 +26,7 @@ fs.copyFileSync(
   path.join(ROOT, 'data', 'material-visual-queries.json'),
   path.join(ROOT, 'public', 'data', 'material-visual-queries.json')
 );
-const libraryPartDir = path.join(ROOT, 'data', 'library-source-parts');
-const libraryParts = fs
-  .readdirSync(libraryPartDir)
-  .filter((x) => x.startsWith('library.part.'))
-  .sort();
-if (!libraryParts.length)
-  throw new Error('FloraLab 1.2 library source is missing');
-fs.writeFileSync(
-  path.join(ROOT, 'public', 'library.js'),
-  libraryParts
-    .map((x) => fs.readFileSync(path.join(libraryPartDir, x), 'utf8'))
-    .join('')
-);
+fs.copyFileSync(path.join(ROOT, 'browser', 'library.js'), path.join(ROOT, 'public', 'library.js'));
 fs.mkdirSync(path.join(ROOT, 'project-kit'), { recursive: true });
 fs.copyFileSync(
   path.join(ROOT, 'data', 'catalog.json'),

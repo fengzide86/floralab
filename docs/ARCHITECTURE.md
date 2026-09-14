@@ -77,7 +77,14 @@ index.html
 
 打包器只支持当前项目采用的静态字符串 require，不支持动态 require、ESM、npm 依赖解析、代码分割或 source map。如这些需求出现，应采用成熟构建工具；不要继续扩展成自制通用打包器。保持无运行时第三方依赖，降低当前静态站部署复杂度。
 
-public/runtime.js、public/library.js、public/data 与图标由现有脚本产生，不应直接修改生成内容。库源目前仍是 data/library-source-parts；这是保留的技术债务，不属于本轮已拆分部分。
+public/runtime.js、public/library.js、public/data 与图标由现有脚本产生，不应直接修改生成内容。材料库源码现位于 browser/library.js，替代原来七段文本拼接；构建时复制为 public/library.js。
+
+## 1.7 的页面接续与存储边界
+
+- public/core/navigation.js 负责地址、前进后退和滚动恢复；app.js 负责将路线转换成实际页面。导航位置写入 meta，不写回整份作品。
+- public/core/drafts.js 保存尚未生成方案的表单，使用独立 floralab-studio-draft 键。生成作品提交成功后才清除，读取和写入失败均返回明确结果。
+- public/core/storage.js 在同一 IndexedDB 事务中比较本页读过的作品基线，阻止旧标签覆盖新内容。openProject 读取最新记录，commitPlan 成功后才更新页面状态。冲突候选保留供导出。
+- qa/continuity_1_7.py 验证草稿和导航，qa/reliability_1_6.py 验证并发标签与成品记录，旧版升级和空间触摸验收继续保留。
 
 ## 兼容与测试
 

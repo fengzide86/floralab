@@ -86,13 +86,23 @@
             : stage === 'finished'
               ? '保存这次作品为已完成'
               : '选为制作方案',
-        body: `<p><strong>${esc(p.title)}</strong> · ${esc(p.exploration?.branch?.label || '主线')}</p><p>${stage === 'exploring' ? '阶段将改为探索中，已有材料和图片会保留。' : '当前方向将成为这组作品的制作方案。材料、颜色、数量、花器、包装、特殊物件、固定与主结构会锁定；其他方向仍可查看。'}</p><p>${p.recipe
+        body: `<p><strong>${esc(p.title)}</strong> · ${esc(p.exploration?.branch?.label || '主线')}</p><p>${stage === 'exploring' ? '阶段将改为探索中，已有材料和图片会保留。' : stage === 'finished' ? '保存当前填写的耗时、问题与体会，并将作品标记为已完成。之后仍可打开作品继续记录。' : '当前方向将成为这组作品的制作方案。材料、颜色、数量、花器、包装、特殊物件、固定与主结构会锁定；其他方向仍可查看。'}</p><p>${p.recipe
           .filter((r) => r.quantity > 0)
           .map((r) => `${esc(r.name)} ${r.quantity}${esc(r.unit)}`)
           .join(' · ')}</p>`,
         confirm: stage === 'finished' ? '标记完成' : '确认阶段',
         onConfirm: async () => {
-          const plan = studio.updateRecord(p, { stage });
+          if(S.plan?.id!==p.id)throw new Error('当前作品已经改变，请重新确认阶段');
+          let current=S.plan;
+          const feedbackForm=stage==='finished'&&document.querySelector('#feedbackForm');
+          if(feedbackForm){
+            const value=id=>feedbackForm.querySelector('#'+id).value;
+            current=studio.recordFeedback(S.designCatalog,current,{
+              actual_difficulty:value('actualDifficulty'),minutes:Number(value('actualMinutes')||0),
+              issues:value('actualIssues'),notes:value('actualNotes')
+            });
+          }
+          const plan = studio.updateRecord(current, { stage });
           await storage.commitPlan(plan, {
             selection: {
               family: family(p),
@@ -130,10 +140,12 @@
     }
     async function exportPlan(includeMedia = true) {
       try {
-        let handoff = studio.handoffObject(S.plan);
+        const pending=S.saveConflict?.projectId===S.plan.id?S.saveConflict.plan:null;
+        const exporting=pending||S.plan;
+        let handoff = studio.handoffObject(exporting);
         handoff.plan.workflow = {
           ...handoff.plan.workflow,
-          selectedForMaking: selected()
+          selectedForMaking: selected(exporting)
         };
         if (includeMedia) handoff = await media.attachExport(handoff);
         else {
@@ -147,12 +159,12 @@
           a = document.createElement('a');
         a.href = url;
         a.download =
-          (S.plan.title || 'FloraLab').replace(/[\\/:*?"<>|\s]+/g, '-') +
+          (exporting.title || 'FloraLab').replace(/[\\/:*?"<>|\s]+/g, '-') +
           '.floralab';
         a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
         toast(
-          includeMedia ? '已导出设计与可用图片' : '已导出材料与结构，不含图片'
+          pending?'已导出本页未保存的修改，请妥善保留文件':includeMedia ? '已导出设计与可用图片' : '已导出材料与结构，不含图片'
         );
       } catch (error) {
         toast(error.message);

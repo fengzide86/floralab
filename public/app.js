@@ -18,6 +18,26 @@ const {renderSpecFor,renderRenderView,renderHandoffTab}=window.FloraLabRenderVie
 const Records=window.FloraLabRuntime.Records;
 const Storage=window.FloraLabStorage.create({state:S,cleanTitle,onStatus:status=>{const e=$('#saveState');if(e){e.textContent=status.label;e.dataset.tone=status.tone;}}});
 const {idbPut,idbGet,idbAll,snapshot,save,load}=Storage;
+const Drafts=window.FloraLabDrafts.create();
+const emptyForm=()=>({idea:'',type:'花束',colors:[],budget:0,budgetPriority:'balance',style:'',existing:'',size:'medium',designMonth:MONTH,region:'',preferred:'',avoid:'',petContext:'',mechanicPreference:''});
+let draftMemory=null,draftStatus=null;
+function readDraft(){const value=Drafts.read();if(value.ok){draftMemory=value.draft;draftStatus=null;}else draftStatus=value.message;return draftMemory;}
+function persistDraft(){
+  if(S.page!=='create'||!$('#idea'))return;
+  sync();draftMemory={form:{...S.form,colors:[...S.form.colors]},mode:S.mode};
+  const saved=Drafts.save(draftMemory);draftStatus=saved.ok?null:saved.message;if(saved.ok)draftMemory=saved.draft;
+  const status=$('#draftState');if(status){status.textContent=draftStatus||(draftMemory?'草稿已自动保存在本机':'写下想法后，会自动保存草稿');status.dataset.tone=draftStatus?'error':'saved';}
+}
+const Navigation=window.FloraLabNavigation.create({window,onError:()=>toast('页面没有打开，请从首页重新进入。'),onNavigate:async(route,{isCurrent})=>{
+  persistDraft();
+  if(route.page==='home')return home();
+  if(route.page==='create')return newDraft();
+  if(route.page==='materials')return materials(route.materialId||null);
+  const opened=await Storage.openProject(route.projectId,{isCurrent});if(!isCurrent())return;
+  if(!opened){Navigation.record({page:'home'},{replace:true});home();toast('这件作品不在当前设备，请先导入 .floralab 文件。');return;}
+  S.tab=route.tab;S.buildStep=S.plan.build?.currentStep||0;S.compareBranchId=null;result();
+}});
+function rememberLocation(){if(S.plan)Storage.setLocation({projectId:S.plan.id,tab:S.tab}).catch(()=>{});}
 const Media=window.FloraLabMedia.create({storage:Storage,records:Records});
 const MediaViews=window.FloraLabMediaViews.create({esc,media:Media});
 const {workTab,recipeTab,printSheet}=window.FloraLabWorkViews.create({state:S,esc,money,cleanTitle,colorHex,renderBlueprint,mediaViews:MediaViews});
@@ -46,31 +66,36 @@ function shell(body,active=''){Shell.render(body,active);}
 function openRenderWorkspaceIntro(){document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><section class="modal"><div class="kicker">Render Handoff</div><h2>效果图工作区在作品里面。</h2><p>它会读取当前 Recipe、Mechanics 和 Blueprint，锁定材料、颜色、数量与主要结构。先新建或导入一件作品，之后顶部“效果图”和作品内“效果图”标签都可以直接进入。</p><div class="modal-actions"><button class="secondary" id="closeModal">关闭</button><button class="primary" id="renderIntroCreate">开始一个作品</button></div></section></div>`); $('#closeModal').onclick=()=>$('#modal').remove();$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').remove();};$('#renderIntroCreate').onclick=()=>{$('#modal').remove();create();};}
 function openCreativeSpace(){const has=Boolean(S.plan);document.body.insertAdjacentHTML('beforeend',`<div class="modal-backdrop" id="modal"><section class="modal"><div class="kicker">Creative Space</div><h2>${has?'继续这件作品':'从一个想法开始'}</h2><p>${has?'复制当前摘要，带回你的 FloraLab 创作空间继续讨论视觉与灵感。':'创作空间负责灵感、参考图和视觉稿；Studio 负责材料、成本与施工结构。'}</p><div class="modal-actions"><button class="secondary" id="closeModal">关闭</button>${has?'<button class="primary" id="modalCopy">复制作品摘要</button>':''}</div></section></div>`);$('#closeModal').onclick=()=>$('#modal').remove();$('#modal').onclick=e=>{if(e.target.id==='modal')$('#modal').remove();};if(has)$('#modalCopy').onclick=async()=>{await copyBrief();$('#modal').remove();};}
 function home(){
+  persistDraft();if(!draftMemory&&!draftStatus)readDraft();
   S.page='home';
   const cover=p=>MediaViews.cover(p)||`<figure class="project-placeholder">${window.FloraLabDirectionPreview.render(p,{view:'front',label:'摆放示意',esc})}<figcaption>摆放示意 · 尚未设置照片</figcaption></figure>`;
-  shell(window.FloraLabHomeView.render({state:S,esc,cover,stageLabel:p=>(Workflow.selected(p)?'制作方案 · ':'')+Records.STAGES[Records.stage(p)]}));
+  shell(window.FloraLabHomeView.render({state:S,draft:draftMemory,draftError:draftStatus,esc,cover,stageLabel:p=>(Workflow.selected(p)?'制作方案 · ':'')+Records.STAGES[Records.stage(p)]}));
   $('#newDesign').onclick=newDraft;$('#importFile').onchange=importPlan;
+  if($('#resumeDraft'))$('#resumeDraft').onclick=newDraft;if($('#freshDraft'))$('#freshDraft').onclick=discardDraft;
   const filter=$('#projectFilter'),query=$('#projectQuery');if(filter)filter.onchange=()=>{S.projectFilter=filter.value;home();};if(query)query.onchange=()=>{S.projectQuery=query.value;home();};
   $$('[data-open-project]').forEach(b=>b.onclick=async()=>{try{
-    const row=S.projects.find(r=>r.id===b.dataset.openProject)||await idbGet('projects',b.dataset.openProject);
-    if(!row?.state?.plan)return toast('没有找到这件本机作品');
-    S.plan=row.state.plan;S.form={...S.form,...row.state.form};S.mode=row.state.mode||'floral';S.tab=row.state.lastTab||'work';S.buildStep=S.plan.build?.currentStep||0;S.compareBranchId=null;
-    await save();result();window.scrollTo(0,0);
-  }catch(error){toast(error.message);}});Media.hydrate();
+    if(!await Storage.openProject(b.dataset.openProject))return toast('没有找到这件本机作品');
+    S.buildStep=S.plan.build?.currentStep||0;S.compareBranchId=null;result();window.scrollTo(0,0);
+  }catch(error){toast(error.message);}});Media.hydrate();Navigation.record({page:'home'});
 }
-function newDraft(){S.form={idea:'',type:'花束',colors:[],budget:0,budgetPriority:'balance',style:'',existing:'',size:'medium',designMonth:MONTH,region:'',preferred:'',avoid:'',petContext:'',mechanicPreference:''};S.mode='floral';create();window.scrollTo(0,0);}
+function newDraft(){persistDraft();const draft=draftMemory||readDraft();S.form={...emptyForm(),...draft?.form};S.mode=draft?.mode||'floral';create();}
+function discardDraft(){window.FloraLabDialog.open({title:'从一个新想法开始？',body:'<p>这会清除尚未生成方案的草稿。已经保存的作品会继续保留。</p>',confirm:'清除草稿，重新开始',onConfirm:()=>{const cleared=Drafts.clear();if(!cleared.ok)throw new Error(cleared.message);draftMemory=null;draftStatus=null;S.page='home';S.form=emptyForm();S.mode='floral';create();}});}
 function create(){
   S.page='create';
   shell(window.FloraLabCreateView.render({state:S,colors:COLORS,types:TYPES,styles:STYLES,esc}),'create');
-  $$('[data-mode]').forEach(b=>b.onclick=()=>{sync();S.mode=b.dataset.mode;if(S.mode==='creative'&&S.form.type==='花束')S.form.type='创意花束';create();});
+  $$('[data-mode]').forEach(b=>b.onclick=()=>{sync();S.mode=b.dataset.mode;if(S.mode==='creative'&&S.form.type==='花束')S.form.type='创意花束';persistDraft();create();});
   $$('[data-type]').forEach(b=>b.onclick=()=>{S.form.type=b.dataset.type;$$('[data-type]').forEach(x=>x.classList.toggle('active',x===b));});
   $$('[data-color]').forEach(b=>b.onclick=()=>{const c=b.dataset.color;S.form.colors=S.form.colors.includes(c)?S.form.colors.filter(x=>x!==c):[...S.form.colors,c].slice(-4);b.classList.toggle('active');});
   $$('[data-style]').forEach(b=>b.onclick=()=>{const x=b.dataset.style;let arr=String($('#style').value||'').split(/[、,，]/).map(s=>s.trim()).filter(Boolean);arr=arr.includes(x)?arr.filter(v=>v!==x):[...arr,x];$('#style').value=arr.join('、');b.classList.toggle('active');});
   $('#generate').onclick=generate;$('#useExample').onclick=()=>{$('#idea').value='做一件白绿的桌花，不要玫瑰，想要自然、有空隙。';$('#idea').focus();};
+  const form=$('.design-form');form.addEventListener('input',persistDraft);form.addEventListener('change',persistDraft);
+  form.addEventListener('click',e=>{if(e.target.closest('[data-type],[data-color],[data-style],#useExample'))persistDraft();});
+  const status=$('#draftState');status.textContent=draftStatus||(draftMemory?'草稿已恢复，可接着写':'写下想法后，会自动保存草稿');status.dataset.tone=draftStatus?'error':'saved';
+  Navigation.record({page:'create'});
 }
 function sync(){for(const id of ['idea','budget','style','existing','size','budgetPriority','designMonth','region','preferred','avoid','petContext','mechanicPreference']){const e=$('#'+id);if(e)S.form[id]=e.value;}S.form.budget=Number(S.form.budget||0);S.form.designMonth=Number(S.form.designMonth||MONTH);}
 async function generate(){
-  sync();const error=$('#intentError');error.textContent='';
+  persistDraft();const error=$('#intentError');error.textContent='';
   if(!S.form.idea.trim()&&!S.form.existing.trim()&&!S.form.preferred.trim()){error.textContent='先写一句想法，或补充已经确定的材料。';$('#idea').focus();return;}
   const b=$('#generate');b.disabled=true;b.textContent='正在整理…';
   try{
@@ -78,15 +103,17 @@ async function generate(){
     const report=window.FloraLabRuntime.Intent.inspect(S.designCatalog,input);if(report.conflicts.length)throw new Error(report.conflicts.join('；'));
     let plan=await api('/api/design/generate',{method:'POST',body:JSON.stringify(input)});
     plan=window.FloraLabRuntime.Studio.updateExploration(plan,{locks:{materials:true,colors:true,quantities:true,vessel:true,special_objects:true,packaging:true,mechanics:true,structure:false}});
-    plan.workflow={stage:'exploring'};await Storage.commitPlan(plan);S.tab='work';S.view='front';S.buildStep=0;S.compareBranchId=null;S.selectedNode=plan.blueprint?.nodes?.[0]?.id||null;result();window.scrollTo(0,0);
+    plan.workflow={stage:'exploring'};await Storage.commitPlan(plan);S.page='result';const cleared=Drafts.clear();draftMemory=null;draftStatus=cleared.ok?null:cleared.message;S.tab='work';S.view='front';S.buildStep=0;S.compareBranchId=null;S.selectedNode=plan.blueprint?.nodes?.[0]?.id||null;result();window.scrollTo(0,0);
   }catch(e){error.textContent=e.message;error.scrollIntoView({block:'nearest'});b.disabled=false;b.textContent='整理想法，查看方案 →';}
 }
 function result(){
+  persistDraft();
   if(!S.plan)return create();S.page='result';const p=S.plan,group=GROUPS.find(g=>g.tabs.some(([k])=>k===S.tab))||GROUPS[0],stage=Records.stage(p);
   shell(`<main class="wrap project product-project"><header class="product-head"><div class="project-identity"><span class="stage-badge">${Workflow.selected()?'制作方案 · ':''}${Records.STAGES[stage]}</span><h1 class="project-title">${esc(cleanTitle(p.title))}<button id="renameProject" class="rename-project" aria-label="修改作品名称">改名</button></h1><p class="project-sub">${esc(p.exploration?.branch?.label||'主线')} · ${esc(p.type)} · ${esc((p.palette||[]).join(' / '))}</p><span id="saveState" role="status" data-tone="${S.saveStatus?.tone||'saved'}">${esc(S.saveStatus?.label||'已保存在本机')}</span></div><div class="project-actions"><button id="copyBrief">复制摘要</button><button id="exportPlan">导出设计与图片</button><button id="printPlan">打印制作单</button><details class="more-actions"><summary>更多</summary><button id="exportTextOnly">仅导出材料与结构</button><button data-workflow-stage="exploring">改为探索中</button></details></div></header><nav class="workflow-groups" aria-label="创作阶段">${GROUPS.map(g=>`<button data-group="${g.key}" aria-current="${g===group?'page':'false'}">${g.label}</button>`).join('')}</nav><nav class="tabs workflow-tabs" aria-label="作品工作区">${GROUPS.flatMap(g=>g.tabs.map(([k,n])=>`<button data-tab="${k}" ${g!==group?'hidden':''} class="${S.tab===k?'active':''}">${n}</button>`)).join('')}</nav><div id="tabBody"></div><section id="printSheet" class="print-sheet">${printSheet(p)}</section></main>`,'work');
-  $$('[data-group]').forEach(b=>b.onclick=async()=>{S.tab=GROUPS.find(g=>g.key===b.dataset.group).tabs[0][0];await save();result();window.scrollTo(0,0);});
-  $$('[data-tab]').forEach(b=>b.onclick=async()=>{S.tab=b.dataset.tab;await save();result();window.scrollTo(0,0);});
+  $$('[data-group]').forEach(b=>b.onclick=()=>{S.tab=GROUPS.find(g=>g.key===b.dataset.group).tabs[0][0];result();});
+  $$('[data-tab]').forEach(b=>b.onclick=()=>{S.tab=b.dataset.tab;result();});
   renderTab();$('#copyBrief').onclick=copyBrief;$('#exportPlan').onclick=exportPlan;$('#printPlan').onclick=()=>window.print();
+  Navigation.record({page:'result',projectId:S.plan.id,tab:S.tab});rememberLocation();
 }
 function renderTab(){
   if(S.tab==='structure'){const nodes=S.plan?.blueprint?.nodes||[];if(!nodes.some(n=>n.id===S.selectedNode))S.selectedNode=nodes[0]?.id||null;}
@@ -171,7 +198,7 @@ function renderStructure(){
 }
 
 async function updateExplorationLock(key,value){
-  try{S.plan=await api('/api/design/update-exploration',{method:'POST',body:JSON.stringify({plan:S.plan,patch:{locks:{[key]:value}}})});await save();S.tab='explore';renderTab();}catch(e){toast(`锁定没有更新：${e.message}`);}
+  try{await Storage.commitPlan(await api('/api/design/update-exploration',{method:'POST',body:JSON.stringify({plan:S.plan,patch:{locks:{[key]:value}}})}));S.tab='explore';renderTab();}catch(e){toast(`锁定没有更新：${e.message}`);}
 }
 async function createVariation(preset){
   try{const original=S.plan,preview=window.FloraLabRuntime.Studio.previewVariation(S.designCatalog,original,preset),changes=branchDiff(original,preview);
@@ -183,12 +210,11 @@ async function createVariation(preset){
 }
 async function openBranch(id){
   try{
-    const row=(S.projects||[]).find(x=>x.id===id)||await idbGet('projects',id);
-    if(!row?.state?.plan)return toast('没有找到这个方向');
-    S.plan=row.state.plan;S.form={...S.form,...(row.state.form||{})};S.mode=row.state.mode||S.mode;S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.compareBranchId=null;S.tab='explore';S.buildStep=S.plan.build?.currentStep||0;await save();result();
+    if(!await Storage.openProject(id))return toast('没有找到这个方向');
+    S.selectedNode=S.plan.blueprint?.nodes?.[0]?.id||null;S.compareBranchId=null;S.tab='explore';S.buildStep=S.plan.build?.currentStep||0;result();
   }catch(e){toast(`没有打开这个方向：${e.message}`);}
 }
-async function patchRow(key,row){if(S.mutating)return;S.mutating=true;const patch={key,quantity:Number($('[data-qty]',row).value),owned:Number($('[data-owned]',row).value),unit_price:$('[data-price]',row).value.trim()===''?null:Number($('[data-price]',row).value)};try{const old=S.plan.recipe.find(r=>r.key===key);if(old.unit_price===patch.unit_price)delete patch.unit_price;S.plan=await api('/api/design/update-recipe',{method:'POST',body:JSON.stringify({plan:S.plan,patches:[patch]})});await save();S.tab='recipe';result();}catch(e){toast(`没有更新成功：${e.message}`);}finally{S.mutating=false;}}
+async function patchRow(key,row){if(S.mutating)return;S.mutating=true;const patch={key,quantity:Number($('[data-qty]',row).value),owned:Number($('[data-owned]',row).value),unit_price:$('[data-price]',row).value.trim()===''?null:Number($('[data-price]',row).value)};try{const old=S.plan.recipe.find(r=>r.key===key);if(old.unit_price===patch.unit_price)delete patch.unit_price;await Storage.commitPlan(await api('/api/design/update-recipe',{method:'POST',body:JSON.stringify({plan:S.plan,patches:[patch]})}));S.tab='recipe';result();}catch(e){toast(`没有更新成功：${e.message}`);}finally{S.mutating=false;}}
 async function updateBlueprint(action){
   if(S.mutating)return;
   if(['duplicate','delete'].includes(action.type)&&!action.confirmed){
@@ -206,8 +232,8 @@ async function updateBlueprint(action){
   }catch(e){renderStructure();toast(e.message==='node_locked'?'这枝已经锁定，先解锁再调整。':`结构没有更新：${e.message}`);if(action.confirmed)throw e;}
   finally{S.mutating=false;}
 }
-async function updateBuild(patch,rerender=true){if(S.mutating)return;S.mutating=true;try{S.plan=await api('/api/design/update-build',{method:'POST',body:JSON.stringify({plan:S.plan,patch})});S.buildStep=S.plan.build.currentStep||0;await save();if(rerender){S.tab='build';result();}else renderTab();}catch(e){toast(`制作记录没有更新：${e.message}`);}finally{S.mutating=false;}}
-async function saveFeedback(){try{const feedback={actual_difficulty:$('#actualDifficulty').value,minutes:Number($('#actualMinutes').value||0),issues:$('#actualIssues').value,notes:$('#actualNotes').value};S.plan=await api('/api/design/feedback',{method:'POST',body:JSON.stringify({plan:S.plan,feedback})});await save();result();toast('成品记录已保存');}catch(e){toast(`没有保存：${e.message}`);}}
+async function updateBuild(patch,rerender=true){if(S.mutating)return;S.mutating=true;try{await Storage.commitPlan(await api('/api/design/update-build',{method:'POST',body:JSON.stringify({plan:S.plan,patch})}));S.buildStep=S.plan.build.currentStep||0;if(rerender){S.tab='build';result();}else renderTab();}catch(e){toast(`制作记录没有更新：${e.message}`);}finally{S.mutating=false;}}
+async function saveFeedback(){try{const feedback={actual_difficulty:$('#actualDifficulty').value,minutes:Number($('#actualMinutes').value||0),issues:$('#actualIssues').value,notes:$('#actualNotes').value};await Storage.commitPlan(await api('/api/design/feedback',{method:'POST',body:JSON.stringify({plan:S.plan,feedback})}));result();toast('成品记录已保存');}catch(e){toast(`没有保存：${e.message}`);}}
 function handoffObject(){return window.FloraLabRuntime.Studio.handoffObject(S.plan);}
 async function exportPlan(){return Workflow.exportPlan(true);}
 function briefText(){const p=S.plan;return `FloraLab 作品：${cleanTitle(p.title)}\n想法：${p.creativeBrief?.idea||'未填写'}\n形式：${p.type}\n配色：${(p.palette||[]).join(' / ')}\n尺寸：${p.dimensions.height}×${p.dimensions.width}×${p.dimensions.depth}cm\n制作状态：${p.assessment.buildability}\n当前需购：${money(p.cost.total)}\n材料：\n${p.recipe.filter(x=>x.quantity>0).map(x=>`- ${x.name}：需要 ${x.quantity}${x.unit}，已有 ${x.owned}${x.unit}，还需 ${x.to_buy}${x.unit}`).join('\n')}\n固定结构：${p.mechanics.type}\n结构稿：${p.blueprint?.nodes?.length||0} 个主体点位。效果图交接会从当前 Recipe / Mechanics / Blueprint 即时生成；若要改材料或结构，先回 Studio 更新作品事实。`;}
@@ -217,9 +243,10 @@ async function copyRenderHandoff(){const text=window.FloraLabRuntime.Studio.rend
 async function importPlan(event){return Workflow.importPlan(event);}
 async function restoreBackup(){return Workflow.restore();}
 function materials(detailKey=null){
+  persistDraft();
   S.page='materials';
   if(!window.FloraLabLibrary){toast('材料库模块未加载');return;}
-  const ctx={S,shell,esc,money,MONTH,openRecipe:()=>{S.tab='recipe';result();window.scrollTo({top:0,behavior:'instant'});}};
+  const ctx={S,shell,esc,money,MONTH,onNavigate:materialId=>Navigation.record({page:'materials',materialId}),openRecipe:()=>{S.tab='recipe';result();window.scrollTo({top:0,behavior:'instant'});}};
   window.FloraLabLibrary.render(ctx,detailKey);
 }
 
@@ -245,6 +272,7 @@ async function init(){
     const vs=await fetch('./data/material-visual-sources.json',{cache:'no-store'});
     S.visualSources=vs.ok?await vs.json():{items:{}};
   }catch{S.visualSources={items:{}};}
-  home();
+  readDraft();if(!await Navigation.restore())home();
 }
+window.addEventListener('pagehide',persistDraft);
 init();

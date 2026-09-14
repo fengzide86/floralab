@@ -81,6 +81,7 @@ try:
 
             mode['versioned']=True
             p.reload(wait_until='networkidle')
+            p.locator('[data-go="home"]').click(); p.locator('#newDesign').wait_for()
             ck(p.locator(f'[data-open-project="{old_id}"]').count()>0, name+' previous work retained')
             p.locator('#newDesign').click(); p.locator('#useExample').wait_for()
             ck(p.locator('#intentError').count()==1, name+' current form and controls loaded together')

@@ -58,7 +58,7 @@ with sync_playwright() as pw:
   nav(page,'record','history');page.locator('[data-snapshot-index]').first.wait_for();shot(page,label+'23-history');page.locator('[data-snapshot-index]').first.click();shot(page,label+'24-restore-preview');confirm(page);ck(plan(page)['history'][-1]['type']=='restore','restore commits '+label)
   with page.expect_download() as download:page.locator('#exportPlan').click()
   file=OUT/(label+'-roundtrip.floralab');download.value.save_as(str(file));raw=json.loads(file.read_text());ck(len(raw['media']['assets'])==2,'export includes images '+label);before=plan(page)['id']
-  page.reload(wait_until='networkidle');page.locator('[data-open-project]').first.click();page.locator('[data-group]').first.wait_for();ck(plan(page)['id']==before,'resume current project '+label)
+  page.reload(wait_until='networkidle');page.locator('[data-group]').first.wait_for();ck(plan(page)['id']==before,'reload resumes current project directly '+label)
   # Native navigation on mobile is behind the menu, so use the public home action.
   page.evaluate("document.querySelector('[data-go=home]').click()")
   page.locator('input[type=file]').first.set_input_files(str(file));page.locator('#dialogConfirm').wait_for();shot(page,label+'25-import-preview');confirm(page);ck(plan(page)['id']!=before,'import creates independent copy '+label);ck(len(plan(page)['media'])==2,'import restores media '+label)

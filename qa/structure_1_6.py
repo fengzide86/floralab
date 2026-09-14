@@ -84,7 +84,7 @@ with sync_playwright() as pw:
   ck(len(state(p)['blueprint']['nodes'])==count and sum(r['quantity'] for r in state(p)['recipe'])==quantity,label+' confirmed removal subtracts exactly one material')
   p.locator('#nodePicker').select_option(ident)
   p.locator('#structureHelp').click();ck(p.locator('.usage-guide details[open] summary').inner_text().startswith('4.'),label+' context help opens spatial instructions');shot(p,label+'04-spatial-guide');p.locator('[data-close-guide]').click()
-  saved=node(p);p.reload(wait_until='networkidle');p.locator('[data-open-project]').first.click();p.locator('#nodePicker').wait_for();ck(node(p)==saved,label+' geometry survives reload')
+  saved=node(p);p.reload(wait_until='networkidle');p.locator('#nodePicker').wait_for();ck(node(p)==saved,label+' geometry and structure workspace survive reload')
   ck(not errors,label+' no runtime errors');c.close()
  browser.close()
 (OUT/'structure.json').write_text(json.dumps({'url':URL,'checks':checks,'screenshots':shots},ensure_ascii=False,indent=2),encoding='utf-8')
